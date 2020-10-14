@@ -1,15 +1,18 @@
 
-import tkinter
+from tkinter import *
+from tkinter.ttk import *
 
-window = tkinter.Tk()
+window = Tk()
 window.geometry('600x300')  # default window size
 
-frame = tkinter.Frame(window)
+window.config
+
+frame = Frame(window)
 frame.pack()
 
 window.title("My First GUI")
 # label = tkinter.Label(window, text="Henlo").pack()
-bt = tkinter.Button(window, text="Exit", command=quit)
-bt.pack(side=tkinter.TOP)   # centers towards top
+bt = Button(window, text="Exit", command=quit)
+bt.pack(side=TOP)   # centers towards top
 
 window.mainloop()
