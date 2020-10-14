@@ -2,6 +2,8 @@
 import tkinter
 
 window = tkinter.Tk()
+window.geometry('600x300')  # default window size
+
 frame = tkinter.Frame(window)
 frame.pack()
 
