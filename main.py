@@ -24,7 +24,8 @@ frame = tk.Frame(
         )
 
 frame.grid(row=0, column=1, padx=5, pady=5)
-bt = tk.Button(
+
+bt = tk.Button( # our main exit button
                 master=frame,
                 text="Exit",
                 font=('Comic Sans MS', 12),
@@ -35,6 +36,5 @@ bt = tk.Button(
                 command=quit
             )
 bt.pack()
-
 
 window.mainloop()
