@@ -38,9 +38,9 @@ frame.grid(row=0, column=1, padx=5, pady=5)
 featList = tk.Listbox(frame)
 featList.pack(pady=15)
 
-print(hero.get_feat("warrior"))
-
-# featList.insert(tk.END, temp[0])
+# print(hero.get_feat("warrior"))
+# for i in
+featList.insert(tk.END, hero.get_feat("warrior"))
 
 # Button(s)
 # ========================================================
