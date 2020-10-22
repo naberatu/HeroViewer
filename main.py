@@ -16,6 +16,7 @@ window.title("My First GUI")    # Window title
 window.geometry("1000x500")      # default window size
 window.configure(bg="#038387")   # background color
 window.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+window.minsize(500, 300)
 
 # Frame(s)
 # ========================================================
