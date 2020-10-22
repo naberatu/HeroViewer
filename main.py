@@ -2,16 +2,22 @@
 import tkinter as tk
 from charSheet import CharSheet
 
+
 # Creating example item
 # ========================================================
 hero = CharSheet()
 hero.add_feat("Warrior", "Once per short rest, you can take a bonus action.")
 hero.add_feat("Tamer", "Grants +2 Nature")
-hero.add_feat("Alert", "+ Gain +5 Initiative\n+ Can't be surprised while conscious\n+ No stealth advantage for attackers.")
+hero.add_feat("Alert", "+ Gain +5 Initiative\n"
+                       "+ Can't be surprised while conscious"
+                       "\n+ No stealth advantage for attackers.")
 
 class MainMenu:
     def __init__(self, master):
         self.master = master
+
+        # Window Details
+        # ========================================================
         self.master.title("Hero Viewer")    # Window title
         self.master.geometry("1000x500")      # default window size
         self.master.configure(bg="#038387")   # background color
@@ -77,32 +83,36 @@ class MainMenu:
         bt_add.grid(row=1, column=2, pady=0, sticky=tk.N)
         bt_remove.grid(row=1, column=3, pady=0, sticky=tk.N)
 
-class AddFeat:
-    def __init__(self):
-        # Window(s)
+
+class AddFeat(MainMenu):
+    def __init__(self, master):
+        self.master = master
+
+        # Window Details
         # ========================================================
-        window = tk.Tk()
-        window.title("Add New Feature or Trait")    # Window title
-        window.geometry("300x300")      # default window size
-        window.configure(bg="#038387")   # background color
-        window.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
-        window.minsize(300, 300)
+        self.master.title("Hero Viewer")  # Window title
+        self.master.geometry("1000x500")  # default window size
+        self.master.configure(bg="#038387")  # background color
+        self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+        self.master.minsize(500, 300)
 
         # Label(s)
         # ========================================================
-        name = tk.Label(window, text="Name").grid(row=0)
-        desc = tk.Label(window, text="Details").grid(row=0)
+        name = tk.Label(self.master, text="Name").grid(row=0)
+        desc = tk.Label(self.master, text="Details").grid(row=0)
 
-        # Entry(ies)
+        # Entries
         # ========================================================
-        e_name = tk.Entry(window)
-        e_desc = tk.Entry(window)
+        e_name = tk.Entry(self.master)
+        e_desc = tk.Entry(self.master)
 
         e_name.grid(row=0, column=1)
         e_desc.grid(row=1, column=1)
 
+        # Buttons
+        # ========================================================
         bt_submit = tk.Button(  # for finalizing your inputs.
-            master=window,
+            master=self.master,
             text="Add",
             font=('Comic Sans MS', 10),
             bg="black",
@@ -113,7 +123,7 @@ class AddFeat:
             ]
         )
         bt_cancel = tk.Button(  # for cancelling the request
-            master=window,
+            master=self.master,
             text="Cancel",
             font=('Comic Sans MS', 10),
             bg="black",
@@ -122,6 +132,7 @@ class AddFeat:
             height=0,
             command=quit
         )
+
 
 root = tk.Tk()
 app = MainMenu(root)
