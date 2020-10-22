@@ -30,11 +30,10 @@ for i in range(hero.get_feat_size()):
 # ========================================================
 tb_feats = tk.Text(window, height=24, width=30, font=('Comic Sans MS', 8))
 tb_feats.grid(row=0, column=0, rowspan=6, padx=10, pady=(10, 0), sticky=tk.N)
+tb_feats.config(state=tk.DISABLED)
 
 # Button(s)
 # ========================================================
-
-
 bt_view = tk.Button( # our viewing button
                 master=window,
                 text="View",
@@ -44,9 +43,11 @@ bt_view = tk.Button( # our viewing button
                 width=10,
                 height=0,
                 command=lambda:[
-                    tb_feats.delete("1.0", tk.END),
-                    # print(featList.get(featList.curselection()))
-                    tb_feats.insert(tk.END, hero.get_feat(featList.get(featList.curselection())))
+                    tb_feats.config(state=tk.NORMAL),       # makes it editable.
+                    tb_feats.delete("1.0", tk.END),         # clears it.
+                    tb_feats.insert(tk.END,                 # gets the right description.
+                                    hero.get_feat(featList.get(featList.curselection()))),
+                    tb_feats.config(state=tk.DISABLED)      # makes it un-editable again.
                 ]
             )
 bt_exit = tk.Button( # our main exit button
@@ -59,6 +60,7 @@ bt_exit = tk.Button( # our main exit button
                 height=1,
                 command=quit
             )
+
 bt_view.grid(row=1, column=1, pady=0, sticky=tk.N)
 bt_exit.grid(row=1, column=2)
 
