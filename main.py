@@ -1,7 +1,14 @@
 
 import tkinter as tk
+from charSheet import CharSheet
 
-# Creating Window
+# Creating example item
+# ========================================================
+
+hero = CharSheet()
+hero.add_feat("warrior", "Once per short rest, you can take a bonus action.")
+
+# Window(s)
 # ========================================================
 
 window = tk.Tk()
@@ -10,7 +17,7 @@ window.geometry("600x300")      # default window size
 window.configure(bg="#038387")   # background color
 window.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
-# Creating Frame(s)
+# Frame(s)
 # ========================================================
 
 window.columnconfigure(0, weight=2, minsize=150)
@@ -24,6 +31,19 @@ frame = tk.Frame(
         )
 
 frame.grid(row=0, column=1, padx=5, pady=5)
+
+# Listbox(es)
+# ========================================================
+
+featList = tk.Listbox(frame)
+featList.pack(pady=15)
+
+print(hero.get_feat("warrior"))
+
+# featList.insert(tk.END, temp[0])
+
+# Button(s)
+# ========================================================
 
 bt = tk.Button( # our main exit button
                 master=frame,

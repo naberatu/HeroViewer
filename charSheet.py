@@ -94,11 +94,9 @@ class CharSheet:
         return self.worn_armor
 
     def get_feat(self, item):
-        for i in self.feats_traits:
-            if i == item:
-                return self.feats_traits[i]
-            else:
-                return None
+        if item in self.feats_traits:
+            return self.feats_traits[ ]
+
 
     def get_prof(self, prof):
         for i in self.prof_langs:
