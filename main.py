@@ -2,15 +2,23 @@
 import tkinter as tk
 from charSheet import CharSheet
 
+
+def feat_reader(feat):
+    if len(tb_feats.get("1.0", "end-1c")) != 0:  # if not empty
+        tb_feats.delete("1.0", tk.END)
+
+    tb_feats.insert(tk.END, hero.get_feat(feat))
+
+
 # Creating example item
 # ========================================================
-
 hero = CharSheet()
-hero.add_feat("warrior", "Once per short rest, you can take a bonus action.")
+hero.add_feat("Warrior", "Once per short rest, you can take a bonus action.")
+hero.add_feat("Tamer", "Grants +2 Nature")
+hero.add_feat("Alert", "Gain +5 Initiative, Can't be surprised while conscious, and no stealth advantage for attackers.")
 
 # Window(s)
 # ========================================================
-
 window = tk.Tk()
 window.title("My First GUI")    # Window title
 window.geometry("1000x500")      # default window size
@@ -18,43 +26,74 @@ window.configure(bg="#038387")   # background color
 window.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 window.minsize(500, 300)
 
-# Frame(s)
-# ========================================================
-
-window.columnconfigure(0, weight=2, minsize=150)
-window.columnconfigure(1, weight=2, minsize=150)
-window.rowconfigure(0, weight=1, minsize=50)
-
-frame = tk.Frame(
-            master=window,
-            relief=tk.RAISED,
-            borderwidth=1
-        )
-
-frame.grid(row=0, column=1, padx=5, pady=5)
-
 # Listbox(es)
 # ========================================================
 
-featList = tk.Listbox(frame)
-featList.pack(pady=15)
+featList = tk.Listbox(window, height=20, width=20)
+featList.grid(row=0, column=1, pady=(10, 0), sticky=tk.N)
 
 for i in range(hero.get_feat_size()):
     featList.insert(tk.END, hero.get_feat(i))
 
+# Textbox(es)
+# ========================================================
+tb_feats = tk.Text(window, height=24, width=30)
+tb_feats.grid(row=0, column=0, rowspan=6, padx=10, pady=(10, 0), sticky=tk.N)
+
 # Button(s)
 # ========================================================
 
-bt = tk.Button( # our main exit button
-                master=frame,
+bt_view = tk.Button( # our viewing button
+                master=window,
+                text="View 1",
+                font=('Comic Sans MS', 10),
+                bg="black",
+                fg="white",
+                width=10,
+                height=0,
+                command=feat_reader(0)
+            )
+
+bt_view2 = tk.Button( # our viewing button
+                master=window,
+                text="View 2",
+                font=('Comic Sans MS', 10),
+                bg="black",
+                fg="white",
+                width=10,
+                height=0,
+                command=feat_reader(1)
+            )
+
+bt_view3 = tk.Button( # our viewing button
+                master=window,
+                text="View 3",
+                font=('Comic Sans MS', 10),
+                bg="black",
+                fg="white",
+                width=10,
+                height=0,
+                command=feat_reader(2)
+            )
+bt_exit = tk.Button( # our main exit button
+                master=window,
                 text="Exit",
-                font=('Comic Sans MS', 12),
+                font=('Comic Sans MS', 10),
                 bg="black",
                 fg="white",
                 width=5,
                 height=1,
                 command=quit
             )
-bt.pack()
+bt_view.grid(row=1, column=1, pady=0, sticky=tk.N)
+bt_view2.grid(row=2, column=1, sticky=tk.N)
+bt_view3.grid(row=3, column=1, sticky=tk.N)
+bt_exit.grid(row=1, column=2)
+
+# bt_view.pack()
+# bt_view2.pack()
+# bt_view3.pack()
+# bt_exit.pack()
+
 
 window.mainloop()
