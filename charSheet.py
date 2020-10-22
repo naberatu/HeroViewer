@@ -1,5 +1,6 @@
 from random import randint
-import statBlock
+from statBlock import StatBlock
+import operator
 
 class CharSheet:
     def __init__(self):
@@ -94,9 +95,8 @@ class CharSheet:
         return self.worn_armor
 
     def get_feat(self, item):
-        if item in self.feats_traits:
-            return self.feats_traits[ ]
-
+        if item in map(operator.itemgetter(0), self.feats_traits):
+            return list(map(operator.itemgetter(0), self.feats_traits))[0]
 
     def get_prof(self, prof):
         for i in self.prof_langs:
