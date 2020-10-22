@@ -184,17 +184,17 @@ class CharSheet:
             self.inventory.append(self.worn_armor)
             self.worn_armor = temp
 
-    def add_feat(self, feat):
-        self.feats_traits.append(feat)
+    def add_feat(self, name, desc):
+        self.feats_traits.append((name, desc))
 
-    def add_prof(self, prof):
-        self.prof_langs.append(prof)
+    def add_prof(self, name, desc):
+        self.prof_langs.append((name, desc))
 
     def add_to_inv(self, item):
         self.inventory.append(item)
 
-    def add_spell(self, spell):
-        self.spells.append(spell)
+    def add_spell(self, name, desc):
+        self.spells.append((name, desc))
 
 
 
