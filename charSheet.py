@@ -60,6 +60,9 @@ class CharSheet:
     def get_alignment(self):
         return self.alignment
 
+    def get_base_stat(self, stat):
+        return self.stat_block.get_stat(stat)
+
     def get_modifier(self, modifier):
         return self.modifiers.get(modifier, default = None)
 
@@ -90,11 +93,108 @@ class CharSheet:
     def get_armor(self):
         return self.worn_armor
 
+    def get_feat(self, item):
+        for i in self.feats_traits:
+            if i == item:
+                return self.feats_traits[i]
+            else:
+                return None
+
+    def get_prof(self, prof):
+        for i in self.prof_langs:
+            if i == prof:
+                return self.prof_langs[i]
+            else:
+                return None
+
+    def get_item(self, item):
+        for i in self.inventory:
+            if i == item:
+                return self.inventory[i]
+            else:
+                return None
+
+    def get_spell(self, spell):
+        for i in self.spells:
+            if i == spell:
+                return self.spells[i]
+            else:
+                return None
+
     # Mutators
     # =========================================================
 
-    def set_(self, input):
-        self. = input
+    def set_name(self, string):
+        self.name = string
+
+    def set_id(self, num):
+        self.id = num
+
+    def set_role(self, string):
+        self.role = string
+
+    def level_up(self):
+        self.level += 1
+
+    def set_level(self, num):
+        self.level = num
+
+    def set_race(self, string):
+        self.race = string
+
+    def set_background(self, string):
+        self.background = string
+
+    def set_alignment(self, string):
+        self.alignment = string
+
+    def set_base_stat(self, stat, num, face=None):
+        self.stat_block.modify_stat(stat, num, face)
+
+    def set_modifier(self, modifier, value):
+        self.modifiers[modifier] = value
+
+    def ds_success(self):
+        self.ds_success += 1
+
+    def ds_fail(self):
+        self.ds_fail += 1
+
+    def set_personality(self, string):
+        self.personality = string
+
+    def set_ideals(self, string):
+        self.ideals = string
+
+    def set_bonds(self, string):
+        self.bonds = string
+
+    def set_flaws(self, string):
+        self.flaws = string
+
+    def swap_weapon(self, swap):
+        temp = self.get_item(swap)
+        if temp is not None:
+            self.inventory.append(self.held_weapon)
+            self.held_weapon = temp
+
+    def swap_armor(self, swap):
+        temp = self.get_item(swap)
+        if temp is not None:
+            self.inventory.append(self.worn_armor)
+            self.worn_armor = temp
+
+    def add_feat(self, feat):
+        self.feats_traits.append(feat)
+
+    def add_prof(self, prof):
+        self.prof_langs.append(prof)
+
+    def add_to_inv(self, item):
+        self.inventory.append(item)
+
+    def add_spell(self, spell):
+        self.spells.append(spell)
 
 
 
