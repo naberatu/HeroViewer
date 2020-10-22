@@ -58,4 +58,4 @@ class StatBlock:
             print("invalid operation: modify_stat")
 
     def get_stat(self, stat):
-        return self.stats[stat]
+        return self.stats.get(stat, default=None)
