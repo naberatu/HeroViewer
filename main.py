@@ -13,7 +13,7 @@ hero.add_feat("warrior", "Once per short rest, you can take a bonus action.")
 
 window = tk.Tk()
 window.title("My First GUI")    # Window title
-window.geometry("600x300")      # default window size
+window.geometry("1000x500")      # default window size
 window.configure(bg="#038387")   # background color
 window.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
@@ -38,9 +38,8 @@ frame.grid(row=0, column=1, padx=5, pady=5)
 featList = tk.Listbox(frame)
 featList.pack(pady=15)
 
-# print(hero.get_feat("warrior"))
-# for i in
-featList.insert(tk.END, hero.get_feat("warrior"))
+for i in range(hero.get_feat_size()):
+    featList.insert(tk.END, hero.get_feat(i))
 
 # Button(s)
 # ========================================================

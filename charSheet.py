@@ -95,8 +95,14 @@ class CharSheet:
         return self.worn_armor
 
     def get_feat(self, item):
-        if item in map(operator.itemgetter(0), self.feats_traits):
-            return list(map(operator.itemgetter(0), self.feats_traits))[0]
+        if type(item) is not int:
+            if item in map(operator.itemgetter(0), self.feats_traits):
+                return list(map(operator.itemgetter(0), self.feats_traits))[0]
+        else:
+            return self.feats_traits[item][0]
+
+    def get_feat_size(self):
+        return len(self.feats_traits)
 
     def get_prof(self, prof):
         for i in self.prof_langs:
