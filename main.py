@@ -21,7 +21,7 @@ window.minsize(500, 300)
 # Listbox(es)
 # ========================================================
 featList = tk.Listbox(window, height=20, width=20)
-featList.grid(row=0, column=1, pady=(10, 0), sticky=tk.N)
+featList.grid(row=0, column=1, columnspan=3, pady=(10, 0), sticky=tk.N)
 
 for i in range(hero.get_feat_size()):
     featList.insert(tk.END, hero.get_feat(i))
@@ -34,13 +34,35 @@ tb_feats.config(state=tk.DISABLED)
 
 # Button(s)
 # ========================================================
+bt_add = tk.Button( # our adding button
+                master=window,
+                text="+",
+                font=('Comic Sans MS', 12),
+                bg="black",
+                fg="white",
+                width=3,
+                height=0,
+                command=lambda:[
+                ]
+            )
+bt_remove = tk.Button( # our removing button
+                master=window,
+                text="-",
+                font=('Comic Sans MS', 12),
+                bg="black",
+                fg="white",
+                width=3,
+                height=0,
+                command=lambda:[
+                ]
+            )
 bt_view = tk.Button( # our viewing button
                 master=window,
                 text="View",
                 font=('Comic Sans MS', 10),
                 bg="black",
                 fg="white",
-                width=10,
+                width=4,
                 height=0,
                 command=lambda:[
                     tb_feats.config(state=tk.NORMAL),       # makes it editable.
@@ -50,18 +72,9 @@ bt_view = tk.Button( # our viewing button
                     tb_feats.config(state=tk.DISABLED)      # makes it un-editable again.
                 ]
             )
-bt_exit = tk.Button( # our main exit button
-                master=window,
-                text="Exit",
-                font=('Comic Sans MS', 10),
-                bg="black",
-                fg="white",
-                width=5,
-                height=1,
-                command=quit
-            )
 
 bt_view.grid(row=1, column=1, pady=0, sticky=tk.N)
-bt_exit.grid(row=1, column=2)
+bt_add.grid(row=1, column=2, pady=0, sticky=tk.N)
+bt_remove.grid(row=1, column=3, pady=0, sticky=tk.N)
 
 window.mainloop()
