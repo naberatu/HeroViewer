@@ -30,6 +30,7 @@ class MainMenu:
         self.tb_feats.grid(row=0, column=0, rowspan=6, padx=10, pady=(10, 0), sticky=tk.N)
         self.tb_feats.config(state=tk.DISABLED)
 
+
         # Listbox(es)
         # ========================================================
         self.featList = tk.Listbox(self.master, height=20, width=20)
@@ -68,7 +69,8 @@ class MainMenu:
 
     def feat_ui(self):
         self.master.wait_window(AddFeat(self.master, self.hero.get_feats()).master)
-        self.featList.insert(tk.END, self.hero.get_feat(-1))
+        if self.hero.get_feat(-1) != self.featList.get(tk.END):
+            self.featList.insert(tk.END, self.hero.get_feat(-1))
 
     def update_feats(self):
         for i in range(self.hero.get_feat_size()):
