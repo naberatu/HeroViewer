@@ -44,18 +44,20 @@ class MainMenu:
         self.tb_feats.grid(row=1, column=0, rowspan=6, columnspan=3, padx=10, pady=(10, 0), sticky=tk.N+tk.W)
         self.tb_feats.config(state=tk.DISABLED)
 
-        # Drop Down List
+        # Drop Down Lists
         # ========================================================
-        self.tkvar = tk.StringVar(self.master)
-        self.class_list = ['Artificer', 'Barbarian', 'Bard', 'Cleric', 'Driud', 'Fighter', 'Monk',
-                             'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
-        self.tkvar.set(self.hero.get_role())
 
-        self.ddl_class = tk.OptionMenu(self.master, self.tkvar, *self.class_list)
+        # Character Class
+        self.class_list = ['Artificer', 'Barbarian', 'Bard', 'Cleric', 'Driud', 'Fighter', 'Monk',
+                           'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
+        self.tkvar_class = tk.StringVar(self.master)
+        self.tkvar_class.set(self.hero.get_role())
+        self.ddl_class = tk.OptionMenu(self.master, self.tkvar_class, *self.class_list)
         self.ddl_class.config(height=0, width=10, bg="white", font=('Scaly Sans', 8))
         self.ddl_class["borderwidth"] = 0
         self.ddl_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.NW)
 
+        # Character Race
         self.race_list = ['Aarakocra', 'Aasimar', 'Bugbear', 'Centaur', 'Changeling', 'Dragonborn', 'Dwarf', 'Elf',
                           'Firbolg', 'Genasi', 'Gith', 'Gnome', 'Goblin', 'Goliath', 'Halfling', 'Half-Elf', 'Half-Orc',
                           'Hobgoblin', 'Human', 'Kalashtar', 'Kender', 'Kenku', 'Kobold', 'Kor', 'Lizardfolk', 'Loxodon',
@@ -63,17 +65,16 @@ class MainMenu:
                           'Triton', 'Vampire', 'Vedalken', 'Warforged', 'Yuan-Ti']
         self.tkvar_race = tk.StringVar(self.master)
         self.tkvar_race.set(self.hero.get_race())
-
         self.ddl_race = tk.OptionMenu(self.master, self.tkvar_race, *self.race_list)
         self.ddl_race.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
         self.ddl_race["borderwidth"] = 0
         self.ddl_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.NW)
 
+        # Character Alignment
         self.alignment_list = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral',
                                'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil']
         self.tkvar_alignment = tk.StringVar(self.master)
         self.tkvar_alignment.set(self.hero.get_alignment())
-
         self.ddl_alignment = tk.OptionMenu(self.master, self.tkvar_alignment, *self.alignment_list)
         self.ddl_alignment.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
         self.ddl_alignment["borderwidth"] = 0
@@ -85,7 +86,8 @@ class MainMenu:
         self.featList.grid(row=1, column=3, columnspan=6, pady=(10, 0), sticky=tk.N+tk.W)
         for i in range(self.hero.get_feat_size()):
             self.featList.insert(tk.END, self.hero.get_feat(i))
-        self.featList.bind('<Double-Button-1>', lambda x: self.write_feat_desc())
+        self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
+        self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat())
 
         self.lb_name = tk.Listbox(self.master, height=1, width=30, font=('Scaly Sans', 12))
         self.lb_name.grid(row=0, column=1, columnspan=2, ipady=0, pady=(10, 0), sticky=tk.NW)
@@ -98,12 +100,6 @@ class MainMenu:
         self.lb_level.insert(tk.END, self.hero.get_level())
         self.lb_level["borderwidth"] = 1
         self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod(1))
-        #
-        # self.lb_bkgd = tk.Listbox(self.master, height=1, width=10, font=('Scaly Sans', 12))
-        # self.lb_bkgd.grid(row=0, column=13, columnspan=2, pady=(10, 0), sticky=tk.NW)
-        # self.lb_bkgd.insert(tk.END, self.hero.get_race())
-        # self.lb_bkgd["borderwidth"] = 1
-        # self.lb_bkgd.bind('<Double-Button-1>', lambda x: self.ui_mod(3))
 
         # Button(s)
         # ========================================================
@@ -156,6 +152,51 @@ class MainMenu:
         self.master.wait_window(AddFeat(self.master, self.hero.get_feats()).master)
         if self.hero.get_feat(-1) != self.featList.get(tk.END):
             self.featList.insert(tk.END, self.hero.get_feat(-1))
+
+    def edit_feat(self):
+        temp_ui = self.master
+        temp_ui = tk.Toplevel()
+        temp_ui.grab_set()
+
+        temp_ui.title("Edit Feat")  # Window title
+        temp_ui.geometry("250x100")  # default window size
+        temp_ui.configure(bg="#038387")  # background color
+        temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+        temp_ui.minsize(250, 100)
+
+        l_name = tk.Label(temp_ui, text="Feat", bg="#038387", font=('Scaly Sans', 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
+        l_desc = tk.Label(temp_ui, text="Desc", bg="#038387", font=('Scaly Sans', 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
+        e_name = tk.Entry(temp_ui, font=('Scaly Sans', 10))
+        e_desc = tk.Entry(temp_ui, font=('Scaly Sans', 10))
+        e_name.grid(row=0, column=1, columnspan=2, pady=(10, 0))
+        e_desc.grid(row=1, column=1, columnspan=2, pady=(5, 0))
+
+        bt_submit = tk.Button(
+            master=temp_ui,
+            text="Submit",
+            font=('Scaly Sans', 10),
+            bg="black",
+            fg="white",
+            width=5,
+            height=0,
+            command=lambda: [
+                temp_ui.destroy()
+            ]
+        )
+
+        bt_cancel = tk.Button(
+            master=temp_ui,
+            text="Cancel",
+            font=('Scaly Sans', 10),
+            bg="black",
+            fg="white",
+            width=5,
+            height=0,
+            command=lambda: temp_ui.destroy()
+        )
+        bt_submit.grid(row=3, column=2, pady=(10, 0), sticky=tk.N)
+        bt_cancel.grid(row=3, column=1, pady=(10, 0), sticky=tk.N)
+
 
     def write_feat_desc(self):
         self.tb_feats.config(state=tk.NORMAL),  # makes it editable.
