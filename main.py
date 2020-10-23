@@ -49,25 +49,20 @@ class MainMenu:
         self.tb_feats.grid(row=1, column=0, rowspan=6, columnspan=3, padx=10, pady=(10, 0), sticky=tk.N+tk.W)
         self.tb_feats.config(state=tk.DISABLED)
 
-        # self.tb_name = tk.Text(self.master, height=1, width=24, font=('Comic Sans MS', 8))
-        # self.tb_name.grid(row=0, column=1, columnspan=2, padx=(0, 10), pady=(10, 0), sticky=tk.N+tk.W)
-        # self.tb_name.insert(tk.END, self.hero.get_name())
-        # self.tb_name.config(state=tk.DISABLED)
-
-        self.tb_level = tk.Text(self.master, height=1, width=3, font=('Comic Sans MS', 8))
-        self.tb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.N+tk.E)
-        self.tb_level.insert(tk.END, self.hero.get_level())
-        self.tb_level.config(state=tk.DISABLED)
-
-        self.tb_class = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
-        self.tb_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
-        self.tb_class.insert(tk.END, self.hero.get_role())
-        self.tb_class.config(state=tk.DISABLED)
-
-        self.tb_race = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
-        self.tb_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
-        self.tb_race.insert(tk.END, self.hero.get_race())
-        self.tb_race.config(state=tk.DISABLED)
+        # self.tb_level = tk.Text(self.master, height=1, width=3, font=('Comic Sans MS', 8))
+        # self.tb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.N+tk.E)
+        # self.tb_level.insert(tk.END, self.hero.get_level())
+        # self.tb_level.config(state=tk.DISABLED)
+        #
+        # self.tb_class = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
+        # self.tb_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
+        # self.tb_class.insert(tk.END, self.hero.get_role())
+        # self.tb_class.config(state=tk.DISABLED)
+        #
+        # self.tb_race = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
+        # self.tb_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
+        # self.tb_race.insert(tk.END, self.hero.get_race())
+        # self.tb_race.config(state=tk.DISABLED)
 
         # Listbox
         # ========================================================
@@ -79,7 +74,22 @@ class MainMenu:
         self.lb_name = tk.Listbox(self.master, height=0, width=30)
         self.lb_name.grid(row=0, column=1, columnspan=2, pady=(10, 0), sticky=tk.NW)
         self.lb_name.insert(tk.END, self.hero.get_name())
-        # self.lb_name.bind('<Double-Button-1>', lambda x: )
+        self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod(0))
+
+        self.lb_level = tk.Listbox(self.master, height=1, width=3, font=('Comic Sans MS', 8))
+        self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NE)
+        self.lb_level.insert(tk.END, self.hero.get_level())
+        self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod(1))
+
+        self.lb_class = tk.Listbox(self.master, height=1, width=10)
+        self.lb_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.NW)
+        self.lb_class.insert(tk.END, self.hero.get_role())
+        self.lb_class.bind('<Double-Button-1>', lambda x: self.ui_mod(2))
+
+        self.lb_race = tk.Listbox(self.master, height=1, width=10)
+        self.lb_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.NW)
+        self.lb_race.insert(tk.END, self.hero.get_race())
+        self.lb_race.bind('<Double-Button-1>', lambda x: self.ui_mod(3))
 
         # Button(s)
         # ========================================================
@@ -106,6 +116,7 @@ class MainMenu:
                         command=lambda:[
                         ]
                     )
+
         self.bt_lvlup = tk.Button(
                         master=self.master,
                         text="U",
@@ -114,15 +125,12 @@ class MainMenu:
                         fg="white",
                         width=2,
                         height=0,
-                        command=lambda:[
-                            self.tb_level.config(state=tk.NORMAL),
+                        command=lambda: [
                             self.hero.level_up(),
-                            self.tb_level.delete("1.0", tk.END),
-                            self.tb_level.insert(tk.END, self.hero.get_level()),
-                            self.tb_level.config(state=tk.DISABLED)
+                            self.lb_level.delete(0),
+                            self.lb_level.insert(tk.END, self.hero.get_level())
                         ]
         )
-
         self.bt_lvlup.grid(row=0, column=5, padx=(0,20), pady=(10, 0), sticky=tk.N+tk.W)
         self.bt_add.grid(row=2, column=3, pady=0, sticky=tk.N+tk.W)
         self.bt_remove.grid(row=2, column=4, pady=0, sticky=tk.N+tk.W)
@@ -144,6 +152,53 @@ class MainMenu:
         self.tb_feats.insert(tk.END,  # gets the right description.
                              self.hero.get_feat(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
+
+    def ui_mod(self, choice):
+        temp_ui = self.master
+        temp_ui = tk.Toplevel()
+        temp_ui.grab_set()
+
+        temp_ui.title("Edit Detail")  # Window title
+        temp_ui.geometry("300x200")  # default window size
+        temp_ui.configure(bg="#038387")  # background color
+        temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+        temp_ui.minsize(300, 200)
+
+        l_detail = tk.Label(temp_ui, text="Value", bg="#038387").grid(row=0, pady=(10, 0))
+        e_detail = tk.Entry(temp_ui)
+        e_detail.grid(row=0, column=1, pady=(10, 0))
+        bt_submit = tk.Button(
+            master=temp_ui,
+            text="Submit",
+            font=('Comic Sans MS', 6),
+            bg="black",
+            fg="white",
+            width=5,
+            height=0,
+            command=lambda: [
+                self.update_box(e_detail.get(), choice),
+                temp_ui.destroy()
+            ]
+        )
+        bt_submit.grid(row=0, column=3, pady=(10, 0), sticky=tk.N)
+
+    def update_box(self, detail, choice):
+        if choice == 0:
+            self.hero.set_name(detail),
+            self.lb_name.delete(0),
+            self.lb_name.insert(tk.END, self.hero.get_name())
+        elif choice == 1:
+            self.hero.set_level(detail),
+            self.lb_level.delete(0),
+            self.lb_level.insert(tk.END, self.hero.get_level())
+        elif choice == 2:
+            self.hero.set_role(detail),
+            self.lb_class.delete(0),
+            self.lb_class.insert(tk.END, self.hero.get_role())
+        elif choice == 3:
+            self.hero.set_race(detail),
+            self.lb_race.delete(0),
+            self.lb_race.insert(tk.END, self.hero.get_race())
 
 
 root = tk.Tk()
