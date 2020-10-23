@@ -97,7 +97,6 @@ class CharSheet:
     def get_feat(self, item):
         if type(item) is not int:
             if item in map(operator.itemgetter(0), self.feats_traits):
-                # print(self.feats_traits.index(item))
                 x = [y[0] for y in self.feats_traits].index(item)
                 return list(map(operator.itemgetter(1), self.feats_traits))[x]
         else:
@@ -105,6 +104,9 @@ class CharSheet:
 
     def get_feat_size(self):
         return len(self.feats_traits)
+
+    def get_feats(self):
+        return self.feats_traits
 
     def get_prof(self, prof):
         for i in self.prof_langs:
