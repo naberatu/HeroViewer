@@ -32,64 +32,78 @@ class MainMenu:
 
         # Labels
         # ========================================================
-        self.l_name = tk.Label(self.master, text="Name", bg="#038387")\
-            .grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
-        self.l_lvl = tk.Label(self.master, text="Lv", bg="#038387")\
-            .grid(row=0, column=3, pady=(10, 0), sticky=tk.N+tk.E)
-        # self.l_spacer = tk.Label(self.master, bg="#038387") \
-        #     .grid(row=0, column=6, padx=5, pady=(10, 0), sticky=tk.N)
-        self.l_class = tk.Label(self.master, text="Class", bg="#038387") \
-            .grid(row=0, column=6, pady=(10, 0), sticky=tk.N + tk.E)
-        self.l_race = tk.Label(self.master, text="Race", bg="#038387") \
-            .grid(row=0, column=9, padx=(10, 0), pady=(10, 0), sticky=tk.N + tk.E)
+        self.l_name = tk.Label(self.master, text="Name", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
+        self.l_lvl = tk.Label(self.master, text="Lv", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=3, pady=(10, 0), sticky=tk.NE)
+        self.l_class = tk.Label(self.master, text="Class", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
+        self.l_race = tk.Label(self.master, text="Race", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=9, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
+        self.l_align = tk.Label(self.master, text="Alignment", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=13, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
 
         # Textbox
         # ========================================================
-        self.tb_feats = tk.Text(self.master, height=24, width=30, font=('Comic Sans MS', 8))
+        self.tb_feats = tk.Text(self.master, height=24, width=30, font=('Scaly Sans', 12))
         self.tb_feats.grid(row=1, column=0, rowspan=6, columnspan=3, padx=10, pady=(10, 0), sticky=tk.N+tk.W)
         self.tb_feats.config(state=tk.DISABLED)
 
-        # self.tb_level = tk.Text(self.master, height=1, width=3, font=('Comic Sans MS', 8))
-        # self.tb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.N+tk.E)
-        # self.tb_level.insert(tk.END, self.hero.get_level())
-        # self.tb_level.config(state=tk.DISABLED)
-        #
-        # self.tb_class = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
-        # self.tb_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
-        # self.tb_class.insert(tk.END, self.hero.get_role())
-        # self.tb_class.config(state=tk.DISABLED)
-        #
-        # self.tb_race = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
-        # self.tb_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
-        # self.tb_race.insert(tk.END, self.hero.get_race())
-        # self.tb_race.config(state=tk.DISABLED)
+        # Drop Down List
+        # ========================================================
+        self.tkvar = tk.StringVar(self.master)
+        self.class_list = ['Artificer', 'Barbarian', 'Bard', 'Cleric', 'Driud', 'Fighter', 'Monk',
+                             'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
+        self.tkvar.set(self.hero.get_role())
+
+        self.ddl_class = tk.OptionMenu(self.master, self.tkvar, *self.class_list)
+        self.ddl_class.config(height=0, width=10, bg="white", font=('Scaly Sans', 8))
+        self.ddl_class["borderwidth"] = 0
+        self.ddl_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.NW)
+
+        self.race_list = ['Aarakocra', 'Aasimar', 'Bugbear', 'Centaur', 'Changeling', 'Dragonborn', 'Dwarf', 'Elf',
+                          'Firbolg', 'Genasi', 'Gith', 'Gnome', 'Goblin', 'Goliath', 'Halfling', 'Half-Elf', 'Half-Orc',
+                          'Hobgoblin', 'Human', 'Kalashtar', 'Kender', 'Kenku', 'Kobold', 'Kor', 'Lizardfolk', 'Loxodon',
+                          'Merfolk', 'Minotaur', 'Orc', 'Shifter', 'Simic', 'Hybrid', 'Tabaxi', 'Tiefling', 'Tortle',
+                          'Triton', 'Vampire', 'Vedalken', 'Warforged', 'Yuan-Ti']
+        self.tkvar_race = tk.StringVar(self.master)
+        self.tkvar_race.set(self.hero.get_race())
+
+        self.ddl_race = tk.OptionMenu(self.master, self.tkvar_race, *self.race_list)
+        self.ddl_race.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
+        self.ddl_race["borderwidth"] = 0
+        self.ddl_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.NW)
+
+        self.alignment_list = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral',
+                               'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil']
+        self.tkvar_alignment = tk.StringVar(self.master)
+        self.tkvar_alignment.set(self.hero.get_alignment())
+
+        self.ddl_alignment = tk.OptionMenu(self.master, self.tkvar_alignment, *self.alignment_list)
+        self.ddl_alignment.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
+        self.ddl_alignment["borderwidth"] = 0
+        self.ddl_alignment.grid(row=0, column=14, columnspan=2, pady=(10, 0), sticky=tk.NW)
 
         # Listbox
         # ========================================================
         self.featList = tk.Listbox(self.master, height=20, width=20)
         self.featList.grid(row=1, column=3, columnspan=6, pady=(10, 0), sticky=tk.N+tk.W)
-        self.update_feats()
+        for i in range(self.hero.get_feat_size()):
+            self.featList.insert(tk.END, self.hero.get_feat(i))
         self.featList.bind('<Double-Button-1>', lambda x: self.write_feat_desc())
 
-        self.lb_name = tk.Listbox(self.master, height=0, width=30)
-        self.lb_name.grid(row=0, column=1, columnspan=2, pady=(10, 0), sticky=tk.NW)
+        self.lb_name = tk.Listbox(self.master, height=1, width=30, font=('Scaly Sans', 12))
+        self.lb_name.grid(row=0, column=1, columnspan=2, ipady=0, pady=(10, 0), sticky=tk.NW)
         self.lb_name.insert(tk.END, self.hero.get_name())
+        self.lb_name["borderwidth"] = 1
         self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod(0))
 
-        self.lb_level = tk.Listbox(self.master, height=1, width=3, font=('Comic Sans MS', 8))
+        self.lb_level = tk.Listbox(self.master, height=1, width=3, font=('Scaly Sans', 12))
         self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NE)
         self.lb_level.insert(tk.END, self.hero.get_level())
+        self.lb_level["borderwidth"] = 1
         self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod(1))
-
-        self.lb_class = tk.Listbox(self.master, height=1, width=10)
-        self.lb_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.NW)
-        self.lb_class.insert(tk.END, self.hero.get_role())
-        self.lb_class.bind('<Double-Button-1>', lambda x: self.ui_mod(2))
-
-        self.lb_race = tk.Listbox(self.master, height=1, width=10)
-        self.lb_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.NW)
-        self.lb_race.insert(tk.END, self.hero.get_race())
-        self.lb_race.bind('<Double-Button-1>', lambda x: self.ui_mod(3))
+        #
+        # self.lb_bkgd = tk.Listbox(self.master, height=1, width=10, font=('Scaly Sans', 12))
+        # self.lb_bkgd.grid(row=0, column=13, columnspan=2, pady=(10, 0), sticky=tk.NW)
+        # self.lb_bkgd.insert(tk.END, self.hero.get_race())
+        # self.lb_bkgd["borderwidth"] = 1
+        # self.lb_bkgd.bind('<Double-Button-1>', lambda x: self.ui_mod(3))
 
         # Button(s)
         # ========================================================
@@ -123,8 +137,9 @@ class MainMenu:
                         font=('Comic Sans MS', 6),
                         bg="black",
                         fg="white",
-                        width=2,
-                        height=0,
+                        width=5,
+                        height=2,
+                        borderwidth=0,
                         command=lambda: [
                             self.hero.level_up(),
                             self.lb_level.delete(0),
@@ -141,10 +156,6 @@ class MainMenu:
         self.master.wait_window(AddFeat(self.master, self.hero.get_feats()).master)
         if self.hero.get_feat(-1) != self.featList.get(tk.END):
             self.featList.insert(tk.END, self.hero.get_feat(-1))
-
-    def update_feats(self):
-        for i in range(self.hero.get_feat_size()):
-            self.featList.insert(tk.END, self.hero.get_feat(i))
 
     def write_feat_desc(self):
         self.tb_feats.config(state=tk.NORMAL),  # makes it editable.
