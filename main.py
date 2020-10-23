@@ -2,6 +2,7 @@
 import tkinter as tk
 from charSheet import CharSheet
 from ui_addFeat import AddFeat
+from tkinter import Image
 import sqlite3      # Perhaps use this as the main saving method.
 
 
@@ -12,32 +13,73 @@ class MainMenu:
         # Example Hero
         # ========================================================
         self.hero = CharSheet()
+        self.hero.set_name("Kepesk")
         self.hero.add_feat("Warrior", "Once per short rest, you can take a bonus action.")
         self.hero.add_feat("Tamer", "Grants +2 Nature")
         self.hero.add_feat("Alert", "+ Gain +5 Initiative\n"
                                "+ Can't be surprised while conscious"
                                "\n+ No stealth advantage for attackers.")
+        self.hero.set_role("Druid")
+        self.hero.set_race("Lizardfolk")
 
         # Window Details
         # ========================================================
         self.master.title("Hero Viewer")    # Window title
-        self.master.geometry("1000x500")      # default window size
+        self.master.geometry("960x540")      # default window size
         self.master.configure(bg="#038387")   # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
         self.master.minsize(500, 300)
 
+        # Labels
+        # ========================================================
+        self.l_name = tk.Label(self.master, text="Name", bg="#038387")\
+            .grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
+        self.l_lvl = tk.Label(self.master, text="Lv", bg="#038387")\
+            .grid(row=0, column=3, pady=(10, 0), sticky=tk.N+tk.E)
+        # self.l_spacer = tk.Label(self.master, bg="#038387") \
+        #     .grid(row=0, column=6, padx=5, pady=(10, 0), sticky=tk.N)
+        self.l_class = tk.Label(self.master, text="Class", bg="#038387") \
+            .grid(row=0, column=6, pady=(10, 0), sticky=tk.N + tk.E)
+        self.l_race = tk.Label(self.master, text="Race", bg="#038387") \
+            .grid(row=0, column=9, padx=(10, 0), pady=(10, 0), sticky=tk.N + tk.E)
+
         # Textbox
         # ========================================================
         self.tb_feats = tk.Text(self.master, height=24, width=30, font=('Comic Sans MS', 8))
-        self.tb_feats.grid(row=0, column=0, rowspan=6, padx=10, pady=(10, 0), sticky=tk.N)
+        self.tb_feats.grid(row=1, column=0, rowspan=6, columnspan=3, padx=10, pady=(10, 0), sticky=tk.N+tk.W)
         self.tb_feats.config(state=tk.DISABLED)
+
+        # self.tb_name = tk.Text(self.master, height=1, width=24, font=('Comic Sans MS', 8))
+        # self.tb_name.grid(row=0, column=1, columnspan=2, padx=(0, 10), pady=(10, 0), sticky=tk.N+tk.W)
+        # self.tb_name.insert(tk.END, self.hero.get_name())
+        # self.tb_name.config(state=tk.DISABLED)
+
+        self.tb_level = tk.Text(self.master, height=1, width=3, font=('Comic Sans MS', 8))
+        self.tb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.N+tk.E)
+        self.tb_level.insert(tk.END, self.hero.get_level())
+        self.tb_level.config(state=tk.DISABLED)
+
+        self.tb_class = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
+        self.tb_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
+        self.tb_class.insert(tk.END, self.hero.get_role())
+        self.tb_class.config(state=tk.DISABLED)
+
+        self.tb_race = tk.Text(self.master, height=1, width=10, font=('Comic Sans MS', 8))
+        self.tb_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.N + tk.W)
+        self.tb_race.insert(tk.END, self.hero.get_race())
+        self.tb_race.config(state=tk.DISABLED)
 
         # Listbox
         # ========================================================
         self.featList = tk.Listbox(self.master, height=20, width=20)
-        self.featList.grid(row=0, column=1, columnspan=3, pady=(10, 0), sticky=tk.N)
+        self.featList.grid(row=1, column=3, columnspan=6, pady=(10, 0), sticky=tk.N+tk.W)
         self.update_feats()
         self.featList.bind('<Double-Button-1>', lambda x: self.write_feat_desc())
+
+        self.lb_name = tk.Listbox(self.master, height=0, width=30)
+        self.lb_name.grid(row=0, column=1, columnspan=2, pady=(10, 0), sticky=tk.NW)
+        self.lb_name.insert(tk.END, self.hero.get_name())
+        # self.lb_name.bind('<Double-Button-1>', lambda x: )
 
         # Button(s)
         # ========================================================
@@ -64,9 +106,26 @@ class MainMenu:
                         command=lambda:[
                         ]
                     )
+        self.bt_lvlup = tk.Button(
+                        master=self.master,
+                        text="U",
+                        font=('Comic Sans MS', 6),
+                        bg="black",
+                        fg="white",
+                        width=2,
+                        height=0,
+                        command=lambda:[
+                            self.tb_level.config(state=tk.NORMAL),
+                            self.hero.level_up(),
+                            self.tb_level.delete("1.0", tk.END),
+                            self.tb_level.insert(tk.END, self.hero.get_level()),
+                            self.tb_level.config(state=tk.DISABLED)
+                        ]
+        )
 
-        self.bt_add.grid(row=1, column=2, pady=0, sticky=tk.N)
-        self.bt_remove.grid(row=1, column=3, pady=0, sticky=tk.N)
+        self.bt_lvlup.grid(row=0, column=5, padx=(0,20), pady=(10, 0), sticky=tk.N+tk.W)
+        self.bt_add.grid(row=2, column=3, pady=0, sticky=tk.N+tk.W)
+        self.bt_remove.grid(row=2, column=4, pady=0, sticky=tk.N+tk.W)
 
     # Methods
     # ========================================================
