@@ -2,6 +2,7 @@
 import tkinter as tk
 from charSheet import CharSheet
 from ui_addFeat import AddFeat
+import sqlite3      # Perhaps use this as the main saving method.
 
 
 class MainMenu:
@@ -67,6 +68,8 @@ class MainMenu:
         self.bt_add.grid(row=1, column=2, pady=0, sticky=tk.N)
         self.bt_remove.grid(row=1, column=3, pady=0, sticky=tk.N)
 
+    # Methods
+    # ========================================================
     def feat_ui(self):
         self.master.wait_window(AddFeat(self.master, self.hero.get_feats()).master)
         if self.hero.get_feat(-1) != self.featList.get(tk.END):

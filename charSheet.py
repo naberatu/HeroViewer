@@ -2,6 +2,7 @@ from random import randint
 from statBlock import StatBlock
 import operator
 
+
 class CharSheet:
     def __init__(self):
         self.id = randint(000, 999)
@@ -12,7 +13,7 @@ class CharSheet:
         self.background = None
         self.alignment = None
 
-        self.stat_block = None
+        self.stat_block = StatBlock()
         self.modifiers = {
             "strength": 0,
             "dexterity": 0,

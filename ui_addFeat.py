@@ -6,7 +6,8 @@ class AddFeat:
     def __init__(self, master, hero_list):
         self.master = master
         self.hero_list = hero_list
-        self.master = tk.Toplevel()
+        self.master = tk.Toplevel()     # Puts this UI front and Center.
+        self.master.grab_set()          # Prevents accessing other windows while this is open.
 
         # Window Details
         # ========================================================
@@ -15,10 +16,12 @@ class AddFeat:
         self.master.configure(bg="#038387")  # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
         self.master.minsize(300, 200)
+
         # Label(s)
         # ========================================================
         self.name = tk.Label(self.master, text="Name", bg="#038387").grid(row=0)
         self.desc = tk.Label(self.master, text="Details", bg="#038387").grid(row=1)
+
         # Entries
         # ========================================================
         self.e_name = tk.Entry(self.master)
@@ -26,6 +29,7 @@ class AddFeat:
 
         self.e_name.grid(row=0, column=1)
         self.e_desc.grid(row=1, column=1)
+
         # Buttons
         # ========================================================
         self.bt_submit = tk.Button(  # for finalizing your inputs.
@@ -54,6 +58,8 @@ class AddFeat:
         self.bt_cancel.grid(row=2, column=1, pady=0, sticky=tk.N)
         self.bt_submit.grid(row=2, column=2, pady=0, sticky=tk.N)
 
+    # Methods
+    # ========================================================
     def submit(self):
         self.hero_list.append((self.e_name.get(), self.e_desc.get()))
         return -1
