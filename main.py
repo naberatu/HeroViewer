@@ -48,7 +48,7 @@ class MainMenu:
         # ========================================================
 
         # Character Class
-        self.class_list = ['Artificer', 'Barbarian', 'Bard', 'Cleric', 'Driud', 'Fighter', 'Monk',
+        self.class_list = ['Artificer', 'Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk',
                            'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
         self.tkvar_class = tk.StringVar(self.master)
         self.tkvar_class.set(self.hero.get_role())
@@ -196,7 +196,6 @@ class MainMenu:
         )
         bt_submit.grid(row=3, column=2, pady=(10, 0), sticky=tk.N)
         bt_cancel.grid(row=3, column=1, pady=(10, 0), sticky=tk.N)
-
 
     def write_feat_desc(self):
         self.tb_feats.config(state=tk.NORMAL),  # makes it editable.
