@@ -243,7 +243,7 @@ class MainMenu:
             self.lb_name.delete(0),
             self.lb_name.insert(tk.END, self.hero.get_name())
         elif choice == 1:
-            self.hero.set_level(detail),
+            self.hero.set_level(int(detail)),
             self.lb_level.delete(0),
             self.lb_level.insert(tk.END, self.hero.get_level())
         # elif choice == 2:
