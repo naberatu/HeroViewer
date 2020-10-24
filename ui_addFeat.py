@@ -12,7 +12,7 @@ class AddFeat:
         # Window Details
         # ========================================================
         self.master.title("Add Feature")  # Window title
-        self.master.geometry("250x100")  # default window size
+        self.master.geometry("250x100+300+200")  # default window size
         self.master.configure(bg="#038387")  # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
         self.master.minsize(250, 100)

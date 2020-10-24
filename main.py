@@ -13,22 +13,19 @@ class MainMenu:
         # Example Hero
         # ========================================================
         self.hero = CharSheet()
-        self.hero.set_name("Kepesk")
         self.hero.add_feat("Warrior", "Once per short rest, you can take a bonus action.")
         self.hero.add_feat("Tamer", "Grants +2 Nature")
         self.hero.add_feat("Alert", "+ Gain +5 Initiative\n"
                                "+ Can't be surprised while conscious"
                                "\n+ No stealth advantage for attackers.")
-        self.hero.set_role("Druid")
-        self.hero.set_race("Lizardfolk")
 
         # Window Details
         # ========================================================
         self.master.title("Hero Viewer")    # Window title
-        self.master.geometry("960x540")      # default window size
+        self.master.geometry("960x540+200+100")      # default window size
+        self.master.minsize(480, 270)
         self.master.configure(bg="#038387")   # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
-        self.master.minsize(500, 300)
 
         # Labels
         # ========================================================
@@ -95,7 +92,7 @@ class MainMenu:
         self.lb_name["borderwidth"] = 1
         self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod(0))
 
-        self.lb_level = tk.Listbox(self.master, height=1, width=3, font=('Scaly Sans', 12))
+        self.lb_level = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 12))
         self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NE)
         self.lb_level.insert(tk.END, self.hero.get_level())
         self.lb_level["borderwidth"] = 1
@@ -159,10 +156,10 @@ class MainMenu:
         temp_ui.grab_set()
 
         temp_ui.title("Edit Feat")  # Window title
-        temp_ui.geometry("250x100")  # default window size
+        temp_ui.geometry("250x100+300+200")  # default window size
+        temp_ui.minsize(250, 100)
         temp_ui.configure(bg="#038387")  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
-        temp_ui.minsize(250, 100)
 
         l_name = tk.Label(temp_ui, text="Feat", bg="#038387", font=('Scaly Sans', 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
         l_desc = tk.Label(temp_ui, text="Desc", bg="#038387", font=('Scaly Sans', 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
@@ -209,19 +206,26 @@ class MainMenu:
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
 
-        temp_ui.title("Edit Detail")  # Window title
-        temp_ui.geometry("300x200")  # default window size
+        detail = "Edit "
+        if choice == 0:
+            detail += "Name"
+        elif choice == 1:
+            detail += "Level"
+
+        temp_ui.title(detail)  # Window title
+        temp_ui.geometry("250x125+300+200")  # default window size
+        temp_ui.minsize(250, 125)
         temp_ui.configure(bg="#038387")  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
-        temp_ui.minsize(300, 200)
 
-        l_detail = tk.Label(temp_ui, text="Value", bg="#038387").grid(row=0, pady=(10, 0))
-        e_detail = tk.Entry(temp_ui)
-        e_detail.grid(row=0, column=1, pady=(10, 0))
+        l_detail = tk.Label(temp_ui, text="New Value", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, padx=30, pady=(10, 0))
+        e_detail = tk.Entry(temp_ui, justify='center', font=('Scaly Sans', 12))
+        e_detail.grid(row=1, column=0, padx=30, pady=(5, 0))
+
         bt_submit = tk.Button(
             master=temp_ui,
             text="Submit",
-            font=('Comic Sans MS', 6),
+            font=('Comic Sans MS', 12),
             bg="black",
             fg="white",
             width=5,
@@ -231,7 +235,7 @@ class MainMenu:
                 temp_ui.destroy()
             ]
         )
-        bt_submit.grid(row=0, column=3, pady=(10, 0), sticky=tk.N)
+        bt_submit.grid(row=2, column=0, pady=(10, 0), sticky=tk.N)
 
     def update_box(self, detail, choice):
         if choice == 0:
@@ -242,14 +246,14 @@ class MainMenu:
             self.hero.set_level(detail),
             self.lb_level.delete(0),
             self.lb_level.insert(tk.END, self.hero.get_level())
-        elif choice == 2:
-            self.hero.set_role(detail),
-            self.lb_class.delete(0),
-            self.lb_class.insert(tk.END, self.hero.get_role())
-        elif choice == 3:
-            self.hero.set_race(detail),
-            self.lb_race.delete(0),
-            self.lb_race.insert(tk.END, self.hero.get_race())
+        # elif choice == 2:
+        #     self.hero.set_role(detail),
+        #     self.lb_class.delete(0),
+        #     self.lb_class.insert(tk.END, self.hero.get_role())
+        # elif choice == 3:
+        #     self.hero.set_race(detail),
+        #     self.lb_race.delete(0),
+        #     self.lb_race.insert(tk.END, self.hero.get_race())
 
 
 root = tk.Tk()
