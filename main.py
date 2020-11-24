@@ -202,9 +202,6 @@ class MainMenu:
                              self.hero.get_feat(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
 
-    # def delete_feat(self):
-    #     self.featList.delete(self.featList.curselection())
-
     def ui_mod(self, choice):
         temp_ui = self.master
         temp_ui = tk.Toplevel()
@@ -243,21 +240,16 @@ class MainMenu:
 
     def update_box(self, detail, choice):
         if choice == 0:
-            self.hero.set_name(detail),
-            self.lb_name.delete(0),
+            self.hero.set_name(detail)
+            self.lb_name.delete(0)
             self.lb_name.insert(tk.END, self.hero.get_name())
         elif choice == 1:
-            self.hero.set_level(int(detail)),
-            self.lb_level.delete(0),
-            self.lb_level.insert(tk.END, self.hero.get_level())
-        # elif choice == 2:
-        #     self.hero.set_role(detail),
-        #     self.lb_class.delete(0),
-        #     self.lb_class.insert(tk.END, self.hero.get_role())
-        # elif choice == 3:
-        #     self.hero.set_race(detail),
-        #     self.lb_race.delete(0),
-        #     self.lb_race.insert(tk.END, self.hero.get_race())
+            try:
+                if self.hero.set_level(int(detail)):
+                    self.lb_level.delete(0)
+                    self.lb_level.insert(tk.END, self.hero.get_level())
+            except:
+                return
 
 
 root = tk.Tk()

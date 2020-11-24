@@ -8,7 +8,7 @@ class CharSheet:
         self.id = randint(000, 999)
         self.name = None
         self.role = None
-        self.level = 0
+        self.level = 1
         self.race = None
         self.background = None
         self.alignment = None
@@ -22,7 +22,7 @@ class CharSheet:
             "intellect": 0,
             "charisma": 0,
         }
-        self.passive_per = 0
+        self.passive_per = 10
         self.ds_success = 0
         self.ds_fail = 0
 
@@ -143,10 +143,14 @@ class CharSheet:
         self.role = string
 
     def level_up(self):
-        self.level += 1
+        if self.level < 20:
+            self.level += 1
 
     def set_level(self, num):
-        self.level = num
+        if 0 < num <= 20:
+            self.level = num
+            return True
+        return False
 
     def set_race(self, string):
         self.race = string
