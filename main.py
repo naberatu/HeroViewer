@@ -120,7 +120,8 @@ class MainMenu:
                         fg="white",
                         width=3,
                         height=0,
-                        command=lambda:[
+                        command=lambda: [
+                            self.featList.delete(self.featList.curselection())
                         ]
                     )
 
@@ -200,6 +201,9 @@ class MainMenu:
         self.tb_feats.insert(tk.END,  # gets the right description.
                              self.hero.get_feat(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
+
+    # def delete_feat(self):
+    #     self.featList.delete(self.featList.curselection())
 
     def ui_mod(self, choice):
         temp_ui = self.master
