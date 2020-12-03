@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/HKN_App.iml" filepath="$PROJECT_DIR$/.idea/HKN_App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/HeroViewer.iml" filepath="$PROJECT_DIR$/.idea/HeroViewer.iml" />
     </modules>
   </component>
 </project>
