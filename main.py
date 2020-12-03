@@ -2,7 +2,6 @@
 import tkinter as tk
 from charSheet import CharSheet
 from ui_addFeat import AddFeat
-import pickle
 from tkinter import Image
 import sqlite3      # Perhaps use this as the main saving method.
 
@@ -14,16 +13,6 @@ class MainMenu:
         # Example Hero
         # ========================================================
         self.hero = CharSheet()
-
-        load_feats = {"Warrior": "Once per short rest, you can take a bonus action.",
-                      "Tamer": "Grants +2 Nature",
-                      "Alert": "+ Gain +5 Initiative\n+ Can't be surprised while conscious\n"
-                               "+ No stealth advantage for attackers."
-                      }
-        # pickle.dump(load_feats, open("feats_dict.p", "wb"))
-        load_feats = pickle.load(open("feats_dict.p", "rb"))
-        for name, desc in load_feats.items():
-            self.hero.add_feat(name, desc)
 
         # Window Details
         # ========================================================
@@ -88,7 +77,7 @@ class MainMenu:
         self.featList = tk.Listbox(self.master, height=20, width=20)
         self.featList.grid(row=1, column=3, columnspan=6, pady=(10, 0), sticky=tk.N+tk.W)
         for i in range(self.hero.get_feat_size()):
-            self.featList.insert(tk.END, self.hero.get_feat(i))
+            self.featList.insert(tk.END, self.hero.get_feat_name(i))
         self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
         self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat())
 
@@ -205,7 +194,7 @@ class MainMenu:
         self.tb_feats.config(state=tk.NORMAL),  # makes it editable.
         self.tb_feats.delete("1.0", tk.END),  # clears it.
         self.tb_feats.insert(tk.END,  # gets the right description.
-                             self.hero.get_feat(self.featList.get(self.featList.curselection()))),
+                             self.hero.get_feat_desc(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
 
     def ui_mod(self, choice):

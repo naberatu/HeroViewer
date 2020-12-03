@@ -1,5 +1,6 @@
 from random import randint
-from statBlock import StatBlock
+from statblock import StatBlock
+import pickle
 import operator
 
 
@@ -34,10 +35,18 @@ class CharSheet:
         self.held_weapon = None
         self.worn_armor = None
 
-        self.feats_traits = []
-        self.prof_langs = []
+        # self.feats_traits = {}
+        self.feats_traits = pickle.load(open("feats_dict.p", "rb"))
+        self.prof_langs = {}
         self.inventory = []
-        self.spells = []
+        self.spells = {}
+
+        # load_feats = {"Warrior": "Once per short rest, you can take a bonus action.",
+        #               "Tamer": "Grants +2 Nature",
+        #               "Alert": "+ Gain +5 Initiative\n+ Can't be surprised while conscious\n"
+        #                        "+ No stealth advantage for attackers."
+        #               }
+        # pickle.dump(load_feats, open("feats_dict.p", "wb"))
 
     # Accessors
     # =========================================================
@@ -95,13 +104,19 @@ class CharSheet:
     def get_armor(self):
         return self.worn_armor
 
-    def get_feat(self, item):
-        if type(item) is not int:
-            if item in map(operator.itemgetter(0), self.feats_traits):
-                x = [y[0] for y in self.feats_traits].index(item)
-                return list(map(operator.itemgetter(1), self.feats_traits))[x]
-        else:
-            return self.feats_traits[item][0]
+    # def get_feat(self, item):
+        # if type(item) is not int:
+        #     if item in map(operator.itemgetter(0), self.feats_traits):
+        #         x = [y[0] for y in self.feats_traits].index(item)
+        #         return list(map(operator.itemgetter(1), self.feats_traits))[x]
+        # else:
+        # return self.feats_traits[item]
+
+    def get_feat_name(self, index):
+        return list(self.feats_traits.keys())[index]
+
+    def get_feat_desc(self, name):
+        return self.feats_traits[name]
 
     def get_feat_size(self):
         return len(self.feats_traits)
@@ -198,16 +213,16 @@ class CharSheet:
             self.worn_armor = temp
 
     def add_feat(self, name, desc):
-        self.feats_traits.append((name, desc))
+        self.feats_traits[name] = desc
 
     def add_prof(self, name, desc):
-        self.prof_langs.append((name, desc))
+        self.prof_langs[name] = desc
 
     def add_to_inv(self, item):
         self.inventory.append(item)
 
     def add_spell(self, name, desc):
-        self.spells.append((name, desc))
+        self.spells[name] = desc
 
 
 
