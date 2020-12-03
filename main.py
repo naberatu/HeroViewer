@@ -2,6 +2,7 @@
 import tkinter as tk
 from charSheet import CharSheet
 from ui_addFeat import AddFeat
+import pickle
 from tkinter import Image
 import sqlite3      # Perhaps use this as the main saving method.
 
@@ -13,11 +14,16 @@ class MainMenu:
         # Example Hero
         # ========================================================
         self.hero = CharSheet()
-        self.hero.add_feat("Warrior", "Once per short rest, you can take a bonus action.")
-        self.hero.add_feat("Tamer", "Grants +2 Nature")
-        self.hero.add_feat("Alert", "+ Gain +5 Initiative\n"
-                               "+ Can't be surprised while conscious"
-                               "\n+ No stealth advantage for attackers.")
+
+        load_feats = {"Warrior": "Once per short rest, you can take a bonus action.",
+                      "Tamer": "Grants +2 Nature",
+                      "Alert": "+ Gain +5 Initiative\n+ Can't be surprised while conscious\n"
+                               "+ No stealth advantage for attackers."
+                      }
+        # pickle.dump(load_feats, open("feats_dict.p", "wb"))
+        load_feats = pickle.load(open("feats_dict.p", "rb"))
+        for name, desc in load_feats.items():
+            self.hero.add_feat(name, desc)
 
         # Window Details
         # ========================================================
