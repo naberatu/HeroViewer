@@ -35,7 +35,6 @@ class CharSheet:
         self.held_weapon = None
         self.worn_armor = None
 
-        # self.feats_traits = {}
         self.feats_traits = pickle.load(open("feats_dict.p", "rb"))
         self.prof_langs = {}
         self.inventory = []
@@ -47,6 +46,9 @@ class CharSheet:
         #                        "+ No stealth advantage for attackers."
         #               }
         # pickle.dump(load_feats, open("feats_dict.p", "wb"))
+
+    def save(self):
+        pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
     # Accessors
     # =========================================================
