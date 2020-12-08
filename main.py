@@ -104,7 +104,7 @@ class MainMenu:
                         width=3,
                         height=0,
                         command=lambda: [
-                            self.feat_ui()
+                            # self.feat_ui()
                         ]
                     )
         self.bt_remove = tk.Button( # our removing button
@@ -141,10 +141,10 @@ class MainMenu:
 
     # Methods
     # ========================================================
-    def feat_ui(self):
-        self.master.wait_window(AddFeat(self.master, self.hero.get_feats()).master)
-        if self.hero.get_feat(-1) != self.featList.get(tk.END):
-            self.featList.insert(tk.END, self.hero.get_feat(-1))
+    # def feat_ui(self):
+    #     self.master.wait_window(AddFeat(self.master, self.hero.get_feats()).master)
+    #     if self.hero.get_feat(-1) != self.featList.get(tk.END):
+    #         self.featList.insert(tk.END, self.hero.get_feat(-1))
 
     def edit_feat(self):
         temp_ui = self.master
@@ -163,6 +163,7 @@ class MainMenu:
         e_desc = tk.Entry(temp_ui, font=('Scaly Sans', 10))
         e_name.grid(row=0, column=1, columnspan=2, pady=(10, 0))
         e_desc.grid(row=1, column=1, columnspan=2, pady=(5, 0))
+        position = self.featList.curselection()
 
         bt_submit = tk.Button(
             master=temp_ui,
@@ -173,6 +174,10 @@ class MainMenu:
             width=5,
             height=0,
             command=lambda: [
+                self.hero.add_feat(e_name.get(), e_desc.get(), self.featList.get(self.featList.curselection())),
+                self.featList.delete(self.featList.curselection()) if e_name.get() else 0,
+                self.featList.insert(position, e_name.get()) if e_name.get() else 0,
+                self.write_feat_desc() if not e_name.get() and e_desc.get() else 0,
                 temp_ui.destroy()
             ]
         )
@@ -192,8 +197,8 @@ class MainMenu:
 
     def write_feat_desc(self):
         self.tb_feats.config(state=tk.NORMAL),  # makes it editable.
-        self.tb_feats.delete("1.0", tk.END),  # clears it.
-        self.tb_feats.insert(tk.END,  # gets the right description.
+        self.tb_feats.delete("1.0", tk.END),    # clears it.
+        self.tb_feats.insert(tk.END,            # gets the right description.
                              self.hero.get_feat_desc(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
 

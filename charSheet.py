@@ -104,14 +104,6 @@ class CharSheet:
     def get_armor(self):
         return self.worn_armor
 
-    # def get_feat(self, item):
-        # if type(item) is not int:
-        #     if item in map(operator.itemgetter(0), self.feats_traits):
-        #         x = [y[0] for y in self.feats_traits].index(item)
-        #         return list(map(operator.itemgetter(1), self.feats_traits))[x]
-        # else:
-        # return self.feats_traits[item]
-
     def get_feat_name(self, index):
         return list(self.feats_traits.keys())[index]
 
@@ -121,8 +113,8 @@ class CharSheet:
     def get_feat_size(self):
         return len(self.feats_traits)
 
-    def get_feats(self):
-        return self.feats_traits
+    def edit_feat(self, pair):
+        self.feats_traits[pair[0]] = pair[1]
 
     def get_prof(self, prof):
         for i in self.prof_langs:
@@ -212,8 +204,19 @@ class CharSheet:
             self.inventory.append(self.worn_armor)
             self.worn_armor = temp
 
-    def add_feat(self, name, desc):
-        self.feats_traits[name] = desc
+    # def add_feat(self, name, desc, name_only):
+    def add_feat(self, name, desc, original):
+        if name:
+            if not desc and name != original:
+                self.feats_traits[name] = self.feats_traits[original]
+                del self.feats_traits[original]
+            elif desc and original and name != original:
+                del self.feats_traits[original]
+                self.feats_traits[name] = desc
+            elif desc and not original:
+                self.feats_traits[name] = desc
+        if not name and desc:
+            self.feats_traits[original] = desc
 
     def add_prof(self, name, desc):
         self.prof_langs[name] = desc
