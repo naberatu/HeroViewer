@@ -134,8 +134,10 @@ class CharSheet:
     def ds_fail(self):
         self.ds_fail += 1
 
-    def add_feat(self, name, desc, original):
-        if name:
+    def add_feat(self, name, desc, original, new_entry):
+        if new_entry:
+            self.feats_traits[name] = desc
+        elif name:
             if not desc and name != original:
                 self.feats_traits[name] = self.feats_traits[original]
                 del self.feats_traits[original]
@@ -144,5 +146,5 @@ class CharSheet:
                 self.feats_traits[name] = desc
             elif desc and not original:
                 self.feats_traits[name] = desc
-        if not name and desc:
+        elif not name and desc:
             self.feats_traits[original] = desc

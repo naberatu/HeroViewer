@@ -169,7 +169,7 @@ class MainMenu:
             width=5,
             height=0,
             command=lambda: [
-                self.hero.add_feat(e_name.get(), e_desc.get(), self.featList.get(position)),
+                self.hero.add_feat(e_name.get(), e_desc.get(), self.featList.get(position), adding),
                 self.featList.delete(position) if e_name.get() and not adding else 0,
                 self.featList.insert(position, e_name.get()) if e_name.get() else 0,
                 self.write_feat_desc() if not e_name.get() and e_desc.get() else 0,
