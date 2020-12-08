@@ -74,7 +74,7 @@ class MainMenu:
         for i in range(self.hero.get_feat_size()):
             self.featList.insert(tk.END, self.hero.get_feat_name(i))
         self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
-        self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat())
+        self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat(False))
 
         self.lb_name = tk.Listbox(self.master, height=1, width=30, font=('Scaly Sans', 12))
         self.lb_name.grid(row=0, column=1, columnspan=2, ipady=0, pady=(10, 0), sticky=tk.NW)
@@ -99,7 +99,7 @@ class MainMenu:
                         width=3,
                         height=0,
                         command=lambda: [
-                            # self.feat_ui()
+                            self.edit_feat(True)
                         ]
                     )
         self.bt_remove = tk.Button( # our removing button
@@ -136,12 +136,7 @@ class MainMenu:
 
     # Methods
     # ========================================================
-    # def feat_ui(self):
-    #     self.master.wait_window(AddFeat(self.master, self.hero.get_feats()).master)
-    #     if self.hero.get_feat(-1) != self.featList.get(tk.END):
-    #         self.featList.insert(tk.END, self.hero.get_feat(-1))
-
-    def edit_feat(self):
+    def edit_feat(self, adding):
         temp_ui = self.master
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
@@ -158,7 +153,12 @@ class MainMenu:
         e_desc = tk.Entry(temp_ui, font=('Scaly Sans', 10))
         e_name.grid(row=0, column=1, columnspan=2, pady=(10, 0))
         e_desc.grid(row=1, column=1, columnspan=2, pady=(5, 0))
-        position = self.featList.curselection()
+
+        position = 0
+        if not adding:
+            position = self.featList.curselection()
+        else:
+            position = tk.END
 
         bt_submit = tk.Button(
             master=temp_ui,
@@ -169,8 +169,8 @@ class MainMenu:
             width=5,
             height=0,
             command=lambda: [
-                self.hero.add_feat(e_name.get(), e_desc.get(), self.featList.get(self.featList.curselection())),
-                self.featList.delete(self.featList.curselection()) if e_name.get() else 0,
+                self.hero.add_feat(e_name.get(), e_desc.get(), self.featList.get(position)),
+                self.featList.delete(position) if e_name.get() and not adding else 0,
                 self.featList.insert(position, e_name.get()) if e_name.get() else 0,
                 self.write_feat_desc() if not e_name.get() and e_desc.get() else 0,
                 self.hero.save(),

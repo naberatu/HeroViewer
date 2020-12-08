@@ -21,14 +21,16 @@ class CharSheet:
         }
         self.ds_success = 0
         self.ds_fail = 0
-        self.feats_traits = pickle.load(open("feats_dict.p", "rb"))
 
-        # load_feats = {"Warrior": "Once per short rest, you can take a bonus action.",
-        #               "Tamer": "Grants +2 Nature",
-        #               "Alert": "+ Gain +5 Initiative\n+ Can't be surprised while conscious\n"
-        #                        "+ No stealth advantage for attackers."
-        #               }
-        # pickle.dump(load_feats, open("feats_dict.p", "wb"))
+        try:
+            self.feats_traits = pickle.load(open("feats_dict.p", "rb"))
+        except:
+            self.feats_traits = {"Warrior": "Once per short rest, you can take a bonus action.",
+                                 "Tamer": "Grants +2 Nature",
+                                 "Alert": "+ Gain +5 Initiative\n+ Can't be surprised while conscious\n"
+                                            "+ No stealth advantage for attackers."
+                                 }
+            pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
     # Essential Methods
     # =========================================================
