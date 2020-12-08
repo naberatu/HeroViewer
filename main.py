@@ -8,22 +8,23 @@ class MainMenu:
     def __init__(self, master):
         self.master = master
         self.hero = CharSheet()
+        self.BG = "#038387"
 
         # Window Details
         # ========================================================
         self.master.title("Hero Viewer")    # Window title
         self.master.geometry("960x540+200+100")      # default window size
         self.master.minsize(480, 270)
-        self.master.configure(bg="#038387")   # background color
+        self.master.configure(bg=self.BG)   # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
         # Labels
         # ========================================================
-        self.l_name = tk.Label(self.master, text="Name", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
-        self.l_lvl = tk.Label(self.master, text="Lv", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=3, pady=(10, 0), sticky=tk.NE)
-        self.l_class = tk.Label(self.master, text="Class", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
-        self.l_race = tk.Label(self.master, text="Race", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=9, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
-        self.l_align = tk.Label(self.master, text="Alignment", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, column=13, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
+        self.l_name = tk.Label(self.master, text="Name", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
+        self.l_lvl = tk.Label(self.master, text="Lv", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=3, pady=(10, 0), sticky=tk.NE)
+        self.l_class = tk.Label(self.master, text="Class", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
+        self.l_race = tk.Label(self.master, text="Race", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=9, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
+        self.l_align = tk.Label(self.master, text="Alignment", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=13, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
 
         # Textbox
         # ========================================================
@@ -39,7 +40,8 @@ class MainMenu:
                            'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
         self.tkvar_class = tk.StringVar(self.master)
         self.tkvar_class.set(self.hero.get_stat("role"))
-        self.ddl_class = tk.OptionMenu(self.master, self.tkvar_class, *self.class_list)
+        self.ddl_class = tk.OptionMenu(self.master, self.tkvar_class, *self.class_list,
+                                       command=lambda x: self.hero.set_stat("role", self.tkvar_class.get()))
         self.ddl_class.config(height=0, width=10, bg="white", font=('Scaly Sans', 8))
         self.ddl_class["borderwidth"] = 0
         self.ddl_class.grid(row=0, column=7, columnspan=2, pady=(10, 0), sticky=tk.NW)
@@ -52,7 +54,8 @@ class MainMenu:
                           'Triton', 'Vampire', 'Vedalken', 'Warforged', 'Yuan-Ti']
         self.tkvar_race = tk.StringVar(self.master)
         self.tkvar_race.set(self.hero.get_stat("race"))
-        self.ddl_race = tk.OptionMenu(self.master, self.tkvar_race, *self.race_list)
+        self.ddl_race = tk.OptionMenu(self.master, self.tkvar_race, *self.race_list,
+                                      command=lambda x: self.hero.set_stat("race", self.tkvar_race.get()))
         self.ddl_race.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
         self.ddl_race["borderwidth"] = 0
         self.ddl_race.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.NW)
@@ -62,7 +65,8 @@ class MainMenu:
                                'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil']
         self.tkvar_alignment = tk.StringVar(self.master)
         self.tkvar_alignment.set(self.hero.get_stat("alignment"))
-        self.ddl_alignment = tk.OptionMenu(self.master, self.tkvar_alignment, *self.alignment_list)
+        self.ddl_alignment = tk.OptionMenu(self.master, self.tkvar_alignment, *self.alignment_list,
+                                           command=lambda x: self.hero.set_stat("alignment", self.tkvar_alignment.get()))
         self.ddl_alignment.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
         self.ddl_alignment["borderwidth"] = 0
         self.ddl_alignment.grid(row=0, column=14, columnspan=2, pady=(10, 0), sticky=tk.NW)
@@ -144,11 +148,11 @@ class MainMenu:
         temp_ui.title("Edit Feat")  # Window title
         temp_ui.geometry("250x100+300+200")  # default window size
         temp_ui.minsize(250, 100)
-        temp_ui.configure(bg="#038387")  # background color
+        temp_ui.configure(bg=self.BG)  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
-        l_name = tk.Label(temp_ui, text="Feat", bg="#038387", font=('Scaly Sans', 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
-        l_desc = tk.Label(temp_ui, text="Desc", bg="#038387", font=('Scaly Sans', 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
+        l_name = tk.Label(temp_ui, text="Feat", bg=self.BG, font=('Scaly Sans', 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
+        l_desc = tk.Label(temp_ui, text="Desc", bg=self.BG, font=('Scaly Sans', 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
         e_name = tk.Entry(temp_ui, font=('Scaly Sans', 10))
         e_desc = tk.Entry(temp_ui, font=('Scaly Sans', 10))
         e_name.grid(row=0, column=1, columnspan=2, pady=(10, 0))
@@ -173,7 +177,7 @@ class MainMenu:
                 self.featList.delete(position) if e_name.get() and not adding else 0,
                 self.featList.insert(position, e_name.get()) if e_name.get() else 0,
                 self.write_feat_desc() if not e_name.get() and e_desc.get() else 0,
-                self.hero.save(),
+                # self.hero.save(),
                 temp_ui.destroy()
             ]
         )
@@ -212,10 +216,10 @@ class MainMenu:
         temp_ui.title(detail)  # Window title
         temp_ui.geometry("250x125+300+200")  # default window size
         temp_ui.minsize(250, 125)
-        temp_ui.configure(bg="#038387")  # background color
+        temp_ui.configure(bg=self.BG)  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
-        l_detail = tk.Label(temp_ui, text="New Value", bg="#038387", font=('Scaly Sans', 12)).grid(row=0, padx=30, pady=(10, 0))
+        l_detail = tk.Label(temp_ui, text="New Value", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, padx=30, pady=(10, 0))
         e_detail = tk.Entry(temp_ui, justify='center', font=('Scaly Sans', 12))
         e_detail.grid(row=1, column=0, padx=30, pady=(5, 0))
 
@@ -229,7 +233,6 @@ class MainMenu:
             height=0,
             command=lambda: [
                 self.update_box(e_detail.get(), choice),
-                self.hero.save(),
                 temp_ui.destroy()
             ]
         )

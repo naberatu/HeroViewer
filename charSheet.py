@@ -34,20 +34,18 @@ class CharSheet:
 
     # Essential Methods
     # =========================================================
-    def save(self):
+    def save_all(self):
         pickle.dump(self.stats, open("hero_info.p", "wb"))
         pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
     def set_stat(self, stat, value):
-        if stat in self.stats.keys():
-            try:
-                self.stats[stat] = value
-                if stat == "Max HP":
-                    self.stats["Current HP"] = value
-            except:
-                print("[ER] Cannot modify ", stat, "...")
-        else:
-            print("[ER] ", stat, " does not exist!")
+        try:
+            self.stats[stat] = value
+            if stat == "Max HP":
+                self.stats["Current HP"] = value
+            pickle.dump(self.stats, open("hero_info.p", "wb"))
+        except:
+            print("[ER] Cannot modify", stat, "...")
 
     def get_stat(self, stat):
         if self.stats.keys().__contains__(stat):
@@ -83,6 +81,7 @@ class CharSheet:
             self.stats["sleight of hand"] = self.modifier["dexterity"]
             self.stats["stealth"] = self.modifier["dexterity"]
             self.stats["survival"] = self.modifier["wisdom"]
+            pickle.dump(self.stats, open("hero_info.p", "wb"))
         except:
             print("[ER] Could not fill skills.")
 
@@ -120,31 +119,43 @@ class CharSheet:
     def level_up(self):
         if self.stats["level"] < 20:
             self.stats["level"] += 1
-            self.save()
+            pickle.dump(self.stats, open("hero_info.p", "wb"))
 
     def set_level(self, num):
         if 0 < num <= 20:
             self.stats["level"] = num
+            pickle.dump(self.stats, open("hero_info.p", "wb"))
             return True
         return False
 
     def ds_success(self):
         self.ds_success += 1
+        pickle.dump(self.stats, open("hero_info.p", "wb"))
 
     def ds_fail(self):
         self.ds_fail += 1
+        pickle.dump(self.stats, open("hero_info.p", "wb"))
 
     def add_feat(self, name, desc, original, new_entry):
+        success = False
         if new_entry:
             self.feats_traits[name] = desc
+            success = True
         elif name:
             if not desc and name != original:
                 self.feats_traits[name] = self.feats_traits[original]
                 del self.feats_traits[original]
+                success = True
             elif desc and original and name != original:
                 del self.feats_traits[original]
                 self.feats_traits[name] = desc
+                success = True
             elif desc and not original:
                 self.feats_traits[name] = desc
+                success = True
         elif not name and desc:
             self.feats_traits[original] = desc
+            success = True
+
+        if success:
+            pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
