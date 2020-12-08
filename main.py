@@ -2,16 +2,11 @@
 import tkinter as tk
 from charSheet import CharSheet
 from ui_addFeat import AddFeat
-from tkinter import Image
-import sqlite3      # Perhaps use this as the main saving method.
 
 
 class MainMenu:
     def __init__(self, master):
         self.master = master
-
-        # Example Hero
-        # ========================================================
         self.hero = CharSheet()
 
         # Window Details
@@ -43,7 +38,7 @@ class MainMenu:
         self.class_list = ['Artificer', 'Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk',
                            'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
         self.tkvar_class = tk.StringVar(self.master)
-        self.tkvar_class.set(self.hero.get_role())
+        self.tkvar_class.set(self.hero.get_stat("role"))
         self.ddl_class = tk.OptionMenu(self.master, self.tkvar_class, *self.class_list)
         self.ddl_class.config(height=0, width=10, bg="white", font=('Scaly Sans', 8))
         self.ddl_class["borderwidth"] = 0
@@ -56,7 +51,7 @@ class MainMenu:
                           'Merfolk', 'Minotaur', 'Orc', 'Shifter', 'Simic', 'Hybrid', 'Tabaxi', 'Tiefling', 'Tortle',
                           'Triton', 'Vampire', 'Vedalken', 'Warforged', 'Yuan-Ti']
         self.tkvar_race = tk.StringVar(self.master)
-        self.tkvar_race.set(self.hero.get_race())
+        self.tkvar_race.set(self.hero.get_stat("race"))
         self.ddl_race = tk.OptionMenu(self.master, self.tkvar_race, *self.race_list)
         self.ddl_race.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
         self.ddl_race["borderwidth"] = 0
@@ -66,7 +61,7 @@ class MainMenu:
         self.alignment_list = ['Lawful Good', 'Neutral Good', 'Chaotic Good', 'Lawful Neutral', 'True Neutral',
                                'Chaotic Neutral', 'Lawful Evil', 'Neutral Evil', 'Chaotic Evil']
         self.tkvar_alignment = tk.StringVar(self.master)
-        self.tkvar_alignment.set(self.hero.get_alignment())
+        self.tkvar_alignment.set(self.hero.get_stat("alignment"))
         self.ddl_alignment = tk.OptionMenu(self.master, self.tkvar_alignment, *self.alignment_list)
         self.ddl_alignment.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
         self.ddl_alignment["borderwidth"] = 0
@@ -83,13 +78,13 @@ class MainMenu:
 
         self.lb_name = tk.Listbox(self.master, height=1, width=30, font=('Scaly Sans', 12))
         self.lb_name.grid(row=0, column=1, columnspan=2, ipady=0, pady=(10, 0), sticky=tk.NW)
-        self.lb_name.insert(tk.END, self.hero.get_name())
+        self.lb_name.insert(tk.END, self.hero.get_stat("name"))
         self.lb_name["borderwidth"] = 1
         self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod(0))
 
         self.lb_level = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 12))
         self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NE)
-        self.lb_level.insert(tk.END, self.hero.get_level())
+        self.lb_level.insert(tk.END, self.hero.get_stat("level"))
         self.lb_level["borderwidth"] = 1
         self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod(1))
 
@@ -132,7 +127,7 @@ class MainMenu:
                         command=lambda: [
                             self.hero.level_up(),
                             self.lb_level.delete(0),
-                            self.lb_level.insert(tk.END, self.hero.get_level())
+                            self.lb_level.insert(tk.END, self.hero.get_stat("level"))
                         ]
         )
         self.bt_lvlup.grid(row=0, column=5, padx=(0,20), pady=(10, 0), sticky=tk.N+tk.W)
@@ -234,6 +229,7 @@ class MainMenu:
             height=0,
             command=lambda: [
                 self.update_box(e_detail.get(), choice),
+                self.hero.save(),
                 temp_ui.destroy()
             ]
         )
@@ -241,16 +237,17 @@ class MainMenu:
 
     def update_box(self, detail, choice):
         if choice == 0:
-            self.hero.set_name(detail)
+            self.hero.set_stat("name", detail)
             self.lb_name.delete(0)
-            self.lb_name.insert(tk.END, self.hero.get_name())
+            self.lb_name.insert(tk.END, self.hero.get_stat("name"))
         elif choice == 1:
             try:
                 if self.hero.set_level(int(detail)):
                     self.lb_level.delete(0)
-                    self.lb_level.insert(tk.END, self.hero.get_level())
+                    self.lb_level.insert(tk.END, self.hero.get_stat("level"))
             except:
                 return
+
 
 root = tk.Tk()
 app = MainMenu(root)
