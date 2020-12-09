@@ -26,10 +26,20 @@ class MainMenu:
         self.l_race = tk.Label(self.master, text="Race", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=9, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
         self.l_align = tk.Label(self.master, text="Alignment", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=13, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
 
+        self.l_text = tk.Label(self.master, text="Description", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=5, columnspan=3, pady=(10, 0), sticky=tk.S)
+        self.l_list = tk.Label(self.master, text="Features", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=9, columnspan=2, pady=(10, 0), sticky=tk.S)
+
+        self.l_str = tk.Label(self.master, text="Strength", bg=self.BG, font=('Scaly Sans', 10)).grid(row=1, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.W)
+        self.l_dex = tk.Label(self.master, text="Dexterity", bg=self.BG, font=('Scaly Sans', 10)).grid(row=2, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_con = tk.Label(self.master, text="Constitution", bg=self.BG, font=('Scaly Sans', 10)).grid(row=3, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_wis = tk.Label(self.master, text="Wisdom", bg=self.BG, font=('Scaly Sans', 10)).grid(row=4, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_int = tk.Label(self.master, text="Intellect", bg=self.BG, font=('Scaly Sans', 10)).grid(row=5, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Charisma", bg=self.BG, font=('Scaly Sans', 10)).grid(row=6, column=0, padx=(10, 0), sticky=tk.W)
+
         # Text Boxes
         # ========================================================
-        self.tb_feats = tk.Text(self.master, height=24, width=30, font=('Scaly Sans', 12))
-        self.tb_feats.grid(row=1, column=0, rowspan=6, columnspan=3, padx=10, pady=(10, 0), sticky=tk.N+tk.W)
+        self.tb_feats = tk.Text(self.master, height=10, width=30, font=('Scaly Sans', 10))
+        self.tb_feats.grid(row=2, column=3, rowspan=6, columnspan=6, padx=(0, 10), sticky=tk.N)
         self.tb_feats.config(state=tk.DISABLED)
 
         # Drop Down Lists
@@ -73,8 +83,8 @@ class MainMenu:
 
         # Listbox
         # ========================================================
-        self.featList = tk.Listbox(self.master, height=20, width=20)
-        self.featList.grid(row=1, column=3, columnspan=6, pady=(10, 0), sticky=tk.N+tk.W)
+        self.featList = tk.Listbox(self.master, height=7, width=15)
+        self.featList.grid(row=2, column=9, rowspan=6, columnspan=2, sticky=tk.N)
         for i in range(self.hero.get_feat_size()):
             self.featList.insert(tk.END, self.hero.get_feat_name(i))
         self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
@@ -87,7 +97,7 @@ class MainMenu:
         self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod(0))
 
         self.lb_level = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 12))
-        self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NE)
+        self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NW)
         self.lb_level.insert(tk.END, self.hero.get_stat("level"))
         self.lb_level["borderwidth"] = 1
         self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod(1))
@@ -135,9 +145,9 @@ class MainMenu:
                             self.lb_level.insert(tk.END, self.hero.get_stat("level"))
                         ]
         )
-        self.bt_lvlup.grid(row=0, column=5, padx=(0,20), pady=(10, 0), sticky=tk.N+tk.W)
-        self.bt_add.grid(row=2, column=3, pady=0, sticky=tk.N+tk.W)
-        self.bt_remove.grid(row=2, column=4, pady=0, sticky=tk.N+tk.W)
+        self.bt_lvlup.grid(row=0, column=5, padx=(0, 20), pady=(10, 0), sticky=tk.NW)
+        self.bt_add.grid(row=11, column=9, sticky=tk.NE)
+        self.bt_remove.grid(row=11, column=10, sticky=tk.NW)
 
     # Methods
     # ========================================================
