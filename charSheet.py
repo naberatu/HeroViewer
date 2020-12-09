@@ -35,12 +35,18 @@ class CharSheet:
         try:
             if stat in numeric_stats:
                 value = int(value)
-                if 0 < value <= 20:
+                if 0 < value <= 20 or stat == "Spd" or stat == "HP":
                     self.stats[stat] = value
+                    if stat == "Max HP":
+                        self.stats["Current HP"] = value
             else:
                 self.stats[stat] = value
-            if stat == "Max HP":
-                self.stats["Current HP"] = value
+                if stat == "race":
+                    if value == "Dwarf" or value == "Gnome" or value == "Halfling":
+                        self.stats["Spd"] = 20
+                    else:
+                        self.stats["Spd"] = 30
+
             pickle.dump(self.stats, open("hero_info.p", "wb"))
         except:
             print("[ER] Cannot modify", stat, "...")
@@ -60,7 +66,7 @@ class CharSheet:
             print("[ER] Cannot retrieve", modifier, "modifier.")
 
     def get_passive_per(self):
-        return self.modifier["wisdom"] + 10
+        return self.get_modifier("wisdom") + 10
 
     def get_ds_success(self):
         return self.ds_success

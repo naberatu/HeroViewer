@@ -62,7 +62,10 @@ class MainMenu:
         self.tkvar_race = tk.StringVar(self.master)
         self.tkvar_race.set(self.hero.get_stat("race"))
         self.ddl_race = tk.OptionMenu(self.master, self.tkvar_race, *self.race_list,
-                                      command=lambda x: self.hero.set_stat("race", self.tkvar_race.get()))
+                                      command=lambda x: [
+                                          self.hero.set_stat("race", self.tkvar_race.get()),
+                                          self.update_box(self.dict_listbox["Spd"], self.hero.get_stat("Spd"))
+                                      ])
         self.ddl_race.config(height=0, width=12, bg="white", font=('Scaly Sans', 8))
         self.ddl_race["borderwidth"] = 0
         self.ddl_race.grid(row=0, column=13, columnspan=2, pady=(10, 0), sticky=tk.NW)
@@ -87,7 +90,7 @@ class MainMenu:
         self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
         self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat(False))
 
-        self.dict_block = {}
+        # self.dict_block = {}
         self.dict_listbox = {"name": tk.Listbox(self.master, height=1, width=25, font=('Scaly Sans', 12))}
         self.dict_listbox["name"].grid(row=0, column=1, columnspan=5, ipady=0, pady=(10, 0), sticky=tk.NW)
         self.dict_listbox["name"].insert(tk.END, self.hero.get_stat("name"))
@@ -99,22 +102,6 @@ class MainMenu:
         self.dict_listbox["level"].insert(tk.END, self.hero.get_stat("level"))
         self.dict_listbox["level"]["borderwidth"] = 1
         self.dict_listbox["level"].bind('<Double-Button-1>', lambda x: self.ui_mod("level"))
-
-        # health and armor block populator loop
-        arow = 2
-        for block in self.hero.get_block():
-            self.dict_block[block] = tk.Listbox(self.master, height=1, width=3,
-                                                      justify='center', font=('Scaly Sans', 10))
-            self.dict_block[block].grid(row=arow, column=5, sticky=tk.W)
-            tk.Label(self.master, text=block, bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=4, sticky=tk.E)
-            if block == "HD":
-                self.dict_block[block].insert(tk.END, str(self.hero.get_stat("level")) + "d"
-                                              + str(self.hero.get_stat(block)))
-            else:
-                self.dict_block[block].insert(tk.END, self.hero.get_stat(block))
-            self.dict_block[block]["borderwidth"] = 1
-            arow += 1
-        # end of loop
 
         # attribute populator loop
         arow = 2
@@ -141,6 +128,24 @@ class MainMenu:
         self.dict_listbox["wisdom"].bind('<Double-Button-1>', lambda x: self.ui_mod("wisdom"))
         self.dict_listbox["intellect"].bind('<Double-Button-1>', lambda x: self.ui_mod("intellect"))
         self.dict_listbox["charisma"].bind('<Double-Button-1>', lambda x: self.ui_mod("charisma"))
+
+        # health and armor block populator loop
+        arow = 2
+        for block in self.hero.get_block():
+            self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
+                                                  justify='center', font=('Scaly Sans', 10))
+            self.dict_listbox[block].grid(row=arow, column=5, sticky=tk.W)
+            tk.Label(self.master, text=block, bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=4, sticky=tk.E)
+            if block == "HD":
+                self.dict_listbox[block].insert(tk.END, str(self.hero.get_stat("level")) + "d"
+                                                + str(self.hero.get_stat(block)))
+            else:
+                self.dict_listbox[block].insert(tk.END, self.hero.get_stat(block))
+            self.dict_listbox[block]["borderwidth"] = 1
+            arow += 1
+        # end of loop
+
+        self.dict_listbox["Spd"].bind('<Double-Button-1>', lambda x: self.ui_mod("Spd"))
 
         # Button(s)
         # ========================================================
@@ -274,6 +279,10 @@ class MainMenu:
                              self.hero.get_feat_desc(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
 
+    def update_box(self, listbox, value):
+        listbox.delete(0)
+        listbox.insert(tk.END, value)
+
     def ui_mod(self, choice):
         temp_ui = self.master
         temp_ui = tk.Toplevel()
@@ -294,15 +303,14 @@ class MainMenu:
         bt_submit = tk.Button(
             master=temp_ui,
             text="Submit",
-            font=('Comic Sans MS', 12),
+            font=('Scaly Sans', 12),
             bg="black",
             fg="white",
             width=5,
             height=0,
             command=lambda: [
                 self.hero.set_stat(choice, e_detail.get()),
-                self.dict_listbox[choice].delete(0),
-                self.dict_listbox[choice].insert(tk.END, self.hero.get_stat(choice)),
+                self.update_box(self.dict_listbox[choice], self.hero.get_stat(choice)),
                 self.refresh_labels(),
                 temp_ui.destroy()
             ]
