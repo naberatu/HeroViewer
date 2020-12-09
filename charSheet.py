@@ -39,7 +39,8 @@ class CharSheet:
         pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
     def set_stat(self, stat, value):
-        numeric_stats = ["level"] + list(self.stats.keys())[13:]
+        numeric_stats = ["level"] + list(self.stats.keys())[6:]
+        print(numeric_stats)
         try:
             if stat in numeric_stats:
                 value = int(value)
