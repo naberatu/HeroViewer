@@ -49,7 +49,7 @@ class StatBlock:
             "performance": -5,
             "persuasion": -5,
             "religion": -5,
-            "sleight of hand": -5,
+            "slt of Hand": -5,
             "stealth": -5,
             "survival": -5
         }
