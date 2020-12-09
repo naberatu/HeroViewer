@@ -191,45 +191,27 @@ class MainMenu:
 
     # Methods
     # ========================================================
-    def refresh_labels(self, attribute=None):
-        skill_map = {
-            "strength": [3],
-            "dexterity": [0, 15, 16],
-            "wisdom": [1, 6, 9, 11, 17],
-            "intellect": [2, 5, 8, 10, 14],
-            "charisma": [4, 7, 12, 13],
-        }
+    def refresh_labels(self):
+        skill_list = ["dexterity", "wisdom", "intellect", "strength", "charisma", "intellect", "wisdom", "charisma",
+                      "intellect", "wisdom", "intellect", "wisdom", "charisma", "charisma", "intellect", "dexterity",
+                      "dexterity", "wisdom"]
+        arow = 2
+        for atr in self.hero.get_attributes():
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(atr), bg=self.BG,
+                     font=('Scaly Sans', 10)).grid(row=arow, column=2, padx=(10, 0))
+            arow += 1
 
-        if attribute:
-            tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
-                     font=('Scaly Sans', 10)).grid(row=self.hero.get_attributes().index(attribute)+2
-                                                   , column=2, padx=(10, 0))
+        arow, scol, index = 9, 0, 0
+        for skill in self.hero.get_skills():
+            tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BG, font=('Scaly Sans', 10)) \
+                .grid(row=arow, column=scol, columnspan=2, padx=(10, 0), sticky=tk.W)
 
-            for index in skill_map[attribute]:
-                if index < 9:
-                    tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
-                             font=('Scaly Sans', 10)) \
-                        .grid(row=(index + 9), column=2, padx=(10, 0))
-                else:
-                    tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
-                             font=('Scaly Sans', 10)) \
-                        .grid(row=index, column=6, padx=(10, 0))
-        else:
-            arow = 2
-            for atr in self.hero.get_attributes():
-                tk.Label(self.master, text="%+d" % self.hero.get_modifier(atr), bg=self.BG,
-                         font=('Scaly Sans', 10)).grid(row=arow, column=2, padx=(10, 0))
-
-            arow, scol = 9, 0
-            for skill in self.hero.get_skills():
-                tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BG, font=('Scaly Sans', 10)) \
-                    .grid(row=arow, column=scol, columnspan=2, padx=(10, 0), sticky=tk.W)
-
-                tk.Label(self.master, text="%+d" % self.hero.get_modifier("strength"), bg=self.BG, font=('Scaly Sans', 10)) \
-                    .grid(row=arow, column=scol + 2, padx=(10, 0))
-                arow += 1
-                if arow > 17:
-                    arow, scol = 9, 4
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(skill_list[index]), bg=self.BG, font=('Scaly Sans', 10)) \
+                .grid(row=arow, column=scol + 2, padx=(10, 0))
+            arow += 1
+            index += 1
+            if arow > 17:
+                arow, scol = 9, 4
 
     def edit_feat(self, adding):
         temp_ui = self.master
@@ -321,7 +303,7 @@ class MainMenu:
                 self.hero.set_stat(choice, e_detail.get()),
                 self.dict_listbox[choice].delete(0),
                 self.dict_listbox[choice].insert(tk.END, self.hero.get_stat(choice)),
-                self.refresh_labels(choice),
+                self.refresh_labels(),
                 temp_ui.destroy()
             ]
         )
