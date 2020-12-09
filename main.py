@@ -31,17 +31,7 @@ class MainMenu:
         tk.Label(self.master, text="Attributes", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
         tk.Label(self.master, text="Skills", bg=self.BG, font=('Scaly Sans', 12)).grid(row=8, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
 
-        # skill labelmaker loop
-        arow, scol, temp = 9, 0, 10
-        for skill in self.hero.get_skills():
-            tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BG, font=('Scaly Sans', 10))\
-                .grid(row=arow, column=scol, columnspan=2, padx=(temp, 0), sticky=tk.W)
-
-            tk.Label(self.master, text="%+d" % self.hero.get_modifier("strength"), bg=self.BG, font=('Scaly Sans', 10)) \
-                .grid(row=arow, column=scol + 2, padx=(10, 0))
-            arow += 1
-            if arow > 17:
-                arow, scol, temp = 9, 4, 0
+        self.refresh_labels()
 
         # Text Boxes
         # ========================================================
@@ -97,7 +87,6 @@ class MainMenu:
         self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
         self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat(False))
 
-        self.dict_mods = {}
         self.dict_block = {}
         self.dict_listbox = {"name": tk.Listbox(self.master, height=1, width=25, font=('Scaly Sans', 12))}
         self.dict_listbox["name"].grid(row=0, column=1, columnspan=5, ipady=0, pady=(10, 0), sticky=tk.NW)
@@ -114,7 +103,6 @@ class MainMenu:
         # health and armor block populator loop
         arow = 2
         for block in self.hero.get_block():
-
             self.dict_block[block] = tk.Listbox(self.master, height=1, width=3,
                                                       justify='center', font=('Scaly Sans', 10))
             self.dict_block[block].grid(row=arow, column=5, sticky=tk.W)
@@ -134,9 +122,8 @@ class MainMenu:
             tk.Label(self.master, text=attribute[0].upper() + attribute[1:], bg=self.BG,
                      font=('Scaly Sans', 10)).grid(row=arow, column=0, columnspan=2, padx=(10, 0), sticky=tk.W)
 
-            self.dict_mods[attribute] = tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute),
-                                                 bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=2,
-                                                                                           padx=(10, 0))
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
+                     font=('Scaly Sans', 10)).grid(row=arow, column=2, padx=(10, 0))
 
             self.dict_listbox[attribute] = tk.Listbox(self.master, height=1, width=3,
                                                       justify='center', font=('Scaly Sans', 10))
@@ -204,6 +191,46 @@ class MainMenu:
 
     # Methods
     # ========================================================
+    def refresh_labels(self, attribute=None):
+        skill_map = {
+            "strength": [3],
+            "dexterity": [0, 15, 16],
+            "wisdom": [1, 6, 9, 11, 17],
+            "intellect": [2, 5, 8, 10, 14],
+            "charisma": [4, 7, 12, 13],
+        }
+
+        if attribute:
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
+                     font=('Scaly Sans', 10)).grid(row=self.hero.get_attributes().index(attribute)+2
+                                                   , column=2, padx=(10, 0))
+
+            for index in skill_map[attribute]:
+                if index < 9:
+                    tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
+                             font=('Scaly Sans', 10)) \
+                        .grid(row=(index + 9), column=2, padx=(10, 0))
+                else:
+                    tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
+                             font=('Scaly Sans', 10)) \
+                        .grid(row=index, column=6, padx=(10, 0))
+        else:
+            arow = 2
+            for atr in self.hero.get_attributes():
+                tk.Label(self.master, text="%+d" % self.hero.get_modifier(atr), bg=self.BG,
+                         font=('Scaly Sans', 10)).grid(row=arow, column=2, padx=(10, 0))
+
+            arow, scol = 9, 0
+            for skill in self.hero.get_skills():
+                tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BG, font=('Scaly Sans', 10)) \
+                    .grid(row=arow, column=scol, columnspan=2, padx=(10, 0), sticky=tk.W)
+
+                tk.Label(self.master, text="%+d" % self.hero.get_modifier("strength"), bg=self.BG, font=('Scaly Sans', 10)) \
+                    .grid(row=arow, column=scol + 2, padx=(10, 0))
+                arow += 1
+                if arow > 17:
+                    arow, scol = 9, 4
+
     def edit_feat(self, adding):
         temp_ui = self.master
         temp_ui = tk.Toplevel()
@@ -294,6 +321,7 @@ class MainMenu:
                 self.hero.set_stat(choice, e_detail.get()),
                 self.dict_listbox[choice].delete(0),
                 self.dict_listbox[choice].insert(tk.END, self.hero.get_stat(choice)),
+                self.refresh_labels(choice),
                 temp_ui.destroy()
             ]
         )

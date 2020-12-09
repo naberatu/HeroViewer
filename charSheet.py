@@ -51,30 +51,6 @@ class CharSheet:
         else:
             print("[ER] That stat is unavailable!")
 
-    def fill_skills(self):
-        try:
-            self.stats["acrobatics"] = self.modifier["dexterity"]
-            self.stats["animal Handling"] = self.modifier["wisdom"]
-            self.stats["arcana"] = self.modifier["intellect"]
-            self.stats["athletics"] = self.modifier["strength"]
-            self.stats["deception"] = self.modifier["charisma"]
-            self.stats["history"] = self.modifier["intellect"]
-            self.stats["insight"] = self.modifier["wisdom"]
-            self.stats["intimidation"] = self.modifier["charisma"]
-            self.stats["investigation"] = self.modifier["intellect"]
-            self.stats["medicine"] = self.modifier["wisdom"]
-            self.stats["nature"] = self.modifier["intellect"]
-            self.stats["perception"] = self.modifier["wisdom"]
-            self.stats["performance"] = self.modifier["charisma"]
-            self.stats["persuasion"] = self.modifier["charisma"]
-            self.stats["religion"] = self.modifier["intellect"]
-            self.stats["sleight of hand"] = self.modifier["dexterity"]
-            self.stats["stealth"] = self.modifier["dexterity"]
-            self.stats["survival"] = self.modifier["wisdom"]
-            pickle.dump(self.stats, open("hero_info.p", "wb"))
-        except:
-            print("[ER] Could not fill skills.")
-
     # Accessors
     # =========================================================
     def get_modifier(self, modifier):
