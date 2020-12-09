@@ -61,9 +61,7 @@ class CharSheet:
 
     def calc_modifier(self, modifier):
         try:
-            if 0 < self.stats[modifier] <= 20:
-                return math.floor(self.stats[modifier] - 10 / 2)
-            raise Exception
+            return math.floor((self.stats[modifier] - 10) / 2)
         except:
             print("[ER] Could not calculate modifier for", modifier)
 
