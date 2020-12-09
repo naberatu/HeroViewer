@@ -39,10 +39,12 @@ class CharSheet:
         pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
     def set_stat(self, stat, value):
-        numeric_stats = ["level", list(self.feats_traits.keys())[13:]]
+        numeric_stats = ["level"] + list(self.stats.keys())[13:]
         try:
-            if stat in numeric_stats and type(value) == int and 0 < value <= 20:
-                self.stats[stat] = int(value)
+            if stat in numeric_stats:
+                value = int(value)
+                if 0 < value <= 20:
+                    self.stats[stat] = value
             else:
                 self.stats[stat] = value
             if stat == "Max HP":
