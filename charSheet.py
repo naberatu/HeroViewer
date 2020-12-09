@@ -32,7 +32,6 @@ class CharSheet:
 
     def set_stat(self, stat, value):
         numeric_stats = ["level"] + list(self.stats.keys())[6:]
-        print(numeric_stats)
         try:
             if stat in numeric_stats:
                 value = int(value)
@@ -107,6 +106,9 @@ class CharSheet:
 
     def get_skills(self):
         return list(self.stats.keys())[19:]
+
+    def get_block(self):
+        return list(self.stats.keys())[7:11]
 
     # Mutators
     # =========================================================

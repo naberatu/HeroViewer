@@ -15,11 +15,11 @@ class StatBlock:
             "alignment": "",
 
             # Character Stats
-            "armor class": 0,
-            "speed": 0,
-            "current hp": 0,
-            "max hp": 0,
-            "hit dice": 0,
+            "Max HP": 5,
+            "HP": 5,
+            "AC": 10,
+            "Spd": 30,
+            "HD": 6,
 
             # Misc Stats
             "inspiration": 0,
@@ -35,7 +35,7 @@ class StatBlock:
 
             # Skills
             "acrobatics": -5,
-            "animal Handling": -5,
+            "anml Hdlg": -5,
             "arcana": -5,
             "athletics": -5,
             "deception": -5,

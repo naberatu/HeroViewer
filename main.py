@@ -25,27 +25,28 @@ class MainMenu:
         tk.Label(self.master, text="Race", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=11, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
         tk.Label(self.master, text="Alignment", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=14, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
 
-        tk.Label(self.master, text="Description", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=7, columnspan=3, pady=(10, 0), sticky=tk.S)
-        tk.Label(self.master, text="Features", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=11, columnspan=2, pady=(10, 0), sticky=tk.S)
+        tk.Label(self.master, text="Description", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=8, columnspan=3, pady=(10, 0), sticky=tk.S)
+        tk.Label(self.master, text="Features", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=12, columnspan=2, pady=(10, 0), sticky=tk.S)
 
         tk.Label(self.master, text="Attributes", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
         tk.Label(self.master, text="Skills", bg=self.BG, font=('Scaly Sans', 12)).grid(row=8, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
 
-        tk.Label(self.master, text="HP", bg=self.BG, font=('Scaly Sans', 10)).grid(row=2, column=3, sticky=tk.W)
-
         # skill labelmaker loop
-        arow, scol = 9, 0
+        arow, scol, temp = 9, 0, 10
         for skill in self.hero.get_skills():
             tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BG, font=('Scaly Sans', 10))\
-                .grid(row=arow, column=scol, columnspan=2, padx=(10, 0), sticky=tk.W)
+                .grid(row=arow, column=scol, columnspan=2, padx=(temp, 0), sticky=tk.W)
+
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier("strength"), bg=self.BG, font=('Scaly Sans', 10)) \
+                .grid(row=arow, column=scol + 2, padx=(10, 0))
             arow += 1
             if arow > 17:
-                arow, scol = 9, 3
+                arow, scol, temp = 9, 3, 0
 
         # Text Boxes
         # ========================================================
         self.tb_feats = tk.Text(self.master, height=10, width=30, font=('Scaly Sans', 10))
-        self.tb_feats.grid(row=2, column=5, rowspan=6, columnspan=6, padx=(0, 10), sticky=tk.N)
+        self.tb_feats.grid(row=2, column=6, rowspan=6, columnspan=6, padx=(0, 10), sticky=tk.N)
         self.tb_feats.config(state=tk.DISABLED)
 
         # Drop Down Lists
@@ -90,15 +91,16 @@ class MainMenu:
         # Listbox
         # ========================================================
         self.featList = tk.Listbox(self.master, height=7, width=15)
-        self.featList.grid(row=2, column=11, rowspan=6, columnspan=2, sticky=tk.N)
+        self.featList.grid(row=2, column=12, rowspan=6, columnspan=2, sticky=tk.N)
         for i in range(self.hero.get_feat_size()):
             self.featList.insert(tk.END, self.hero.get_feat_name(i))
         self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
         self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat(False))
 
         self.dict_mods = {}
+        self.dict_block = {}
         self.dict_listbox = {"name": tk.Listbox(self.master, height=1, width=25, font=('Scaly Sans', 12))}
-        self.dict_listbox["name"].grid(row=0, column=1, columnspan=3, ipady=0, pady=(10, 0), sticky=tk.NW)
+        self.dict_listbox["name"].grid(row=0, column=1, columnspan=4, ipady=0, pady=(10, 0), sticky=tk.NW)
         self.dict_listbox["name"].insert(tk.END, self.hero.get_stat("name"))
         self.dict_listbox["name"]["borderwidth"] = 1
         self.dict_listbox["name"].bind('<Double-Button-1>', lambda x: self.ui_mod("name"))
@@ -109,19 +111,41 @@ class MainMenu:
         self.dict_listbox["level"]["borderwidth"] = 1
         self.dict_listbox["level"].bind('<Double-Button-1>', lambda x: self.ui_mod("level"))
 
+        # health and armor block populator loop
+        arow = 2
+        for block in self.hero.get_block():
+
+            self.dict_block[block] = tk.Listbox(self.master, height=1, width=3,
+                                                      justify='center', font=('Scaly Sans', 10))
+            self.dict_block[block].grid(row=arow, column=4, sticky=tk.W)
+            tk.Label(self.master, text=block, bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=3, sticky=tk.E)
+            if block == "HD":
+                self.dict_block[block].insert(tk.END, str(self.hero.get_stat("level")) + "d"
+                                              + str(self.hero.get_stat(block)))
+            else:
+                self.dict_block[block].insert(tk.END, self.hero.get_stat(block))
+            self.dict_block[block]["borderwidth"] = 1
+            arow += 1
+        # end of loop
+
+        self.dict_block["Max HP"] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
+        self.dict_block["Max HP"].grid(row=2, column=5, sticky=tk.W)
+        self.dict_block["Max HP"].insert(tk.END, "/" + str(self.hero.get_stat("Max HP")))
+        self.dict_block["Max HP"]["borderwidth"] = 1
+
         # attribute populator loop
         arow = 2
         for attribute in self.hero.get_attributes():
             tk.Label(self.master, text=attribute[0].upper() + attribute[1:], bg=self.BG,
-                     font=('Scaly Sans', 10)).grid(row=arow, column=0, padx=(10, 0), sticky=tk.W)
+                     font=('Scaly Sans', 10)).grid(row=arow, column=0, columnspan=2, padx=(10, 0), sticky=tk.W)
 
             self.dict_mods[attribute] = tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute),
-                                                 bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=1,
-                                                                                           padx=(10, 0), sticky=tk.W)
+                                                 bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=2,
+                                                                                           padx=(10, 0))
 
             self.dict_listbox[attribute] = tk.Listbox(self.master, height=1, width=3,
                                                       justify='center', font=('Scaly Sans', 10))
-            self.dict_listbox[attribute].grid(row=arow, column=2, padx=(10, 0), sticky=tk.W)
+            self.dict_listbox[attribute].grid(row=arow, column=3, sticky=tk.W)
             self.dict_listbox[attribute].insert(tk.END, self.hero.get_stat(attribute))
             self.dict_listbox[attribute]["borderwidth"] = 1
 
@@ -179,8 +203,8 @@ class MainMenu:
                 self.dict_listbox["level"].insert(tk.END, self.hero.get_stat("level"))
             ]
         )
-        self.bt_add.grid(row=7, column=11, sticky=tk.NE)
-        self.bt_remove.grid(row=7, column=12, sticky=tk.N)
+        self.bt_add.grid(row=7, column=12, sticky=tk.NE)
+        self.bt_remove.grid(row=7, column=13, sticky=tk.N)
         self.bt_lvlup.grid(row=0, column=7, padx=(0, 20), pady=(10, 0), sticky=tk.NW)
 
     # Methods
