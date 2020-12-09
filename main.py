@@ -132,17 +132,28 @@ class MainMenu:
         self.dict_listbox["level"]["borderwidth"] = 1
         self.dict_listbox["level"].bind('<Double-Button-1>', lambda x: self.ui_mod("level"))
 
-        self.dict_listbox["strength"] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
-        self.dict_listbox["strength"].grid(row=2, column=2, padx=(10, 0), sticky=tk.W)
-        self.dict_listbox["strength"].insert(tk.END, self.hero.get_stat("strength"))
-        self.dict_listbox["strength"]["borderwidth"] = 1
-        self.dict_listbox["strength"].bind('<Double-Button-1>', lambda x: self.ui_mod("strength"))
+        atr_row = 2
+        for attribute in self.hero.get_attributes():
+            self.dict_listbox[attribute] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
+            self.dict_listbox[attribute].grid(row=atr_row, column=2, padx=(10, 0), sticky=tk.W)
+            self.dict_listbox[attribute].insert(tk.END, self.hero.get_stat(attribute))
+            self.dict_listbox[attribute]["borderwidth"] = 1
+            self.dict_listbox[attribute].bind('<Double-Button-1>', lambda x: self.ui_mod("strength"))
+            atr_row += 1
 
-        self.dict_listbox["dexterity"] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
-        self.dict_listbox["dexterity"].grid(row=3, column=2, padx=(10, 0), sticky=tk.W)
-        self.dict_listbox["dexterity"].insert(tk.END, self.hero.get_stat("dexterity"))
-        self.dict_listbox["dexterity"]["borderwidth"] = 1
-        self.dict_listbox["dexterity"].bind('<Double-Button-1>', lambda x: self.ui_mod("dexterity"))
+        print(self.dict_listbox)
+
+        # self.dict_listbox["strength"] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
+        # self.dict_listbox["strength"].grid(row=2, column=2, padx=(10, 0), sticky=tk.W)
+        # self.dict_listbox["strength"].insert(tk.END, self.hero.get_stat("strength"))
+        # self.dict_listbox["strength"]["borderwidth"] = 1
+        # self.dict_listbox["strength"].bind('<Double-Button-1>', lambda x: self.ui_mod("strength"))
+        #
+        # self.dict_listbox["dexterity"] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
+        # self.dict_listbox["dexterity"].grid(row=3, column=2, padx=(10, 0), sticky=tk.W)
+        # self.dict_listbox["dexterity"].insert(tk.END, self.hero.get_stat("dexterity"))
+        # self.dict_listbox["dexterity"]["borderwidth"] = 1
+        # self.dict_listbox["dexterity"].bind('<Double-Button-1>', lambda x: self.ui_mod("dexterity"))
 
         # Button(s)
         # ========================================================

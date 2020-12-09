@@ -115,11 +115,14 @@ class CharSheet:
     def get_feat_size(self):
         return len(self.feats_traits)
 
-    def edit_feat(self, pair):
-        self.feats_traits[pair[0]] = pair[1]
+    def get_attributes(self):
+        return list(self.stats.keys())[13:19]
 
     # Mutators
     # =========================================================
+    def edit_feat(self, pair):
+        self.feats_traits[pair[0]] = pair[1]
+
     def level_up(self):
         if self.stats["level"] < 20:
             self.stats["level"] += 1
