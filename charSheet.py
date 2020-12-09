@@ -159,3 +159,10 @@ class CharSheet:
 
         if success:
             pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
+
+    def del_feat(self, name):
+        try:
+            del self.feats_traits[name]
+            pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
+        except:
+            print("[ER] Could not delete", name)

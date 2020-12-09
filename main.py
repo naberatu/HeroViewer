@@ -26,7 +26,7 @@ class MainMenu:
         self.l_race = tk.Label(self.master, text="Race", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=9, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
         self.l_align = tk.Label(self.master, text="Alignment", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=13, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
 
-        # Textbox
+        # Text Boxes
         # ========================================================
         self.tb_feats = tk.Text(self.master, height=24, width=30, font=('Scaly Sans', 12))
         self.tb_feats.grid(row=1, column=0, rowspan=6, columnspan=3, padx=10, pady=(10, 0), sticky=tk.N+tk.W)
@@ -102,9 +102,7 @@ class MainMenu:
                         fg="white",
                         width=3,
                         height=0,
-                        command=lambda: [
-                            self.edit_feat(True)
-                        ]
+                        command=lambda: self.edit_feat(True)
                     )
         self.bt_remove = tk.Button( # our removing button
                         master=self.master,
@@ -115,10 +113,13 @@ class MainMenu:
                         width=3,
                         height=0,
                         command=lambda: [
-                            self.featList.delete(self.featList.curselection())
+                            self.hero.del_feat(self.featList.get(self.featList.curselection())),
+                            self.tb_feats.config(state=tk.NORMAL),      # makes it editable.
+                            self.tb_feats.delete("1.0", tk.END),        # clears it.
+                            self.tb_feats.config(state=tk.DISABLED),    # default state
+                            self.featList.delete(self.featList.curselection()),
                         ]
                     )
-
         self.bt_lvlup = tk.Button(
                         master=self.master,
                         text="U",
@@ -254,5 +255,4 @@ class MainMenu:
 
 root = tk.Tk()
 app = MainMenu(root)
-# root.protocol("WM_DELETE_WINDOW", app.hero.save())
 root.mainloop()
