@@ -125,13 +125,6 @@ class CharSheet:
             self.stats["level"] += 1
             pickle.dump(self.stats, open("hero_info.p", "wb"))
 
-    def set_level(self, num):
-        if 0 < num <= 20:
-            self.stats["level"] = num
-            pickle.dump(self.stats, open("hero_info.p", "wb"))
-            return True
-        return False
-
     def ds_success(self):
         self.ds_success += 1
         pickle.dump(self.stats, open("hero_info.p", "wb"))

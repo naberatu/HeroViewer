@@ -280,12 +280,8 @@ class MainMenu:
             self.lb_name.delete(0)
             self.lb_name.insert(tk.END, self.hero.get_stat("name"))
         elif choice == "level":
-            try:
-                if self.hero.set_level(int(detail)):
-                    self.lb_level.delete(0)
-                    self.lb_level.insert(tk.END, self.hero.get_stat("level"))
-            except:
-                return
+            self.lb_level.delete(0)
+            self.lb_level.insert(tk.END, self.hero.get_stat("level"))
 
 
 root = tk.Tk()
