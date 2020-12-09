@@ -118,6 +118,9 @@ class CharSheet:
     def get_attributes(self):
         return list(self.stats.keys())[13:19]
 
+    def get_skills(self):
+        return list(self.stats.keys())[19:]
+
     # Mutators
     # =========================================================
     def edit_feat(self, pair):
