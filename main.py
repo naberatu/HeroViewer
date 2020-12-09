@@ -186,8 +186,8 @@ class MainMenu:
             borderwidth=0,
             command=lambda: [
                 self.hero.level_up(),
-                self.dict_listbox["level"].delete(0),
-                self.dict_listbox["level"].insert(tk.END, self.hero.get_stat("level"))
+                self.update_box(self.dict_listbox["level"], self.hero.get_stat("level")),
+                self.update_box(self.dict_listbox["HD"], self.hero.get_stat("HD"), True)
             ]
         )
         self.bt_add.grid(row=7, column=13, sticky=tk.NE)
@@ -279,9 +279,12 @@ class MainMenu:
                              self.hero.get_feat_desc(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
 
-    def update_box(self, listbox, value):
+    def update_box(self, listbox, value, hit_dice=None):
         listbox.delete(0)
-        listbox.insert(tk.END, value)
+        if not hit_dice:
+            listbox.insert(tk.END, value)
+        else:
+            listbox.insert(tk.END, str(self.hero.get_stat("level")) + "d" + str(self.hero.get_stat("HD")))
 
     def ui_mod(self, choice):
         temp_ui = self.master
