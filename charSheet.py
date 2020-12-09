@@ -11,14 +11,6 @@ class CharSheet:
             self.stats = StatBlock().get()
             pickle.dump(self.stats, open("hero_info.p", "wb"))
 
-        self.modifier = {
-            "strength": self.calc_modifier("strength"),
-            "dexterity": self.calc_modifier("dexterity"),
-            "constitution": self.calc_modifier("constitution"),
-            "wisdom": self.calc_modifier("wisdom"),
-            "intellect": self.calc_modifier("intellect"),
-            "charisma": self.calc_modifier("charisma"),
-        }
         self.ds_success = 0
         self.ds_fail = 0
 
@@ -60,12 +52,6 @@ class CharSheet:
         else:
             print("[ER] That stat is unavailable!")
 
-    def calc_modifier(self, modifier):
-        try:
-            return math.floor((self.stats[modifier] - 10) / 2)
-        except:
-            print("[ER] Could not calculate modifier for", modifier)
-
     def fill_skills(self):
         try:
             self.stats["acrobatics"] = self.modifier["dexterity"]
@@ -94,7 +80,7 @@ class CharSheet:
     # =========================================================
     def get_modifier(self, modifier):
         try:
-            return self.modifier[modifier]
+            return math.floor((self.stats[modifier] - 10) / 2)
         except:
             print("[ER] Cannot retrieve", modifier, "modifier.")
 
