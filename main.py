@@ -1,7 +1,6 @@
 
 import tkinter as tk
 from charSheet import CharSheet
-from tkinter import font
 
 
 class MainMenu:
@@ -118,13 +117,20 @@ class MainMenu:
         self.lb_name.grid(row=0, column=1, columnspan=2, ipady=0, pady=(10, 0), sticky=tk.NW)
         self.lb_name.insert(tk.END, self.hero.get_stat("name"))
         self.lb_name["borderwidth"] = 1
-        self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod(0))
+        self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod("name"))
 
         self.lb_level = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 12))
         self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NW)
         self.lb_level.insert(tk.END, self.hero.get_stat("level"))
         self.lb_level["borderwidth"] = 1
-        self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod(1))
+        self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod("level"))
+
+        self.lb_str = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
+        self.lb_str.grid(row=2, column=1, sticky=tk.W)
+        self.lb_str.insert(tk.END, self.hero.get_stat("strength"))
+        self.lb_str["borderwidth"] = 1
+        self.lb_str.bind('<Double-Button-1>', lambda x: self.ui_mod("strength"))
+
 
         # Button(s)
         # ========================================================
@@ -241,11 +247,7 @@ class MainMenu:
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
 
-        detail = "Edit "
-        if choice == 0:
-            detail += "Name"
-        elif choice == 1:
-            detail += "Level"
+        detail = "Edit " + choice[0].upper() + choice[1:]
 
         temp_ui.title(detail)  # Window title
         temp_ui.geometry("250x125+300+200")  # default window size
@@ -266,18 +268,18 @@ class MainMenu:
             width=5,
             height=0,
             command=lambda: [
-                self.update_box(e_detail.get(), choice),
+                self.update_box(choice, e_detail.get()),
                 temp_ui.destroy()
             ]
         )
         bt_submit.grid(row=2, column=0, pady=(10, 0), sticky=tk.N)
 
-    def update_box(self, detail, choice):
-        if choice == 0:
-            self.hero.set_stat("name", detail)
+    def update_box(self, choice, detail):
+        self.hero.set_stat(choice, detail)
+        if choice == "name":
             self.lb_name.delete(0)
             self.lb_name.insert(tk.END, self.hero.get_stat("name"))
-        elif choice == 1:
+        elif choice == "level":
             try:
                 if self.hero.set_level(int(detail)):
                     self.lb_level.delete(0)
