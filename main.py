@@ -106,6 +106,8 @@ class MainMenu:
 
         # Listbox
         # ========================================================
+        self.list_of_lists = {}
+
         self.featList = tk.Listbox(self.master, height=7, width=15)
         self.featList.grid(row=2, column=9, rowspan=6, columnspan=2, sticky=tk.N)
         for i in range(self.hero.get_feat_size()):
@@ -118,19 +120,21 @@ class MainMenu:
         self.lb_name.insert(tk.END, self.hero.get_stat("name"))
         self.lb_name["borderwidth"] = 1
         self.lb_name.bind('<Double-Button-1>', lambda x: self.ui_mod("name"))
+        self.list_of_lists["name"] = self.lb_name
 
         self.lb_level = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 12))
         self.lb_level.grid(row=0, column=4, pady=(10, 0), sticky=tk.NW)
         self.lb_level.insert(tk.END, self.hero.get_stat("level"))
         self.lb_level["borderwidth"] = 1
         self.lb_level.bind('<Double-Button-1>', lambda x: self.ui_mod("level"))
+        self.list_of_lists["level"] = self.lb_level
 
         self.lb_str = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 10))
         self.lb_str.grid(row=2, column=1, sticky=tk.W)
         self.lb_str.insert(tk.END, self.hero.get_stat("strength"))
         self.lb_str["borderwidth"] = 1
         self.lb_str.bind('<Double-Button-1>', lambda x: self.ui_mod("strength"))
-
+        self.list_of_lists["strength"] = self.lb_str
 
         # Button(s)
         # ========================================================
@@ -268,20 +272,13 @@ class MainMenu:
             width=5,
             height=0,
             command=lambda: [
-                self.update_box(choice, e_detail.get()),
+                self.hero.set_stat(choice, e_detail.get()),
+                self.list_of_lists[choice].delete(0),
+                self.list_of_lists[choice].insert(tk.END, self.hero.get_stat(choice)),
                 temp_ui.destroy()
             ]
         )
         bt_submit.grid(row=2, column=0, pady=(10, 0), sticky=tk.N)
-
-    def update_box(self, choice, detail):
-        self.hero.set_stat(choice, detail)
-        if choice == "name":
-            self.lb_name.delete(0)
-            self.lb_name.insert(tk.END, self.hero.get_stat("name"))
-        elif choice == "level":
-            self.lb_level.delete(0)
-            self.lb_level.insert(tk.END, self.hero.get_stat("level"))
 
 
 root = tk.Tk()
