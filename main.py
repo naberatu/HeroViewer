@@ -178,7 +178,6 @@ class MainMenu:
                 self.featList.delete(position) if e_name.get() and not adding else 0,
                 self.featList.insert(position, e_name.get()) if e_name.get() else 0,
                 self.write_feat_desc() if not e_name.get() and e_desc.get() else 0,
-                # self.hero.save(),
                 temp_ui.destroy()
             ]
         )
