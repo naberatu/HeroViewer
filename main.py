@@ -1,7 +1,7 @@
 
 import tkinter as tk
 from charSheet import CharSheet
-from ui_addFeat import AddFeat
+from tkinter import font
 
 
 class MainMenu:
@@ -13,8 +13,8 @@ class MainMenu:
         # Window Details
         # ========================================================
         self.master.title("Hero Viewer")    # Window title
-        self.master.geometry("960x540+200+100")      # default window size
-        self.master.minsize(480, 270)
+        self.master.geometry("1000x450+200+100")      # default window size
+        self.master.minsize(1000, 450)
         self.master.configure(bg=self.BG)   # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
@@ -29,12 +29,36 @@ class MainMenu:
         self.l_text = tk.Label(self.master, text="Description", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=5, columnspan=3, pady=(10, 0), sticky=tk.S)
         self.l_list = tk.Label(self.master, text="Features", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=9, columnspan=2, pady=(10, 0), sticky=tk.S)
 
-        self.l_str = tk.Label(self.master, text="Strength", bg=self.BG, font=('Scaly Sans', 10)).grid(row=1, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.W)
-        self.l_dex = tk.Label(self.master, text="Dexterity", bg=self.BG, font=('Scaly Sans', 10)).grid(row=2, column=0, padx=(10, 0), sticky=tk.W)
-        self.l_con = tk.Label(self.master, text="Constitution", bg=self.BG, font=('Scaly Sans', 10)).grid(row=3, column=0, padx=(10, 0), sticky=tk.W)
-        self.l_wis = tk.Label(self.master, text="Wisdom", bg=self.BG, font=('Scaly Sans', 10)).grid(row=4, column=0, padx=(10, 0), sticky=tk.W)
-        self.l_int = tk.Label(self.master, text="Intellect", bg=self.BG, font=('Scaly Sans', 10)).grid(row=5, column=0, padx=(10, 0), sticky=tk.W)
-        self.l_cha = tk.Label(self.master, text="Charisma", bg=self.BG, font=('Scaly Sans', 10)).grid(row=6, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_attr = tk.Label(self.master, text="Attributes", bg=self.BG, font=('Scaly Sans', 12)).grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
+        self.l_str = tk.Label(self.master, text="Strength", bg=self.BG, font=('Scaly Sans', 10)).grid(row=2, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_dex = tk.Label(self.master, text="Dexterity", bg=self.BG, font=('Scaly Sans', 10)).grid(row=3, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_con = tk.Label(self.master, text="Constitution", bg=self.BG, font=('Scaly Sans', 10)).grid(row=4, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_wis = tk.Label(self.master, text="Wisdom", bg=self.BG, font=('Scaly Sans', 10)).grid(row=5, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_int = tk.Label(self.master, text="Intellect", bg=self.BG, font=('Scaly Sans', 10)).grid(row=6, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Charisma", bg=self.BG, font=('Scaly Sans', 10)).grid(row=7, column=0, padx=(10, 0), sticky=tk.W)
+
+        self.l_skill = tk.Label(self.master, text="Skills", bg=self.BG, font=('Scaly Sans', 12)).grid(row=8, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Acrobatics", bg=self.BG, font=('Scaly Sans', 10)).grid(row=9, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Animal Handling", bg=self.BG, font=('Scaly Sans', 10)).grid(row=10, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Arcana", bg=self.BG, font=('Scaly Sans', 10)).grid(row=11, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Athletics", bg=self.BG, font=('Scaly Sans', 10)).grid(row=12, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Deception", bg=self.BG, font=('Scaly Sans', 10)).grid(row=13, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="History", bg=self.BG, font=('Scaly Sans', 10)).grid(row=14, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Insight", bg=self.BG, font=('Scaly Sans', 10)).grid(row=15, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Intimidation", bg=self.BG, font=('Scaly Sans', 10)).grid(row=16, column=0, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Investigation", bg=self.BG, font=('Scaly Sans', 10)).grid(row=17, column=0, padx=(10, 0), sticky=tk.W)
+
+        self.l_cha = tk.Label(self.master, text="Medicine", bg=self.BG, font=('Scaly Sans', 10)).grid(row=9, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Nature", bg=self.BG, font=('Scaly Sans', 10)).grid(row=10, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Perception", bg=self.BG, font=('Scaly Sans', 10)).grid(row=11, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Performance", bg=self.BG, font=('Scaly Sans', 10)).grid(row=12, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Persuasion", bg=self.BG, font=('Scaly Sans', 10)).grid(row=13, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Religion", bg=self.BG, font=('Scaly Sans', 10)).grid(row=14, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Sleight of Hand", bg=self.BG, font=('Scaly Sans', 10)).grid(row=15, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Stealth", bg=self.BG, font=('Scaly Sans', 10)).grid(row=16, column=2, padx=(10, 0), sticky=tk.W)
+        self.l_cha = tk.Label(self.master, text="Survival", bg=self.BG, font=('Scaly Sans', 10)).grid(row=17, column=2, padx=(10, 0), sticky=tk.W)
+
+
 
         # Text Boxes
         # ========================================================
