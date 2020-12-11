@@ -95,13 +95,13 @@ class MainMenu:
         self.dict_listbox["name"].grid(row=0, column=1, columnspan=5, ipady=0, pady=(10, 0), sticky=tk.NW)
         self.dict_listbox["name"].insert(tk.END, self.hero.get_stat("name"))
         self.dict_listbox["name"]["borderwidth"] = 1
-        self.dict_listbox["name"].bind('<Double-Button-1>', lambda x: self.ui_mod("name"))
+        self.dict_listbox["name"].bind('<Double-Button-1>', lambda x: self.set_box("name"))
 
         self.dict_listbox["level"] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 12))
         self.dict_listbox["level"].grid(row=0, column=7, pady=(10, 0), sticky=tk.NW)
         self.dict_listbox["level"].insert(tk.END, self.hero.get_stat("level"))
         self.dict_listbox["level"]["borderwidth"] = 1
-
+        self.dict_listbox["level"].bind('<Double-Button-1>', lambda x: self.set_box("level", False, True))
 
         # attribute populator loop
         arow = 2
@@ -122,16 +122,15 @@ class MainMenu:
         # end of loop
 
         # lambda assignment
-        self.dict_listbox["strength"].bind('<Double-Button-1>', lambda x: self.ui_mod("strength"))
-        self.dict_listbox["dexterity"].bind('<Double-Button-1>', lambda x: self.ui_mod("dexterity"))
-        self.dict_listbox["constitution"].bind('<Double-Button-1>', lambda x: self.ui_mod("constitution"))
-        self.dict_listbox["wisdom"].bind('<Double-Button-1>', lambda x: self.ui_mod("wisdom"))
-        self.dict_listbox["intellect"].bind('<Double-Button-1>', lambda x: self.ui_mod("intellect"))
-        self.dict_listbox["charisma"].bind('<Double-Button-1>', lambda x: self.ui_mod("charisma"))
+        self.dict_listbox["strength"].bind('<Double-Button-1>', lambda x: self.set_box("strength"))
+        self.dict_listbox["dexterity"].bind('<Double-Button-1>', lambda x: self.set_box("dexterity"))
+        self.dict_listbox["constitution"].bind('<Double-Button-1>', lambda x: self.set_box("constitution"))
+        self.dict_listbox["wisdom"].bind('<Double-Button-1>', lambda x: self.set_box("wisdom"))
+        self.dict_listbox["intellect"].bind('<Double-Button-1>', lambda x: self.set_box("intellect"))
+        self.dict_listbox["charisma"].bind('<Double-Button-1>', lambda x: self.set_box("charisma"))
 
         # health and armor block populator loop
         arow = 2
-        print(self.hero.get_block())
         for block in self.hero.get_block():
             self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
                                                   justify='center', font=('Scaly Sans', 10))
@@ -146,9 +145,9 @@ class MainMenu:
             arow += 1
         # end of loop
 
-        self.dict_listbox["Spd"].bind('<Double-Button-1>', lambda x: self.ui_mod("Spd"))
-        self.dict_listbox["HD"].bind('<Double-Button-1>', lambda x: self.ui_mod("HD", True))
-        self.dict_listbox["level"].bind('<Double-Button-1>', lambda x: self.ui_mod("level", False, True))
+        self.dict_listbox["AC"].bind('<Double-Button-1>', lambda x: self.set_box("AC"))
+        self.dict_listbox["Spd"].bind('<Double-Button-1>', lambda x: self.set_box("Spd"))
+        self.dict_listbox["HD"].bind('<Double-Button-1>', lambda x: self.set_box("HD", True))
 
         # Button(s)
         # ========================================================
@@ -288,11 +287,17 @@ class MainMenu:
             listbox.insert(tk.END, value)
             if level:
                 self.dict_listbox["HD"].delete(0)
-                self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d" + str(self.hero.get_stat("HD")))
+                self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d"
+                                               + str(self.hero.get_stat("HD")))
         else:
             listbox.insert(tk.END, str(self.hero.get_stat("level")) + "d" + str(self.hero.get_stat("HD")))
 
-    def ui_mod(self, choice, hit_dice=None, level=None):    # Updates stat and updates box on submission
+    def dex_peel(self, peeled_ac):
+        self.hero.set_stat("AC", peeled_ac)
+        self.dict_listbox["AC"].delete(0)
+        self.dict_listbox["AC"].insert(tk.END, self.hero.get_stat("AC"))
+
+    def set_box(self, choice, hit_dice=None, level=None):    # Updates stat and updates box on submission
         temp_ui = self.master
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
@@ -305,7 +310,14 @@ class MainMenu:
         temp_ui.configure(bg=self.BG)  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
-        l_detail = tk.Label(temp_ui, text="New Value", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, padx=30, pady=(10, 0))
+        n_val = "New Value"
+        peeled_ac = 0
+        if choice == "AC":
+            n_val += ": AC = Input %+d" % self.hero.get_modifier("dexterity")
+        elif choice == "dexterity":
+            peeled_ac = self.hero.get_stat("AC") - self.hero.get_modifier("dexterity")
+
+        l_detail = tk.Label(temp_ui, text=n_val, bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, padx=30, pady=(10, 0))
         e_detail = tk.Entry(temp_ui, justify='center', font=('Scaly Sans', 12))
         e_detail.grid(row=1, column=0, padx=30, pady=(5, 0))
 
@@ -321,6 +333,7 @@ class MainMenu:
                 self.hero.set_stat(choice, e_detail.get()),
                 self.update_box(self.dict_listbox[choice], self.hero.get_stat(choice), hit_dice, level),
                 self.refresh_labels(),
+                self.dex_peel(peeled_ac) if choice == "dexterity" else 0,
                 temp_ui.destroy()
             ]
         )

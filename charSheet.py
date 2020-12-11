@@ -35,8 +35,11 @@ class CharSheet:
         try:
             if stat in numeric_stats:
                 value = int(value)
-                if 0 < value <= 20 or stat == "Spd" or stat == "HP":
-                    self.stats[stat] = value
+                if 0 < value <= 20 or stat in self.get_block():
+                    if stat == "AC":
+                        self.stats[stat] = value + self.get_modifier("dexterity")
+                    else:
+                        self.stats[stat] = value
                     if stat == "Max HP":
                         self.stats["Current HP"] = value
             else:
