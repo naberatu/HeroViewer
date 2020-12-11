@@ -101,7 +101,7 @@ class MainMenu:
         self.dict_listbox["level"].grid(row=0, column=7, pady=(10, 0), sticky=tk.NW)
         self.dict_listbox["level"].insert(tk.END, self.hero.get_stat("level"))
         self.dict_listbox["level"]["borderwidth"] = 1
-        self.dict_listbox["level"].bind('<Double-Button-1>', lambda x: self.ui_mod("level"))
+
 
         # attribute populator loop
         arow = 2
@@ -131,6 +131,7 @@ class MainMenu:
 
         # health and armor block populator loop
         arow = 2
+        print(self.hero.get_block())
         for block in self.hero.get_block():
             self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
                                                   justify='center', font=('Scaly Sans', 10))
@@ -146,6 +147,8 @@ class MainMenu:
         # end of loop
 
         self.dict_listbox["Spd"].bind('<Double-Button-1>', lambda x: self.ui_mod("Spd"))
+        self.dict_listbox["HD"].bind('<Double-Button-1>', lambda x: self.ui_mod("HD", True))
+        self.dict_listbox["level"].bind('<Double-Button-1>', lambda x: self.ui_mod("level", False, True))
 
         # Button(s)
         # ========================================================
@@ -279,14 +282,17 @@ class MainMenu:
                              self.hero.get_feat_desc(self.featList.get(self.featList.curselection()))),
         self.tb_feats.config(state=tk.DISABLED)
 
-    def update_box(self, listbox, value, hit_dice=None):
+    def update_box(self, listbox, value, hit_dice=None, level=None):        # Refreshses the listbox
         listbox.delete(0)
         if not hit_dice:
             listbox.insert(tk.END, value)
+            if level:
+                self.dict_listbox["HD"].delete(0)
+                self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d" + str(self.hero.get_stat("HD")))
         else:
             listbox.insert(tk.END, str(self.hero.get_stat("level")) + "d" + str(self.hero.get_stat("HD")))
 
-    def ui_mod(self, choice):
+    def ui_mod(self, choice, hit_dice=None, level=None):    # Updates stat and updates box on submission
         temp_ui = self.master
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
@@ -313,7 +319,7 @@ class MainMenu:
             height=0,
             command=lambda: [
                 self.hero.set_stat(choice, e_detail.get()),
-                self.update_box(self.dict_listbox[choice], self.hero.get_stat(choice)),
+                self.update_box(self.dict_listbox[choice], self.hero.get_stat(choice), hit_dice, level),
                 self.refresh_labels(),
                 temp_ui.destroy()
             ]
