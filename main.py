@@ -9,7 +9,8 @@ class MainMenu:
         self.hero = CharSheet()
         self.BG = "#038387"
 
-        # Window Details
+        # ========================================================
+        # Main Window Details
         # ========================================================
         self.master.title("Hero Viewer")    # Window title
         self.master.geometry("1000x450+200+100")      # default window size
@@ -17,8 +18,10 @@ class MainMenu:
         self.master.configure(bg=self.BG)   # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
-        # Labels
         # ========================================================
+        # Main Window Labels
+        # ========================================================
+
         tk.Label(self.master, text="Name", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
         tk.Label(self.master, text="Lv", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
         tk.Label(self.master, text="Class", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, column=9, pady=(10, 0), sticky=tk.NE)
@@ -33,12 +36,15 @@ class MainMenu:
 
         self.refresh_labels()
 
-        # Text Boxes
         # ========================================================
+        # Description Text Box
+        # ========================================================
+
         self.tb_feats = tk.Text(self.master, height=13, width=30, font=('Scaly Sans', 10))
         self.tb_feats.grid(row=2, column=7, rowspan=7, columnspan=6, padx=(10, 0), sticky=tk.N)
         self.tb_feats.config(state=tk.DISABLED)
 
+        # ========================================================
         # Drop Down Lists
         # ========================================================
 
@@ -48,7 +54,11 @@ class MainMenu:
         self.tkvar_class = tk.StringVar(self.master)
         self.tkvar_class.set(self.hero.get_stat("role"))
         self.ddl_class = tk.OptionMenu(self.master, self.tkvar_class, *self.class_list,
-                                       command=lambda x: self.hero.set_stat("role", self.tkvar_class.get()))
+                                       command=lambda x: [
+                                           self.hero.set_stat("role", self.tkvar_class.get()),
+                                           self.update_box(self.dict_listbox["HD"], 0, False, False,
+                                                           self.hero.get_stat("role"))
+                                       ])
         self.ddl_class.config(height=0, width=10, bg="white", font=('Scaly Sans', 8))
         self.ddl_class["borderwidth"] = 0
         self.ddl_class.grid(row=0, column=10, columnspan=2, pady=(10, 0), sticky=tk.NW)
@@ -81,8 +91,11 @@ class MainMenu:
         self.ddl_alignment["borderwidth"] = 0
         self.ddl_alignment.grid(row=0, column=16, columnspan=2, pady=(10, 0), sticky=tk.NW)
 
+        # ========================================================
         # Listbox
         # ========================================================
+
+        # Listbox for Features List
         self.featList = tk.Listbox(self.master, height=10, width=15)
         self.featList.grid(row=2, column=13, rowspan=6, columnspan=2, sticky=tk.N)
         for i in range(self.hero.get_feat_size()):
@@ -90,13 +103,14 @@ class MainMenu:
         self.featList.bind('<ButtonRelease-1>', lambda x: self.write_feat_desc())
         self.featList.bind('<Double-Button-1>', lambda x: self.edit_feat(False))
 
-        # self.dict_block = {}
+        # Listbox for Name
         self.dict_listbox = {"name": tk.Listbox(self.master, height=1, width=25, font=('Scaly Sans', 12))}
         self.dict_listbox["name"].grid(row=0, column=1, columnspan=5, ipady=0, pady=(10, 0), sticky=tk.NW)
         self.dict_listbox["name"].insert(tk.END, self.hero.get_stat("name"))
         self.dict_listbox["name"]["borderwidth"] = 1
         self.dict_listbox["name"].bind('<Double-Button-1>', lambda x: self.set_box("name"))
 
+        # Listbox for Level
         self.dict_listbox["level"] = tk.Listbox(self.master, height=1, width=3, justify='center', font=('Scaly Sans', 12))
         self.dict_listbox["level"].grid(row=0, column=7, pady=(10, 0), sticky=tk.NW)
         self.dict_listbox["level"].insert(tk.END, self.hero.get_stat("level"))
@@ -121,7 +135,7 @@ class MainMenu:
             arow += 1
         # end of loop
 
-        # lambda assignment
+        # Sets Listbox Binding for the main Attributes.
         self.dict_listbox["strength"].bind('<Double-Button-1>', lambda x: self.set_box("strength"))
         self.dict_listbox["dexterity"].bind('<Double-Button-1>', lambda x: self.set_box("dexterity"))
         self.dict_listbox["constitution"].bind('<Double-Button-1>', lambda x: self.set_box("constitution"))
@@ -135,12 +149,15 @@ class MainMenu:
             if block == "HP":
                 self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=8,
                                                       justify='center', font=('Scaly Sans', 10))
+            elif block == "HD":
+                self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=5,
+                                                      justify='center', font=('Scaly Sans', 10))
             else:
                 self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
                                                       justify='center', font=('Scaly Sans', 10))
             self.dict_listbox[block].grid(row=arow, column=5, sticky=tk.W)
             tk.Label(self.master, text=block, bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=4, sticky=tk.E)
-            if block == "HD":
+            if block == "HD" and self.hero.get_stat(block):
                 self.dict_listbox[block].insert(tk.END, str(self.hero.get_stat("level")) + "d"
                                                 + str(self.hero.get_stat(block)))
             elif block == "HP":
@@ -152,11 +169,13 @@ class MainMenu:
             arow += 1
         # end of loop
 
-        self.dict_listbox["HP"].bind('<Double-Button-1>', lambda x: self.edit_HP())
+        # Sets Listbox binding for the Block Stats
+        self.dict_listbox["HP"].bind('<Double-Button-1>', lambda x: self.edit_hp())
         self.dict_listbox["AC"].bind('<Double-Button-1>', lambda x: self.set_box("AC"))
         self.dict_listbox["Spd"].bind('<Double-Button-1>', lambda x: self.set_box("Spd"))
         self.dict_listbox["HD"].bind('<Double-Button-1>', lambda x: self.set_box("HD", True))
 
+        # ========================================================
         # Button(s)
         # ========================================================
         self.bt_add = tk.Button( # our adding button
@@ -204,18 +223,26 @@ class MainMenu:
         self.bt_remove.grid(row=8, column=14, sticky=tk.NW)
         self.bt_lvlup.grid(row=0, column=8, padx=(0, 30), pady=(10, 0), sticky=tk.NW)
 
+    # ========================================================
     # Methods
     # ========================================================
+
+    # Refreshes all label objects.
     def refresh_labels(self):
+
+        # List that maps all Skills to their corresponding main Attribute.
         skill_list = ["dexterity", "wisdom", "intellect", "strength", "charisma", "intellect", "wisdom", "charisma",
                       "intellect", "wisdom", "intellect", "wisdom", "charisma", "charisma", "intellect", "dexterity",
                       "dexterity", "wisdom"]
+
+        # Displays Modifiers for the main 6 Attributes.
         arow = 2
         for atr in self.hero.get_attributes():
             tk.Label(self.master, text="%+d" % self.hero.get_modifier(atr), bg=self.BG,
                      font=('Scaly Sans', 10)).grid(row=arow, column=2, padx=(10, 0))
             arow += 1
 
+        # Displays scores for all remaining Skills.
         arow, scol, index = 9, 0, 0
         for skill in self.hero.get_skills():
             tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BG, font=('Scaly Sans', 10)) \
@@ -228,23 +255,27 @@ class MainMenu:
             if arow > 17:
                 arow, scol = 9, 4
 
-    def edit_HP(self):
+    # Updates HP Listbox
+    def edit_hp(self):
+
+        # Window Settings
         temp_ui = self.master
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
 
-        temp_ui.title("Edit HP")  # Window title
-        temp_ui.geometry("250x100+300+200")  # default window size
-        temp_ui.minsize(250, 100)
-        temp_ui.configure(bg=self.BG)  # background color
+        temp_ui.title("Edit HP")                # Window title
+        temp_ui.geometry("250x100+300+200")     # default window size
+        temp_ui.minsize(250, 100)               # default min size
+        temp_ui.configure(bg=self.BG)           # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
+        # Label and Entry Text Field
         tk.Label(temp_ui, text="Enter Hit Points", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, padx=30,
                                                                                              columnspan=2, pady=(10, 0))
-
         e_input = tk.Entry(temp_ui, justify='center', font=('Scaly Sans', 10))
         e_input.grid(row=1, column=0, columnspan=2,  padx=30, pady=(5, 0))
 
+        # Button to submit Max HP
         bt_submit_max = tk.Button(
             master=temp_ui,
             text="Max HP",
@@ -261,6 +292,8 @@ class MainMenu:
                 temp_ui.destroy()
             ]
         )
+
+        # Button to submit Current HP
         bt_submit_current = tk.Button(
             master=temp_ui,
             text="Current",
@@ -277,10 +310,14 @@ class MainMenu:
                 temp_ui.destroy()
             ]
         )
+
         bt_submit_max.grid(row=2, column=1, padx=5, pady=(10, 0), sticky=tk.NW)
         bt_submit_current.grid(row=2, column=0, padx=5, pady=(10, 0), sticky=tk.NE)
 
+    # Updates Feature Listbox
     def edit_feat(self, adding):
+
+        # Window Settings
         temp_ui = self.master
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
@@ -291,8 +328,9 @@ class MainMenu:
         temp_ui.configure(bg=self.BG)  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
-        l_name = tk.Label(temp_ui, text="Feat", bg=self.BG, font=('Scaly Sans', 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
-        l_desc = tk.Label(temp_ui, text="Desc", bg=self.BG, font=('Scaly Sans', 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
+        # Labels and Text Entry Fields
+        tk.Label(temp_ui, text="Feat", bg=self.BG, font=('Scaly Sans', 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
+        tk.Label(temp_ui, text="Desc", bg=self.BG, font=('Scaly Sans', 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
         e_name = tk.Entry(temp_ui, font=('Scaly Sans', 10))
         e_desc = tk.Entry(temp_ui, font=('Scaly Sans', 10))
         e_name.grid(row=0, column=1, columnspan=2, pady=(10, 0))
@@ -304,6 +342,7 @@ class MainMenu:
         else:
             position = tk.END
 
+        # Submit Feature to add.
         bt_submit = tk.Button(
             master=temp_ui,
             text="Submit",
@@ -321,6 +360,7 @@ class MainMenu:
             ]
         )
 
+        # Closes the window.
         bt_cancel = tk.Button(
             master=temp_ui,
             text="Cancel",
@@ -331,33 +371,56 @@ class MainMenu:
             height=0,
             command=lambda: temp_ui.destroy()
         )
+
         bt_submit.grid(row=3, column=2, pady=(10, 0), sticky=tk.N)
         bt_cancel.grid(row=3, column=1, pady=(10, 0), sticky=tk.N)
 
+    # Updates the Description Text Box
     def write_feat_desc(self):
-        self.tb_feats.config(state=tk.NORMAL),  # makes it editable.
-        self.tb_feats.delete("1.0", tk.END),    # clears it.
-        self.tb_feats.insert(tk.END,            # gets the right description.
-                             self.hero.get_feat_desc(self.featList.get(self.featList.curselection()))),
-        self.tb_feats.config(state=tk.DISABLED)
+        self.tb_feats.config(state=tk.NORMAL)       # makes it editable.
+        self.tb_feats.delete("1.0", tk.END)         # clears it.
+        self.tb_feats.insert(tk.END, self.hero.get_feat_desc(self.featList.get(self.featList.curselection())))
+        self.tb_feats.config(state=tk.DISABLED)     # makes it un-editable.
 
-    def update_box(self, listbox, value, hit_dice=None, level=None):        # Refreshses the listbox
+    # Refreshes a given listbox.
+    def update_box(self, listbox, value, hit_dice=None, level=None, role=None):
         listbox.delete(0)
-        if not hit_dice:
+
+        if role:
+            if self.hero.get_stat("role") == "Barbarian":
+                self.hero.set_stat("HD", 12)
+            elif self.hero.get_stat("role") == "Sorcerer" or self.hero.get_stat("role") == "Wizard":
+                self.hero.set_stat("HD", 6)
+            elif self.hero.get_stat("role") == "Fighter" or self.hero.get_stat("role") == "Paladin" or \
+                    self.hero.get_stat("role") == "Ranger":
+                self.hero.set_stat("HD", 10)
+            else:
+                self.hero.set_stat("HD", 8)
+
+            self.dict_listbox["HD"].delete(0)
+            self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d"
+                                           + str(self.hero.get_stat("HD")))
+
+        elif not hit_dice:                # For most Listbox updates
             listbox.insert(tk.END, value)
-            if level:
+            if level:                   # Specifically updates Hit Dice Box when Level is overwritten.
                 self.dict_listbox["HD"].delete(0)
                 self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d"
                                                + str(self.hero.get_stat("HD")))
-        else:
+
+        else:   # Updates Hit Dice Box (it has a unique format).
             listbox.insert(tk.END, str(self.hero.get_stat("level")) + "d" + str(self.hero.get_stat("HD")))
 
+    # Helps update the Armor Class Box when updating Dexterity.
     def dex_peel(self, peeled_ac):
         self.hero.set_stat("AC", peeled_ac)
         self.dict_listbox["AC"].delete(0)
         self.dict_listbox["AC"].insert(tk.END, self.hero.get_stat("AC"))
 
-    def set_box(self, choice, hit_dice=None, level=None):    # Updates stat and updates box on submission
+    # Updates a given stat and the Listbox that displays it.
+    def set_box(self, choice, hit_dice=None, level=None):
+
+        # Window Settings
         temp_ui = self.master
         temp_ui = tk.Toplevel()
         temp_ui.grab_set()
@@ -370,6 +433,7 @@ class MainMenu:
         temp_ui.configure(bg=self.BG)  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
+        # Labels and Entry Text Fields
         n_val = "New Value"
         peeled_ac = 0
         if choice == "AC":
@@ -381,6 +445,7 @@ class MainMenu:
         e_detail = tk.Entry(temp_ui, justify='center', font=('Scaly Sans', 12))
         e_detail.grid(row=1, column=0, padx=30, pady=(5, 0))
 
+        # Button to Submit input.
         bt_submit = tk.Button(
             master=temp_ui,
             text="Submit",
@@ -397,9 +462,11 @@ class MainMenu:
                 temp_ui.destroy()
             ]
         )
+
         bt_submit.grid(row=2, column=0, pady=(10, 0), sticky=tk.N)
 
 
+# Main/Driver code
 root = tk.Tk()
 app = MainMenu(root)
 root.mainloop()

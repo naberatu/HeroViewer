@@ -5,15 +5,16 @@ import pickle
 
 class CharSheet:
     def __init__(self):
+
+        # Fills in User data (HP, Attributes, etc).
         try:
             self.stats = pickle.load(open("hero_info.p", "rb"))
         except:
             self.stats = StatBlock().get()
+            self.set_stat("AC", self.stats["AC"])
             pickle.dump(self.stats, open("hero_info.p", "wb"))
 
-        self.ds_success = 0
-        self.ds_fail = 0
-
+        # Fills in Feature list.
         try:
             self.feats_traits = pickle.load(open("feats_dict.p", "rb"))
         except:
@@ -24,12 +25,16 @@ class CharSheet:
                                  }
             pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
+    # =========================================================
     # Essential Methods
     # =========================================================
+
+    # Stores all current data into the appropriate file.
     def save_all(self):
         pickle.dump(self.stats, open("hero_info.p", "wb"))
         pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
+    # Modifies a given stat to hold a given value.
     def set_stat(self, stat, value):
         numeric_stats = ["level"] + list(self.stats.keys())[6:]
         try:
@@ -56,12 +61,14 @@ class CharSheet:
         except:
             print("[ER] Cannot modify", stat, "...")
 
+    # Returns the value of a given stat.
     def get_stat(self, stat):
         if self.stats.keys().__contains__(stat):
             return self.stats[stat]
         else:
             print("[ER] That stat is unavailable!")
 
+    # =========================================================
     # Accessors
     # =========================================================
     def get_modifier(self, modifier):
@@ -69,15 +76,6 @@ class CharSheet:
             return math.floor((self.stats[modifier] - 10) / 2)
         except:
             print("[ER] Cannot retrieve", modifier, "modifier.")
-
-    def get_passive_per(self):
-        return self.get_modifier("wisdom") + 10
-
-    def get_ds_success(self):
-        return self.ds_success
-
-    def get_ds_fail(self):
-        return self.ds_fail
 
     def get_feat_name(self, index):
         return list(self.feats_traits.keys())[index]
@@ -97,24 +95,17 @@ class CharSheet:
     def get_block(self):
         return list(self.stats.keys())[7:11]
 
+    # =========================================================
     # Mutators
     # =========================================================
-    def edit_feat(self, pair):
-        self.feats_traits[pair[0]] = pair[1]
 
+    # Increments level by 1.
     def level_up(self):
         if self.stats["level"] < 20:
             self.stats["level"] += 1
             pickle.dump(self.stats, open("hero_info.p", "wb"))
 
-    def ds_success(self):
-        self.ds_success += 1
-        pickle.dump(self.stats, open("hero_info.p", "wb"))
-
-    def ds_fail(self):
-        self.ds_fail += 1
-        pickle.dump(self.stats, open("hero_info.p", "wb"))
-
+    # Add or edit a given feature.
     def add_feat(self, name, desc, original, new_entry):
         success = False
         if new_entry:
@@ -139,6 +130,7 @@ class CharSheet:
         if success:
             pickle.dump(self.feats_traits, open("feats_dict.p", "wb"))
 
+    # Deletes a given feature.
     def del_feat(self, name):
         try:
             del self.feats_traits[name]

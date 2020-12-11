@@ -18,8 +18,8 @@ class StatBlock:
             "Max HP": 5,
             "HP": 5,
             "AC": 10,
-            "Spd": 30,
-            "HD": 6,
+            "Spd": "",
+            "HD": "",
 
             # Misc Stats
             "inspiration": 0,
