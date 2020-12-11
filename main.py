@@ -172,7 +172,6 @@ class MainMenu:
         self.dict_listbox["HP"].bind('<Double-Button-1>', lambda x: self.edit_hp())
         self.dict_listbox["AC"].bind('<Double-Button-1>', lambda x: self.set_box("AC"))
         self.dict_listbox["Spd"].bind('<Double-Button-1>', lambda x: self.set_box("Spd"))
-        self.dict_listbox["HD"].bind('<Double-Button-1>', lambda x: self.set_box("HD", True))
 
         # ========================================================
         # Button(s)
@@ -381,6 +380,7 @@ class MainMenu:
         self.tb_feats.insert(tk.END, self.hero.get_feat_desc(self.featList.get(self.featList.curselection())))
         self.tb_feats.config(state=tk.DISABLED)     # makes it un-editable.
 
+    # Updates Hit Dice Box, since the printing is unique.
     def update_hit_dice(self, role):
         self.dict_listbox["HD"].delete(0)
 
