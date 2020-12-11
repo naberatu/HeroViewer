@@ -35,13 +35,15 @@ class CharSheet:
         try:
             if stat in numeric_stats:
                 value = int(value)
-                if 0 < value <= 20 or stat in self.get_block():
+                if 0 < value <= 20 or stat in self.get_block() or stat == "Max HP":
                     if stat == "AC":
                         self.stats[stat] = value + self.get_modifier("dexterity")
+                    elif stat == "HP" and value > self.stats["Max HP"]:
+                        pass
                     else:
                         self.stats[stat] = value
-                    if stat == "Max HP":
-                        self.stats["Current HP"] = value
+                        if stat == "Max HP":
+                            self.stats["HP"] = value
             else:
                 self.stats[stat] = value
                 if stat == "race":

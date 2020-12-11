@@ -132,19 +132,27 @@ class MainMenu:
         # health and armor block populator loop
         arow = 2
         for block in self.hero.get_block():
-            self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
-                                                  justify='center', font=('Scaly Sans', 10))
+            if block == "HP":
+                self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=8,
+                                                      justify='center', font=('Scaly Sans', 10))
+            else:
+                self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
+                                                      justify='center', font=('Scaly Sans', 10))
             self.dict_listbox[block].grid(row=arow, column=5, sticky=tk.W)
             tk.Label(self.master, text=block, bg=self.BG, font=('Scaly Sans', 10)).grid(row=arow, column=4, sticky=tk.E)
             if block == "HD":
                 self.dict_listbox[block].insert(tk.END, str(self.hero.get_stat("level")) + "d"
                                                 + str(self.hero.get_stat(block)))
+            elif block == "HP":
+                self.dict_listbox[block].insert(tk.END, str(self.hero.get_stat("HP")) + "/"
+                                                + str(self.hero.get_stat("Max HP"))),
             else:
                 self.dict_listbox[block].insert(tk.END, self.hero.get_stat(block))
             self.dict_listbox[block]["borderwidth"] = 1
             arow += 1
         # end of loop
 
+        self.dict_listbox["HP"].bind('<Double-Button-1>', lambda x: self.edit_HP())
         self.dict_listbox["AC"].bind('<Double-Button-1>', lambda x: self.set_box("AC"))
         self.dict_listbox["Spd"].bind('<Double-Button-1>', lambda x: self.set_box("Spd"))
         self.dict_listbox["HD"].bind('<Double-Button-1>', lambda x: self.set_box("HD", True))
@@ -219,6 +227,58 @@ class MainMenu:
             index += 1
             if arow > 17:
                 arow, scol = 9, 4
+
+    def edit_HP(self):
+        temp_ui = self.master
+        temp_ui = tk.Toplevel()
+        temp_ui.grab_set()
+
+        temp_ui.title("Edit HP")  # Window title
+        temp_ui.geometry("250x100+300+200")  # default window size
+        temp_ui.minsize(250, 100)
+        temp_ui.configure(bg=self.BG)  # background color
+        temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+
+        tk.Label(temp_ui, text="Enter Hit Points", bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, padx=30,
+                                                                                             columnspan=2, pady=(10, 0))
+
+        e_input = tk.Entry(temp_ui, justify='center', font=('Scaly Sans', 10))
+        e_input.grid(row=1, column=0, columnspan=2,  padx=30, pady=(5, 0))
+
+        bt_submit_max = tk.Button(
+            master=temp_ui,
+            text="Max HP",
+            font=('Scaly Sans', 10),
+            bg="black",
+            fg="white",
+            width=5,
+            height=0,
+            command=lambda: [
+                self.hero.set_stat("Max HP", e_input.get()),
+                self.dict_listbox["HP"].delete(0),
+                self.dict_listbox["HP"].insert(tk.END, str(self.hero.get_stat("HP")) + "/"
+                                               + str(self.hero.get_stat("Max HP"))),
+                temp_ui.destroy()
+            ]
+        )
+        bt_submit_current = tk.Button(
+            master=temp_ui,
+            text="Current",
+            font=('Scaly Sans', 10),
+            bg="black",
+            fg="white",
+            width=5,
+            height=0,
+            command=lambda: [
+                self.hero.set_stat("HP", e_input.get()),
+                self.dict_listbox["HP"].delete(0),
+                self.dict_listbox["HP"].insert(tk.END, str(self.hero.get_stat("HP")) + "/"
+                                               + str(self.hero.get_stat("Max HP"))),
+                temp_ui.destroy()
+            ]
+        )
+        bt_submit_max.grid(row=2, column=1, padx=5, pady=(10, 0), sticky=tk.NW)
+        bt_submit_current.grid(row=2, column=0, padx=5, pady=(10, 0), sticky=tk.NE)
 
     def edit_feat(self, adding):
         temp_ui = self.master
@@ -317,7 +377,7 @@ class MainMenu:
         elif choice == "dexterity":
             peeled_ac = self.hero.get_stat("AC") - self.hero.get_modifier("dexterity")
 
-        l_detail = tk.Label(temp_ui, text=n_val, bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, padx=30, pady=(10, 0))
+        tk.Label(temp_ui, text=n_val, bg=self.BG, font=('Scaly Sans', 12)).grid(row=0, padx=30, pady=(10, 0))
         e_detail = tk.Entry(temp_ui, justify='center', font=('Scaly Sans', 12))
         e_detail.grid(row=1, column=0, padx=30, pady=(5, 0))
 
