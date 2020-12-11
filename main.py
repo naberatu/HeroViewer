@@ -56,8 +56,7 @@ class MainMenu:
         self.ddl_class = tk.OptionMenu(self.master, self.tkvar_class, *self.class_list,
                                        command=lambda x: [
                                            self.hero.set_stat("role", self.tkvar_class.get()),
-                                           self.update_box(self.dict_listbox["HD"], 0, False, False,
-                                                           self.hero.get_stat("role"))
+                                           self.update_hit_dice(True)
                                        ])
         self.ddl_class.config(height=0, width=10, bg="white", font=('Scaly Sans', 8))
         self.ddl_class["borderwidth"] = 0
@@ -216,7 +215,7 @@ class MainMenu:
             command=lambda: [
                 self.hero.level_up(),
                 self.update_box(self.dict_listbox["level"], self.hero.get_stat("level")),
-                self.update_box(self.dict_listbox["HD"], self.hero.get_stat("HD"), True)
+                self.update_hit_dice(False)
             ]
         )
         self.bt_add.grid(row=8, column=13, sticky=tk.NE)
@@ -382,9 +381,8 @@ class MainMenu:
         self.tb_feats.insert(tk.END, self.hero.get_feat_desc(self.featList.get(self.featList.curselection())))
         self.tb_feats.config(state=tk.DISABLED)     # makes it un-editable.
 
-    # Refreshes a given listbox.
-    def update_box(self, listbox, value, hit_dice=None, level=None, role=None):
-        listbox.delete(0)
+    def update_hit_dice(self, role):
+        self.dict_listbox["HD"].delete(0)
 
         if role:
             dict_roles = {
@@ -397,32 +395,16 @@ class MainMenu:
             }
             if self.hero.get_stat("role") in dict_roles.keys():
                 self.hero.set_stat("HD", dict_roles[self.hero.get_stat("role")])
-            # else:
-            #
-            #
-            #     self.hero.get_stat("role") == "Barbarian":
-            #     self.hero.set_stat("HD", 12)
-            # elif self.hero.get_stat("role") == "Sorcerer" or self.hero.get_stat("role") == "Wizard":
-            #     self.hero.set_stat("HD", 6)
-            # elif self.hero.get_stat("role") == "Fighter" or self.hero.get_stat("role") == "Paladin" or \
-            #         self.hero.get_stat("role") == "Ranger":
-            #     self.hero.set_stat("HD", 10)
             else:
                 self.hero.set_stat("HD", 8)
 
-            self.dict_listbox["HD"].delete(0)
-            self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d"
-                                           + str(self.hero.get_stat("HD")))
+        self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d"
+                                       + str(self.hero.get_stat("HD")))
 
-        elif not hit_dice:                # For most Listbox updates
-            listbox.insert(tk.END, value)
-            if level:                   # Specifically updates Hit Dice Box when Level is overwritten.
-                self.dict_listbox["HD"].delete(0)
-                self.dict_listbox["HD"].insert(tk.END, str(self.hero.get_stat("level")) + "d"
-                                               + str(self.hero.get_stat("HD")))
-
-        else:   # Updates Hit Dice Box (it has a unique format).
-            listbox.insert(tk.END, str(self.hero.get_stat("level")) + "d" + str(self.hero.get_stat("HD")))
+    # Refreshes a given listbox.
+    def update_box(self, listbox, value):
+        listbox.delete(0)
+        listbox.insert(tk.END, value)
 
     # Helps update the Armor Class Box when updating Dexterity.
     def dex_peel(self, peeled_ac):
@@ -469,7 +451,8 @@ class MainMenu:
             height=0,
             command=lambda: [
                 self.hero.set_stat(choice, e_detail.get()),
-                self.update_box(self.dict_listbox[choice], self.hero.get_stat(choice), hit_dice, level),
+                self.update_box(self.dict_listbox[choice], self.hero.get_stat(choice)),
+                self.update_hit_dice(False) if choice == "level" else 0,
                 self.refresh_labels(),
                 self.dex_peel(peeled_ac) if choice == "dexterity" else 0,
                 temp_ui.destroy()
