@@ -387,13 +387,26 @@ class MainMenu:
         listbox.delete(0)
 
         if role:
-            if self.hero.get_stat("role") == "Barbarian":
-                self.hero.set_stat("HD", 12)
-            elif self.hero.get_stat("role") == "Sorcerer" or self.hero.get_stat("role") == "Wizard":
-                self.hero.set_stat("HD", 6)
-            elif self.hero.get_stat("role") == "Fighter" or self.hero.get_stat("role") == "Paladin" or \
-                    self.hero.get_stat("role") == "Ranger":
-                self.hero.set_stat("HD", 10)
+            dict_roles = {
+                "Barbarian": 12,
+                "Sorcerer": 6,
+                "Wizard": 6,
+                "Fighter": 10,
+                "Paladin": 10,
+                "Ranger": 10
+            }
+            if self.hero.get_stat("role") in dict_roles.keys():
+                self.hero.set_stat("HD", dict_roles[self.hero.get_stat("role")])
+            # else:
+            #
+            #
+            #     self.hero.get_stat("role") == "Barbarian":
+            #     self.hero.set_stat("HD", 12)
+            # elif self.hero.get_stat("role") == "Sorcerer" or self.hero.get_stat("role") == "Wizard":
+            #     self.hero.set_stat("HD", 6)
+            # elif self.hero.get_stat("role") == "Fighter" or self.hero.get_stat("role") == "Paladin" or \
+            #         self.hero.get_stat("role") == "Ranger":
+            #     self.hero.set_stat("HD", 10)
             else:
                 self.hero.set_stat("HD", 8)
 
