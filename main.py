@@ -35,8 +35,8 @@ class MainMenu:
 
         # Text Boxes
         # ========================================================
-        self.tb_feats = tk.Text(self.master, height=10, width=30, font=('Scaly Sans', 10))
-        self.tb_feats.grid(row=2, column=7, rowspan=6, columnspan=6, padx=(10, 0), sticky=tk.N)
+        self.tb_feats = tk.Text(self.master, height=13, width=30, font=('Scaly Sans', 10))
+        self.tb_feats.grid(row=2, column=7, rowspan=7, columnspan=6, padx=(10, 0), sticky=tk.N)
         self.tb_feats.config(state=tk.DISABLED)
 
         # Drop Down Lists
@@ -83,7 +83,7 @@ class MainMenu:
 
         # Listbox
         # ========================================================
-        self.featList = tk.Listbox(self.master, height=7, width=15)
+        self.featList = tk.Listbox(self.master, height=10, width=15)
         self.featList.grid(row=2, column=13, rowspan=6, columnspan=2, sticky=tk.N)
         for i in range(self.hero.get_feat_size()):
             self.featList.insert(tk.END, self.hero.get_feat_name(i))
@@ -200,8 +200,8 @@ class MainMenu:
                 self.update_box(self.dict_listbox["HD"], self.hero.get_stat("HD"), True)
             ]
         )
-        self.bt_add.grid(row=7, column=13, sticky=tk.NE)
-        self.bt_remove.grid(row=7, column=14, sticky=tk.NW)
+        self.bt_add.grid(row=8, column=13, sticky=tk.NE)
+        self.bt_remove.grid(row=8, column=14, sticky=tk.NW)
         self.bt_lvlup.grid(row=0, column=8, padx=(0, 30), pady=(10, 0), sticky=tk.NW)
 
     # Methods
