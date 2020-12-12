@@ -8,14 +8,14 @@ class MainMenu:
         self.master = master
         self.hero = CharSheet()
         self.BG = "#038387"
-        self.FONT = 'Scaly Sans'
+        self.FONT = 'Hylia Serif Beta'
 
         # ========================================================
         # Main Window Details
         # ========================================================
         self.master.title("Hero Viewer")    # Window title
-        self.master.geometry("1000x450+200+100")      # default window size
-        self.master.minsize(1000, 450)
+        self.master.geometry("1000x500+200+100")      # default window size
+        self.master.minsize(1000, 500)
         self.master.configure(bg=self.BG)   # background color
         self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
