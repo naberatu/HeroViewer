@@ -52,3 +52,7 @@ After filling in the desired fields when either adding or editing a feature/abil
 
 ---  
 Created using Python 3 with Tkinter.
+
+Used the font [Hylia Serif by Artsy Omni]
+
+[Hylia Serif by Artsy Omni]: https://artsyomni.com/hyliaserif
