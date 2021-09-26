@@ -1,3 +1,10 @@
+"""
+AUTHOR:         Nader K. Atout
+BASED ON:       Dungeons & Dragons by Wizards of the Coast
+USING ASSETS:   New Rocker Font by Pablo Impallari
+                Minimalist Dragon Background from wallpaperaccess.com
+                Program Scroll Icon from game-icons.net
+"""
 
 import tkinter as tk
 from tkinter import *
