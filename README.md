@@ -56,5 +56,4 @@ Created using Python 3 with Tkinter.
 Used the fonts [Hylia Serif by Artsy Omni] and [New Rocker by Pablo Impallari]
 
 [Hylia Serif by Artsy Omni]: https://artsyomni.com/hyliaserif
-
 [New Rocker by Pablo Impallari]: https://fonts.google.com/specimen/New+Rocker#standard-styles
