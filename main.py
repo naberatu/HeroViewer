@@ -8,7 +8,7 @@ class MainMenu:
         self.master = master
         self.hero = CharSheet()
         self.BG = "#038387"
-        self.FONT = 'Hylia Serif Beta'
+        self.FONT = 'NewRocker'
 
         # ========================================================
         # Main Window Details
