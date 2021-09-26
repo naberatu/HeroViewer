@@ -53,6 +53,7 @@ After filling in the desired fields when either adding or editing a feature/abil
 ---  
 Created using Python 3 with Tkinter.
 
-Used the font [Hylia Serif by Artsy Omni]
+Used the fonts [Hylia Serif by Artsy Omni] and [New Rocker by Pablo Impallari]
 
 [Hylia Serif by Artsy Omni]: https://artsyomni.com/hyliaserif
+[New Rocker by Pablo Impallari] https://fonts.google.com/specimen/New+Rocker#standard-styles
