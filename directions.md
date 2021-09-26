@@ -1,3 +1,4 @@
+### [Back to Home]
 
 ## Editing Name, Stats, etc... 
 To edit values such as name or stats, simply double-click on the text field you wish to update. A text box will appear asking you to input the new string.
@@ -38,3 +39,6 @@ After filling in the desired fields when either adding or editing a feature/abil
 - If you have chosen to add a feature/ability, it will instantly appear in the "features" list, while editing a feature/ability will automatically update the currently selection.
 - When adding a feature the "description" field can be left blank, but a feature/ability name must be designated. Failure to designate a name will not submit/write the feature/ability.
 - When editing a feature/ability, leaving one of the fields blank when submitting will not overwrite that field, allowing users to update a feature's/ability's name or description without having to update both. 
+
+<!-- Embedded Links -->
+[Back to Home]:   https://github.com/naberatu/HeroViewer
