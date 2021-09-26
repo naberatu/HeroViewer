@@ -17,6 +17,7 @@ class MainMenu:
         self.BGC = "#724e52"
         self.FGC = "light grey"
         self.FONT = 'NewRocker'
+        self.ICON = "hv_icon.ico"
 
         # ========================================================
         # Main Window Details
@@ -25,7 +26,7 @@ class MainMenu:
         self.master.geometry("1000x500+200+100")      # default window size
         self.minsize = (1000, 500)
         self.master.minsize(self.minsize[0], self.minsize[1])
-        self.master.iconbitmap('hv_icon.ico')
+        self.master.iconbitmap(self.ICON)
 
         # Handles resizable background.
         self.BGI = Image.open("hv_bg.png")
@@ -279,7 +280,7 @@ class MainMenu:
         temp_ui.geometry("250x100+300+200")     # default window size
         temp_ui.minsize(250, 100)               # default min size
         temp_ui.configure(bg=self.BGC)           # background color
-        temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+        temp_ui.iconbitmap(self.ICON)
 
         # Label and Entry Text Field
         tk.Label(temp_ui, text="Enter Hit Points", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, padx=30,
@@ -335,14 +336,14 @@ class MainMenu:
         temp_ui.grab_set()
 
         temp_ui.title("Edit Feat")  # Window title
-        temp_ui.geometry("250x100+300+200")  # default window size
-        temp_ui.minsize(250, 100)
+        temp_ui.geometry("250x110+300+200")  # default window size
+        temp_ui.minsize(250, 110)
         temp_ui.configure(bg=self.BGC)  # background color
-        temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+        temp_ui.iconbitmap(self.ICON)
 
         # Labels and Text Entry Fields
-        tk.Label(temp_ui, text="Feat", bg=self.BGC, font=(self.FONT, 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
-        tk.Label(temp_ui, text="Desc", bg=self.BGC, font=(self.FONT, 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
+        tk.Label(temp_ui, text="Feat", fg=self.FGC, bg=self.BGC, font=(self.FONT, 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
+        tk.Label(temp_ui, text="Desc", fg=self.FGC, bg=self.BGC, font=(self.FONT, 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
         e_name = tk.Entry(temp_ui, font=(self.FONT, 10))
         e_desc = tk.Entry(temp_ui, font=(self.FONT, 10))
         e_name.grid(row=0, column=1, columnspan=2, pady=(10, 0))
@@ -440,7 +441,7 @@ class MainMenu:
         temp_ui.geometry("250x125+300+200")  # default window size
         temp_ui.minsize(250, 125)
         temp_ui.configure(bg=self.BGC)  # background color
-        temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+        temp_ui.iconbitmap(self.ICON)
 
         # Labels and Entry Text Fields
         n_val = "New Value"
@@ -450,7 +451,7 @@ class MainMenu:
         elif choice == "dexterity":
             peeled_ac = self.hero.get_stat("AC") - self.hero.get_modifier("dexterity")
 
-        tk.Label(temp_ui, text=n_val, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, padx=30, pady=(10, 0))
+        tk.Label(temp_ui, text=n_val, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, padx=30, pady=(10, 0))
         e_detail = tk.Entry(temp_ui, justify='center', font=(self.FONT, 12))
         e_detail.grid(row=1, column=0, padx=30, pady=(5, 0))
 
