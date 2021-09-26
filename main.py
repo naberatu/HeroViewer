@@ -1,39 +1,55 @@
 
 import tkinter as tk
+from tkinter import *
+from PIL import Image, ImageTk
 from charSheet import CharSheet
 
 
 class MainMenu:
+    def bkgd_resize(self, event):
+        image = self.BGI.resize((event.width, event.height), Image.ANTIALIAS)
+        self.b_label.image = ImageTk.PhotoImage(image)
+        self.b_label.config(image=self.b_label.image)
+
     def __init__(self, master):
         self.master = master
         self.hero = CharSheet()
-        self.BG = "#038387"
+        self.BGC = "#038387"
         self.FONT = 'NewRocker'
 
         # ========================================================
         # Main Window Details
         # ========================================================
-        self.master.title("Hero Viewer")    # Window title
+        self.master.title("Hero Viewer by Nader Atout")    # Window title
         self.master.geometry("1000x500+200+100")      # default window size
-        self.master.minsize(1000, 500)
-        self.master.configure(bg=self.BG)   # background color
-        self.master.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
+        self.minsize = (1000, 500)
+        self.master.minsize(self.minsize[0], self.minsize[1])
+        # self.master.configure(bg=self.BGC)   # background color
+        self.master.iconbitmap('hv_icon.ico')
+
+        self.old_wd = self.master.winfo_screenwidth()
+        self.old_ht = self.master.winfo_screenheight()
+
+        self.BGI = Image.open("hv_bkgd.png")
+        self.b_label = tk.Label(self.master)
+        self.b_label.place(x=0, y=0, relwidth=1, relheight=1)
+        self.b_label.bind("<Configure>", self.bkgd_resize)
 
         # ========================================================
         # Main Window Labels
         # ========================================================
 
-        tk.Label(self.master, text="Name", bg=self.BG, font=(self.FONT, 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
-        tk.Label(self.master, text="Lv", bg=self.BG, font=(self.FONT, 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
-        tk.Label(self.master, text="Class", bg=self.BG, font=(self.FONT, 12)).grid(row=0, column=9, pady=(10, 0), sticky=tk.NE)
-        tk.Label(self.master, text="Race", bg=self.BG, font=(self.FONT, 12)).grid(row=0, column=12, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
-        tk.Label(self.master, text="Alignment", bg=self.BG, font=(self.FONT, 12)).grid(row=0, column=15, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Name", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
+        tk.Label(self.master, text="Lv", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Class", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=9, pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Race", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=12, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Alignment", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=15, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
 
-        tk.Label(self.master, text="Description", bg=self.BG, font=(self.FONT, 12)).grid(row=1, column=7, columnspan=6, pady=(10, 0), sticky=tk.S)
-        tk.Label(self.master, text="Features", bg=self.BG, font=(self.FONT, 12)).grid(row=1, column=13, columnspan=2, pady=(10, 0), sticky=tk.S)
+        tk.Label(self.master, text="Description", bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=7, columnspan=6, pady=(10, 0), sticky=tk.S)
+        tk.Label(self.master, text="Features", bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=13, columnspan=2, pady=(10, 0), sticky=tk.S)
 
-        tk.Label(self.master, text="Attributes", bg=self.BG, font=(self.FONT, 12)).grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
-        tk.Label(self.master, text="Skills", bg=self.BG, font=(self.FONT, 12)).grid(row=8, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
+        tk.Label(self.master, text="Attributes", bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
+        tk.Label(self.master, text="Skills", bg=self.BGC, font=(self.FONT, 12)).grid(row=8, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
 
         self.refresh_labels()
 
@@ -120,10 +136,10 @@ class MainMenu:
         # attribute populator loop
         arow = 2
         for attribute in self.hero.get_attributes():
-            tk.Label(self.master, text=attribute[0].upper() + attribute[1:], bg=self.BG,
+            tk.Label(self.master, text=attribute[0].upper() + attribute[1:], bg=self.BGC,
                      font=(self.FONT, 10)).grid(row=arow, column=0, columnspan=2, padx=(10, 0), sticky=tk.W)
 
-            tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BG,
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), bg=self.BGC,
                      font=(self.FONT, 10)).grid(row=arow, column=2, padx=(10, 0))
 
             self.dict_listbox[attribute] = tk.Listbox(self.master, height=1, width=3,
@@ -156,7 +172,7 @@ class MainMenu:
                 self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
                                                       justify='center', font=(self.FONT, 10))
             self.dict_listbox[block].grid(row=arow, column=5, sticky=tk.W)
-            tk.Label(self.master, text=block, bg=self.BG, font=(self.FONT, 10)).grid(row=arow, column=4, sticky=tk.E)
+            tk.Label(self.master, text=block, bg=self.BGC, font=(self.FONT, 10)).grid(row=arow, column=4, sticky=tk.E)
             if block == "HD" and self.hero.get_stat(block):
                 self.dict_listbox[block].insert(tk.END, str(self.hero.get_stat("level")) + "d"
                                                 + str(self.hero.get_stat(block)))
@@ -237,17 +253,17 @@ class MainMenu:
         # Displays Modifiers for the main 6 Attributes.
         arow = 2
         for atr in self.hero.get_attributes():
-            tk.Label(self.master, text="%+d" % self.hero.get_modifier(atr), bg=self.BG,
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(atr), bg=self.BGC,
                      font=(self.FONT, 10)).grid(row=arow, column=2, padx=(10, 0))
             arow += 1
 
         # Displays scores for all remaining Skills.
         arow, scol, index = 9, 0, 0
         for skill in self.hero.get_skills():
-            tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BG, font=(self.FONT, 10)) \
+            tk.Label(self.master, text=skill[0].upper() + skill[1:], bg=self.BGC, font=(self.FONT, 10)) \
                 .grid(row=arow, column=scol, columnspan=2, padx=(10, 0), sticky=tk.W)
 
-            tk.Label(self.master, text="%+d" % self.hero.get_modifier(skill_list[index]), bg=self.BG, font=(self.FONT, 10)) \
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(skill_list[index]), bg=self.BGC, font=(self.FONT, 10)) \
                 .grid(row=arow, column=scol + 2, padx=(10, 0))
             arow += 1
             index += 1
@@ -265,12 +281,12 @@ class MainMenu:
         temp_ui.title("Edit HP")                # Window title
         temp_ui.geometry("250x100+300+200")     # default window size
         temp_ui.minsize(250, 100)               # default min size
-        temp_ui.configure(bg=self.BG)           # background color
+        temp_ui.configure(bg=self.BGC)           # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
         # Label and Entry Text Field
-        tk.Label(temp_ui, text="Enter Hit Points", bg=self.BG, font=(self.FONT, 12)).grid(row=0, padx=30,
-                                                                                             columnspan=2, pady=(10, 0))
+        tk.Label(temp_ui, text="Enter Hit Points", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, padx=30,
+                                                                                           columnspan=2, pady=(10, 0))
         e_input = tk.Entry(temp_ui, justify='center', font=(self.FONT, 10))
         e_input.grid(row=1, column=0, columnspan=2,  padx=30, pady=(5, 0))
 
@@ -324,12 +340,12 @@ class MainMenu:
         temp_ui.title("Edit Feat")  # Window title
         temp_ui.geometry("250x100+300+200")  # default window size
         temp_ui.minsize(250, 100)
-        temp_ui.configure(bg=self.BG)  # background color
+        temp_ui.configure(bg=self.BGC)  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
         # Labels and Text Entry Fields
-        tk.Label(temp_ui, text="Feat", bg=self.BG, font=(self.FONT, 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
-        tk.Label(temp_ui, text="Desc", bg=self.BG, font=(self.FONT, 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
+        tk.Label(temp_ui, text="Feat", bg=self.BGC, font=(self.FONT, 10)).grid(row=0, padx=(10, 0), pady=(10, 0))
+        tk.Label(temp_ui, text="Desc", bg=self.BGC, font=(self.FONT, 10)).grid(row=1, padx=(10, 0), pady=(5, 0))
         e_name = tk.Entry(temp_ui, font=(self.FONT, 10))
         e_desc = tk.Entry(temp_ui, font=(self.FONT, 10))
         e_name.grid(row=0, column=1, columnspan=2, pady=(10, 0))
@@ -426,7 +442,7 @@ class MainMenu:
         temp_ui.title(detail)  # Window title
         temp_ui.geometry("250x125+300+200")  # default window size
         temp_ui.minsize(250, 125)
-        temp_ui.configure(bg=self.BG)  # background color
+        temp_ui.configure(bg=self.BGC)  # background color
         temp_ui.iconbitmap('C:\\Users\\elite\\Pictures\\Icons\\cog.ico')
 
         # Labels and Entry Text Fields
@@ -437,7 +453,7 @@ class MainMenu:
         elif choice == "dexterity":
             peeled_ac = self.hero.get_stat("AC") - self.hero.get_modifier("dexterity")
 
-        tk.Label(temp_ui, text=n_val, bg=self.BG, font=(self.FONT, 12)).grid(row=0, padx=30, pady=(10, 0))
+        tk.Label(temp_ui, text=n_val, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, padx=30, pady=(10, 0))
         e_detail = tk.Entry(temp_ui, justify='center', font=(self.FONT, 12))
         e_detail.grid(row=1, column=0, padx=30, pady=(5, 0))
 
