@@ -22,14 +22,16 @@ class MainMenu:
         self.master = master
         self.hero = CharSheet()
         self.BGC = "#724e52"
-        self.FGC = "light grey"
+        self.FGC = "white"
         self.FONT = 'NewRocker'
+        self.BW = 2
+        self.REL = 'ridge'
         self.ICON = "hv_icon.ico"
 
         # ========================================================
         # Main Window Details
         # ========================================================
-        self.master.title("Hero Viewer by Nader Atout")    # Window title
+        self.master.title("Hero Viewer")    # Window title
         self.master.geometry("1000x500+200+100")      # default window size
         self.minsize = (1000, 500)
         self.master.minsize(self.minsize[0], self.minsize[1])
@@ -44,17 +46,17 @@ class MainMenu:
         # ========================================================
         # Main Window Labels
         # ========================================================
-        tk.Label(self.master, text="Name", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
-        tk.Label(self.master, text="Lv", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
-        tk.Label(self.master, text="Class", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=9, pady=(10, 0), sticky=tk.NE)
-        tk.Label(self.master, text="Race", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=12, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
-        tk.Label(self.master, text="Alignment", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=15, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Name", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=0, padx=(10, 0), pady=(10, 0), sticky=tk.NW)
+        tk.Label(self.master, text="Lv", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=6, pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Class", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=9, pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Race", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=12, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
+        tk.Label(self.master, text="Alignment", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=0, column=15, padx=(10, 0), pady=(10, 0), sticky=tk.NE)
 
-        tk.Label(self.master, text="Description", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=7, columnspan=6, pady=(10, 0), sticky=tk.S)
-        tk.Label(self.master, text="Features", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=13, columnspan=2, pady=(10, 0), sticky=tk.S)
+        tk.Label(self.master, text="Description", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=7, columnspan=6, pady=(10, 0), sticky=tk.S)
+        tk.Label(self.master, text="Features", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=13, columnspan=2, pady=(10, 0), sticky=tk.S)
 
-        tk.Label(self.master, text="Attributes", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
-        tk.Label(self.master, text="Skills", fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=8, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
+        tk.Label(self.master, text="Attributes", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=1, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
+        tk.Label(self.master, text="Skills", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 12)).grid(row=8, column=0, columnspan=2, padx=(10, 0), pady=(10, 0), sticky=tk.W)
 
         self.refresh_labels()
 
@@ -142,10 +144,11 @@ class MainMenu:
         arow = 2
         for attribute in self.hero.get_attributes():
             tk.Label(self.master, text=attribute[0].upper() + attribute[1:], fg=self.FGC, bg=self.BGC,
-                     font=(self.FONT, 10)).grid(row=arow, column=0, columnspan=2, padx=(10, 0), sticky=tk.W)
+                     borderwidth=self.BW, relief=self.REL, font=(self.FONT, 10))\
+                .grid(row=arow, column=0, columnspan=2, padx=(10, 0), sticky=tk.W)
 
             tk.Label(self.master, text="%+d" % self.hero.get_modifier(attribute), fg=self.FGC, bg=self.BGC,
-                     font=(self.FONT, 10)).grid(row=arow, column=2, padx=(10, 0))
+                     borderwidth=self.BW, relief=self.REL, font=(self.FONT, 10)).grid(row=arow, column=2, padx=(10, 0))
 
             self.dict_listbox[attribute] = tk.Listbox(self.master, height=1, width=3,
                                                       justify='center', font=(self.FONT, 10))
@@ -177,7 +180,8 @@ class MainMenu:
                 self.dict_listbox[block] = tk.Listbox(self.master, height=1, width=3,
                                                       justify='center', font=(self.FONT, 10))
             self.dict_listbox[block].grid(row=arow, column=5, sticky=tk.W)
-            tk.Label(self.master, text=block, fg=self.FGC, bg=self.BGC, font=(self.FONT, 10)).grid(row=arow, column=4, sticky=tk.E)
+            tk.Label(self.master, text=block, borderwidth=self.BW, relief=self.REL,
+                     fg=self.FGC, bg=self.BGC, font=(self.FONT, 10)).grid(row=arow, column=4, sticky=tk.E)
             if block == "HD" and self.hero.get_stat(block):
                 self.dict_listbox[block].insert(tk.END, str(self.hero.get_stat("level")) + "d"
                                                 + str(self.hero.get_stat(block)))
@@ -227,12 +231,13 @@ class MainMenu:
         self.bt_lvlup = tk.Button(
             master=self.master,
             text="U",
-            font=(self.FONT, 6),
+            font=(self.FONT, 5),
             bg=self.BGC,
             fg=self.FGC,
             width=5,
             height=2,
-            borderwidth=0,
+            borderwidth=self.BW,
+            relief=self.REL,
             command=lambda: [
                 self.hero.level_up(),
                 self.update_box(self.dict_listbox["level"], self.hero.get_stat("level")),
@@ -259,17 +264,17 @@ class MainMenu:
         arow = 2
         for atr in self.hero.get_attributes():
             tk.Label(self.master, text="%+d" % self.hero.get_modifier(atr), fg=self.FGC, bg=self.BGC,
-                     font=(self.FONT, 10)).grid(row=arow, column=2, padx=(10, 0))
+                     borderwidth=self.BW, relief=self.REL, font=(self.FONT, 10)).grid(row=arow, column=2, padx=(10, 0))
             arow += 1
 
         # Displays scores for all remaining Skills.
         arow, scol, index = 9, 0, 0
         for skill in self.hero.get_skills():
-            tk.Label(self.master, text=skill[0].upper() + skill[1:], fg=self.FGC, bg=self.BGC, font=(self.FONT, 10)) \
-                .grid(row=arow, column=scol, columnspan=2, padx=(10, 0), sticky=tk.W)
+            tk.Label(self.master, text=skill[0].upper() + skill[1:], borderwidth=self.BW, relief=self.REL, fg=self.FGC,
+                     bg=self.BGC, font=(self.FONT, 10)).grid(row=arow, column=scol, columnspan=2, padx=(10, 0), sticky=tk.W)
 
-            tk.Label(self.master, text="%+d" % self.hero.get_modifier(skill_list[index]),  fg=self.FGC, bg=self.BGC,
-                     font=(self.FONT, 10)).grid(row=arow, column=scol + 2, padx=(10, 0))
+            tk.Label(self.master, text="%+d" % self.hero.get_modifier(skill_list[index]), borderwidth=self.BW,
+                     relief=self.REL, fg=self.FGC, bg=self.BGC, font=(self.FONT, 10)).grid(row=arow, column=scol + 2, padx=(10, 0))
             arow += 1
             index += 1
             if arow > 17:
@@ -290,8 +295,8 @@ class MainMenu:
         temp_ui.iconbitmap(self.ICON)
 
         # Label and Entry Text Field
-        tk.Label(temp_ui, text="Enter Hit Points", bg=self.BGC, font=(self.FONT, 12)).grid(row=0, padx=30,
-                                                                                           columnspan=2, pady=(10, 0))
+        tk.Label(temp_ui, text="Enter Hit Points", borderwidth=self.BW, relief=self.REL, fg=self.FGC, bg=self.BGC,
+                 font=(self.FONT, 12)).grid(row=0, padx=30, columnspan=2, pady=(10, 0))
         e_input = tk.Entry(temp_ui, justify='center', font=(self.FONT, 10))
         e_input.grid(row=1, column=0, columnspan=2,  padx=30, pady=(5, 0))
 
