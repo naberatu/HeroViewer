@@ -1,7 +1,7 @@
 ## Welcome to the HeroViewer!
 The HeroViewer is a simple character creater and manager for tabletop games like Dungeons & Dragons.
 
-### [Download the Installer]
+### [Installation Guide]
 ### [Usage and Feature Guide]
 
 Software Features:
@@ -12,17 +12,15 @@ Software Features:
 - Automatically adjusts window to fit contents and includes window resizing.
 
 <!-- Demo Image of Software -->
-<image align="center" src="https://user-images.githubusercontent.com/39421939/134764748-3eb24877-a564-4eb5-8768-0ecc2996de03.png" height="400"> 
+<image align="center" src="https://user-images.githubusercontent.com/39421939/134977143-aaf2422e-ee89-4341-8a18-39fcf1ff8602.png" height="400"> 
 
 ---  
 Created using Python 3 with Tkinter.
 
-Used the fonts [Hylia Serif by Artsy Omni] and [New Rocker by Pablo Impallari]
-
+Using font [New Rocker by Pablo Impallari] and background image [Minimalist Dragon on WallpaperAccess].
   
 <!-- Embedded Links -->
-[Usage and Feature Guide]:  https://github.com/naberatu/HeroViewer/blob/master/directions.md
-[Download the Installer]:   
-[Hylia Serif by Artsy Omni]: https://artsyomni.com/hyliaserif
-[New Rocker by Pablo Impallari]: https://fonts.google.com/specimen/New+Rocker#standard-styles
-  
+[Usage and Feature Guide]:                https://github.com/naberatu/HeroViewer/blob/master/directions.md
+[Installation Guide]:                     https://github.com/naberatu/HeroViewer/blob/master/installation.md
+[New Rocker by Pablo Impallari]:          https://fonts.google.com/specimen/New+Rocker#standard-styles
+[Minimalist Dragon on WallpaperAccess]:   https://wallpaperaccess.com/minimalist-dragon 
