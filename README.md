@@ -20,7 +20,7 @@ Created using Python 3 with Tkinter.
 Using font [New Rocker by Pablo Impallari] and background image [Minimalist Dragon on WallpaperAccess].
   
 <!-- Embedded Links -->
-[Usage and Feature Guide]:                https://github.com/naberatu/HeroViewer/blob/master/directions.md
+[Usage and Feature Guide]:                https://github.com/naberatu/HeroViewer/blob/master/howtouse.md
 [Installation Guide]:                     https://github.com/naberatu/HeroViewer/blob/master/installation.md
 [New Rocker by Pablo Impallari]:          https://fonts.google.com/specimen/New+Rocker#standard-styles
 [Minimalist Dragon on WallpaperAccess]:   https://wallpaperaccess.com/minimalist-dragon 
