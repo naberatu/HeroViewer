@@ -4,75 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a79424d4-5406-4e4c-87d6-969291542575" name="Default Changelist" comment="Merging markdowns and eula/readme texts.">
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/HeroViewer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.vs/HeroViewer/v16/.suo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.vs/ProjectSettings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.vs/VSWorkspaceState.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/.vs/slnx.sqlite" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/Analysis-00.toc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/EXE-00.toc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/PKG-00.pkg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/PKG-00.toc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/PYZ-00.pyz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/PYZ-00.toc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/Tree-00.toc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/Tree-01.toc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/Tree-02.toc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/base_library.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/main.exe.manifest" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/warn-main.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/build/main/xref-main.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/charSheet.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/feats_dict.p" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/hero_info.p" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/hv_bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/hv_icon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/main.spec" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/heroviewer/stat_block.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/HeroViewer.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/HeroViewer/v16/.suo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/ProjectSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/VSWorkspaceState.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/Analysis-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/EXE-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/PKG-00.pkg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/PKG-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/PYZ-00.pyz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/PYZ-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/Tree-00.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/Tree-01.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/Tree-02.toc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/base_library.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/main.exe.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/warn-main.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/main/xref-main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/charSheet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/feats_dict.p" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hero_info.p" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hv_bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hv_icon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_block.py" beforeDir="false" />
-    </list>
+    <list default="true" id="a79424d4-5406-4e4c-87d6-969291542575" name="Default Changelist" comment="Changed working directory." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,13 +71,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607029906722</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Fixed bugs with loading and saving. Put guard against wrong hero_data.">
-      <created>1607463337116</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1607463337116</updated>
     </task>
     <task id="LOCAL-00007" summary="Integrated Skills and hopefully fixed more bugs.">
       <created>1607463900363</created>
@@ -483,7 +408,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632774627811</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Changed working directory.">
+      <created>1632775303860</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1632775303860</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -500,7 +432,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="hit dice update with level up." />
     <MESSAGE value="Fixed Hit Dice bug. Updates on any level change." />
     <MESSAGE value="AC now updates with dexterity changes." />
     <MESSAGE value="HP now updates per user-input." />
@@ -525,6 +456,7 @@
     <MESSAGE value="Added author and crediting in code." />
     <MESSAGE value="Updated window title and exe icon. Reset save data for future users." />
     <MESSAGE value="Merging markdowns and eula/readme texts." />
-    <option name="LAST_COMMIT_MESSAGE" value="Merging markdowns and eula/readme texts." />
+    <MESSAGE value="Changed working directory." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed working directory." />
   </component>
 </project>
