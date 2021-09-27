@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b6fc05d1-027e-48a3-ae30-113f73d675de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/.idea/vcs.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b6fc05d1-027e-48a3-ae30-113f73d675de" name="Changes" comment="Updated main run path." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,6 +52,37 @@
       <option name="presentableId" value="Default" />
       <updated>1632776464331</updated>
     </task>
+    <task id="LOCAL-00001" summary="Enacting environment changes.">
+      <created>1632776633303</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1632776633303</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Updated main run path.">
+      <created>1632776663869</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1632776663869</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Enacting environment changes." />
+    <MESSAGE value="Updated main run path." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated main run path." />
   </component>
 </project>
