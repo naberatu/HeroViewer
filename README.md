@@ -16,7 +16,7 @@ Software Features:
 
 ---  
 Created using Python 3 with [Tkinter] and packaged into .exe file using [PyInstaller]. <br>
-Uses font [New Rocker by Pablo Impallari] and background image [Minimalist Dragon on WallpaperAccess].
+Uses font [New Rocker by Pablo Impallari], background image [Minimalist Dragon on WallpaperAccess], and icons from [Game-Icons.net].
   
 <!-- Embedded Links -->
 [Usage and Feature Guide]:                https://github.com/naberatu/HeroViewer/blob/master/howtouse.md
@@ -25,3 +25,4 @@ Uses font [New Rocker by Pablo Impallari] and background image [Minimalist Drago
 [PyInstaller]:                            https://www.pyinstaller.org/
 [New Rocker by Pablo Impallari]:          https://fonts.google.com/specimen/New+Rocker#standard-styles
 [Minimalist Dragon on WallpaperAccess]:   https://wallpaperaccess.com/minimalist-dragon 
+[Game-Icons.net]:                         https://game-icons.net/
