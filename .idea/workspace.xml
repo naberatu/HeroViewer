@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a79424d4-5406-4e4c-87d6-969291542575" name="Default Changelist" comment="Changed working directory." />
+    <list default="true" id="a79424d4-5406-4e4c-87d6-969291542575" name="Default Changelist" comment="Testing repository changes." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,20 +71,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607029906722</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Integrated Skills and hopefully fixed more bugs.">
-      <created>1607463900363</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1607463900363</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Feats List now has guards against invalid files.">
-      <created>1607464672476</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1607464672476</updated>
     </task>
     <task id="LOCAL-00009" summary="Fixed bug with adding brand new feats.">
       <created>1607465145286</created>
@@ -415,7 +401,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632775303860</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Added gitignore.">
+      <created>1632775633149</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1632775633149</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Testing repository changes.">
+      <created>1632775869480</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1632775869480</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -432,8 +432,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Fixed Hit Dice bug. Updates on any level change." />
-    <MESSAGE value="AC now updates with dexterity changes." />
     <MESSAGE value="HP now updates per user-input." />
     <MESSAGE value="Porgram has reached is HKN-presentable state." />
     <MESSAGE value="Cleaned up code. Improved comments." />
@@ -457,6 +455,8 @@
     <MESSAGE value="Updated window title and exe icon. Reset save data for future users." />
     <MESSAGE value="Merging markdowns and eula/readme texts." />
     <MESSAGE value="Changed working directory." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed working directory." />
+    <MESSAGE value="Added gitignore." />
+    <MESSAGE value="Testing repository changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Testing repository changes." />
   </component>
 </project>
