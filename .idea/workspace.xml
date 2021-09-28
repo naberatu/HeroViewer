@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6fc05d1-027e-48a3-ae30-113f73d675de" name="Changes" comment="Added new icons.">
+    <list default="true" id="b6fc05d1-027e-48a3-ae30-113f73d675de" name="Changes" comment="Updated gitignore.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/Analysis-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/EXE-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/PKG-00.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/PKG-00.pkg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/PKG-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/PYZ-00.pyz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/PYZ-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/PYZ-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/warn-heroviewer.txt" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/warn-heroviewer.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/build/heroviewer/xref-heroviewer.html" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/build/heroviewer/xref-heroviewer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/heroviewer.exe" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/heroviewer/hv_icon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/heroviewer/hv_icon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heroviewer/hv_setup.ico" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +87,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632856636160</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated icons and gitignore.">
+      <created>1632858295715</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1632858295715</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Updated gitignore.">
+      <created>1632858357945</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1632858357945</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -114,6 +120,8 @@
     <MESSAGE value="Enacting environment changes." />
     <MESSAGE value="Updated main run path." />
     <MESSAGE value="Added new icons." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new icons." />
+    <MESSAGE value="Updated icons and gitignore." />
+    <MESSAGE value="Updated gitignore." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated gitignore." />
   </component>
 </project>
