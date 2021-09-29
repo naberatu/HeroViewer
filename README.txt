@@ -1,5 +1,5 @@
 =============================================================
-Greetings and Welcome to the HeroViewer v1.1!		
+Greetings and Welcome to the HeroViewer v1.2!		
 =============================================================
 This software was programmed and designed by Nader Atout, and utilizes some images and fonts from the internet (cited on GitHub). 
 For the most up-to-date information on how to use this software, and what features are available for it, please visit https://github.com/naberatu/HeroViewer.
