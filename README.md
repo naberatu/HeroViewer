@@ -1,7 +1,7 @@
 ## Welcome to the HeroViewer!
 The HeroViewer is a simple character creater and manager for tabletop games like Dungeons & Dragons.
 
-### [Installation Guide]
+### [Download the Installer]
 ### [Usage and Feature Guide]
 
 Software Features:
@@ -16,13 +16,15 @@ Software Features:
 
 ---  
 Created using Python 3 with [Tkinter] and packaged into .exe file using [PyInstaller]. <br>
+Setup installer created using [Inno Setup]. <br>
 Uses font [New Rocker by Pablo Impallari], background image [Minimalist Dragon on WallpaperAccess], and icons from [Game-Icons.net].
   
 <!-- Embedded Links -->
 [Usage and Feature Guide]:                https://github.com/naberatu/HeroViewer/blob/master/howtouse.md
-[Installation Guide]:                     https://github.com/naberatu/HeroViewer/blob/master/installation.md
+[Download the Installer]:                 https://www.mediafire.com/file/wbyibieox7g7n9d/hvsetup.exe/file
 [Tkinter]:                                https://docs.python.org/3/library/tkinter.html
 [PyInstaller]:                            https://www.pyinstaller.org/
+[Inno Setup]:                             https://jrsoftware.org/isdl.php#stable
 [New Rocker by Pablo Impallari]:          https://fonts.google.com/specimen/New+Rocker#standard-styles
 [Minimalist Dragon on WallpaperAccess]:   https://wallpaperaccess.com/minimalist-dragon 
 [Game-Icons.net]:                         https://game-icons.net/
