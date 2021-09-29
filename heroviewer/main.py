@@ -8,6 +8,7 @@ USING ASSETS:   New Rocker Font by Pablo Impallari
 
 import tkinter as tk
 from tkinter import *
+import pyglet
 from PIL import Image, ImageTk
 from charSheet import CharSheet
 
@@ -23,9 +24,10 @@ class MainMenu:
         self.hero = CharSheet()
         self.BGC = "#724e52"
         self.FGC = "white"
-        self.FONT = 'NewRocker'
+        self.FONT = "NewRocker"
+        pyglet.font.add_file(self.FONT + ".otf")
         self.BW = 2
-        self.REL = 'ridge'
+        self.REL = "ridge"
         self.ICON = "hv_icon.ico"
 
         # ========================================================
