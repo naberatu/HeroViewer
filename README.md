@@ -1,5 +1,5 @@
 ## Welcome to the HeroViewer!
-The HeroViewer is a simple character creater and manager for tabletop games like Dungeons & Dragons.
+The HeroViewer is a simple character creater and manager created by Nader Atout for tabletop games like Dungeons & Dragons. 
 
 ### [Download the Installer]
 ### [Usage and Feature Guide]
