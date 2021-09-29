@@ -1,7 +1,7 @@
 ## Welcome to the HeroViewer!
 The HeroViewer is a simple character creater and manager created by Nader Atout for tabletop games like Dungeons & Dragons. 
 
-### Download latest version from the [Releases] Page ➡️➡️➡️➡️➡️.
+### Download the [Setup Installer]. 
 ### [Usage and Feature Guide]
 
 Software Features:
@@ -21,7 +21,7 @@ Uses font [New Rocker by Pablo Impallari], background image [Minimalist Dragon o
   
 <!-- Embedded Links -->
 [Usage and Feature Guide]:                https://github.com/naberatu/HeroViewer/blob/master/howtouse.md
-[Releases]:                               https://github.com/naberatu/HeroViewer/releases
+[Setup Installer]:                        https://github.com/naberatu/HeroViewer/releases
 [Tkinter]:                                https://docs.python.org/3/library/tkinter.html
 [PyInstaller]:                            https://www.pyinstaller.org/
 [Inno Setup]:                             https://jrsoftware.org/isdl.php#stable
